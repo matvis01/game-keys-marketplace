@@ -1,11 +1,14 @@
 import "@/styles/globals.css"
 import type { AppProps } from "next/app"
-
 import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi/react"
+import { WagmiConfig } from "wagmi"
+import { sepolia } from "wagmi/chains"
+import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client"
 
-import { WagmiConfig, sepolia } from "wagmi"
-import { arbitrum, mainnet } from "wagmi/chains"
-
+const client = new ApolloClient({
+  uri: process.env.NEXT_PUBLIC_GRAPH_URL || "",
+  cache: new InMemoryCache(),
+})
 // 1. Get projectId
 const projectId = process.env.NEXT_PUBLIC_WALLET_CONNECT_ID || ""
 
@@ -17,13 +20,14 @@ const wagmiConfig = defaultWagmiConfig({
   appName: "Web3Modal",
 })
 
-// 3. Create modal
 createWeb3Modal({ wagmiConfig, projectId, chains })
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig config={wagmiConfig}>
-      <Component {...pageProps} />
+      <ApolloProvider client={client}>
+        <Component {...pageProps} />
+      </ApolloProvider>
     </WagmiConfig>
   )
 }

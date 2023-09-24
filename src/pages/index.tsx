@@ -84,6 +84,19 @@ export default function Home() {
     }
   }
 
+  function handleWithdraw() {
+    try {
+      writeContract({
+        address: `0x${contractAddress.slice(2, contractAddress.length)}`,
+        abi: contractAbi,
+        functionName: "withdraw",
+        account: address,
+      })
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   return (
     <div>
       <div className="flex flex-col gap-2 justify-center items-center">
@@ -91,14 +104,12 @@ export default function Home() {
         <button
           className="w-fit bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           onClick={handleAddListing}
-          disabled={!isConnected}
         >
           Add Listing
         </button>
         <button
           className="w-fit bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           onClick={handleBuy}
-          disabled={!isConnected}
         >
           Buy
         </button>
@@ -109,6 +120,12 @@ export default function Home() {
           get Games
         </button>
         <p>balance on MarketPlace: {balance}</p>
+        <button
+          className="w-fit bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          onClick={handleWithdraw}
+        >
+          Withdraw
+        </button>
         <p>
           contract address: {contractAddress.slice(0, 4)}...
           {contractAddress.slice(
