@@ -1,27 +1,29 @@
-import "@/styles/globals.css";
-import type { AppProps } from "next/app";
-import { createConfig, configureChains, WagmiConfig } from "wagmi";
-import { publicProvider } from "wagmi/providers/public";
-import { SessionProvider } from "next-auth/react";
-import { mainnet, sepolia } from "wagmi/chains";
+import "@/styles/globals.css"
+import type { AppProps } from "next/app"
 
-const { publicClient, webSocketPublicClient } = configureChains(
-  [sepolia],
-  [publicProvider()]
-);
+import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi/react"
 
-const config = createConfig({
-  autoConnect: true,
-  publicClient,
-  webSocketPublicClient,
-});
+import { WagmiConfig, sepolia } from "wagmi"
+import { arbitrum, mainnet } from "wagmi/chains"
+
+// 1. Get projectId
+const projectId = process.env.NEXT_PUBLIC_WALLET_CONNECT_ID || ""
+
+// 2. Create wagmiConfig
+const chains = [sepolia]
+const wagmiConfig = defaultWagmiConfig({
+  chains,
+  projectId,
+  appName: "Web3Modal",
+})
+
+// 3. Create modal
+createWeb3Modal({ wagmiConfig, projectId, chains })
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <WagmiConfig config={config}>
-      <SessionProvider session={pageProps.session} refetchInterval={0}>
-        <Component {...pageProps} />
-      </SessionProvider>
+    <WagmiConfig config={wagmiConfig}>
+      <Component {...pageProps} />
     </WagmiConfig>
-  );
+  )
 }
