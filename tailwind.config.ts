@@ -1,20 +1,31 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from "tailwindcss"
 
 const config: Config = {
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  theme: {
-    extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+  plugins: [require("daisyui")],
+  daisyui: {
+    themes: [
+      {
+        dark: {
+          primary: "#EC6090",
+          secondary: "#B059D5",
+          accent: "#B059D5",
+          neutral: "#353738",
+          "base-100": "#1F2122",
+          "--rounded-box": "1rem", // border radius rounded-box utility class, used in card and other large boxes
+          "--rounded-btn": "2rem", // border radius rounded-btn utility class, used in buttons and similar element
+          // "--btn-focus-scale": "0.95", // scale transform of button when you focus on it
+          // "--border-btn": "1px", // border width of buttons
+          // "--tab-border": "1px", // border width of tabs
+          // "--tab-radius": "0.5rem", // border radius of tabs
+        },
       },
-    },
+      "light",
+    ],
   },
-  plugins: [],
 }
 export default config
