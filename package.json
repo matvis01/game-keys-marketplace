@@ -33,6 +33,7 @@
     "web3": "^4.1.2"
   },
   "devDependencies": {
-    "daisyui": "^3.7.7"
+    "daisyui": "^3.7.7",
+    "prettier-plugin-tailwindcss": "^0.5.6"
   }
 }
