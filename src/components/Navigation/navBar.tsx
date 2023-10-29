@@ -15,7 +15,7 @@ const NavBar = () => {
   const isCart = pathname.includes("/cart")
 
   return (
-    <div className="sticky z-10 h-fit w-full bg-base-100 px-4 py-2 top-0 bg-opacity-80 bg-clip-padding blur-backdrop-filter">
+    <div className="sticky z-10 h-fit w-full bg-base-100 py-4 top-0 bg-opacity-80 bg-clip-padding blur-backdrop-filter">
       <nav className="flex items-center justify-between w-full max-w-screen-xl px-5 mx-auto text-white">
         <div className="flex items-center gap-8">
           <div className="w-fit">
