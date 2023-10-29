@@ -28,7 +28,7 @@ export default function CryptoStuff() {
         args: ["test", 3, ethers.parseEther("0.01")],
       })
       const receipt = await waitForTransaction({ hash })
-      console.log(receipt)
+      // console.log(receipt)
     } catch (e) {
       console.log(e)
     }
@@ -136,7 +136,7 @@ export default function CryptoStuff() {
           contract address: {contractAddress.slice(0, 4)}...
           {contractAddress.slice(
             contractAddress.length - 5,
-            contractAddress.length - 1
+            contractAddress.length - 1,
           )}
         </p>
       </div>
