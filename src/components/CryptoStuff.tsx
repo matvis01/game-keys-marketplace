@@ -136,7 +136,7 @@ export default function CryptoStuff() {
           contract address: {contractAddress.slice(0, 4)}...
           {contractAddress.slice(
             contractAddress.length - 5,
-            contractAddress.length - 1
+            contractAddress.length - 1,
           )}
         </p>
       </div>
