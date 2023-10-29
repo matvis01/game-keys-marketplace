@@ -7,12 +7,12 @@ interface Props {
   href: string
 }
 
-const navBarListItem = ({ styles, text, href }: Props) => {
+const NavBarListItem = ({ styles, text, href }: Props) => {
   return (
     <li>
       <Link href={href}>
         <p
-          className={`text-xl font-semibold p-2 border border-transparent hover:border hover:border-primary hover:rounded-lg ${styles}`}
+          className={`text-xl font-semibold border-b border-b-transparent hover:border-b hover:border-b-primary ${styles}`}
         >
           {text}
         </p>
@@ -21,4 +21,4 @@ const navBarListItem = ({ styles, text, href }: Props) => {
   )
 }
 
-export default navBarListItem
+export default NavBarListItem
