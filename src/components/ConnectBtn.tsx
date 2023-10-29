@@ -1,26 +1,13 @@
 import React from "react"
-import { useAccount, useConnect, useDisconnect } from "wagmi"
-import { MetaMaskConnector } from "wagmi/connectors/metaMask"
+import { useWeb3ModalTheme } from "@web3modal/wagmi/react"
 
 export default function ConnectBtn() {
-  const { status } = useAccount()
-  const { connect } = useConnect({
-    connector: new MetaMaskConnector(),
+  const { setThemeVariables } = useWeb3ModalTheme()
+
+  setThemeVariables({
+    "--w3m-font-family": "Roboto, sans-serif",
+    "--w3m-accent": "#EC6090",
   })
-  const { disconnect } = useDisconnect()
-  return (
-    <div>
-      {/* <w3m-button /> */}
-      {status === "connected" ? (
-        <button className="btn btn-primary" onClick={() => disconnect()}>
-          Disconnect
-        </button>
-      ) : (
-        // <w3m-account-button />
-        <button className="btn btn-primary" onClick={() => connect()}>
-          Connect
-        </button>
-      )}
-    </div>
-  )
+
+  return <w3m-button />
 }
