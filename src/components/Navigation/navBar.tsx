@@ -26,11 +26,18 @@ const NavBar = () => {
               height={125}
             />
           </div>
-          <div>
+          <div className="relative flex items-center ">
+            <Image
+              className="w-5 h-5 absolute ml-3"
+              src="/icons/search-icon.svg"
+              alt="search icon"
+              width={20}
+              height={20}
+            />
             <input
               type="text"
               placeholder="Search..."
-              className="input input-sm input-bordered w-full max-w-xs bg-neutral"
+              className="input input-sm input-bordered w-full max-w-xs bg-neutral pl-10"
             />
           </div>
         </div>
