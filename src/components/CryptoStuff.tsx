@@ -28,7 +28,7 @@ export default function CryptoStuff() {
         args: ["test", 1, ethers.parseEther("0.2")],
       })
       const receipt = await waitForTransaction({ hash })
-      console.log(receipt)
+      // console.log(receipt)
     } catch (e) {
       console.log(e)
     }

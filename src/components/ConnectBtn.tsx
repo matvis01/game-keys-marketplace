@@ -7,7 +7,7 @@ export default function ConnectBtn() {
   setThemeVariables({
     "--w3m-font-family": "Roboto, sans-serif",
     "--w3m-accent": "#EC6090",
-    "--w3m-border-radius-master": "0.15rem",
+    "--w3m-border-radius-master": "0.05rem",
   })
 
   return <w3m-button />

@@ -1,21 +1,22 @@
 import React from "react"
 import { Image } from "next/dist/client/image-component"
 import { useRouter } from "next/router"
-import Link from "next/dist/client/link"
-import ConnectBtn from "../ConnectBtn"
+import { useAccount } from "wagmi"
 
-import navBarListItem from "./navBarListItem"
+import ConnectBtn from "../ConnectBtn"
+import NavBarListItem from "./navBarListItem"
 
 const NavBar = () => {
   const router = useRouter()
+  const { status } = useAccount()
   const { pathname } = router
   const isHome = pathname === "/"
-  const isCategories = pathname === "/categories"
-  const isCart = pathname === "/cart"
+  const isCategories = pathname.includes("/categories")
+  const isCart = pathname.includes("/cart")
 
   return (
-    <div className="sticky z-10 h-fit w-full bg-base-100 border border-white px-4 py-2 top-0 bg-opacity-80 bg-clip-padding blur-backdrop-filter">
-      <nav className="flex items-center justify-between w-full max-w-screen-xl px-5 mx-auto text-white">
+    <div className="sticky z-10 h-fit w-full bg-base-100 py-4 top-0 bg-opacity-80 bg-clip-padding blur-backdrop-filter">
+      <nav className="flex items-center justify-between w-full max-w-screen-xl mx-auto text-white">
         <div className="flex items-center gap-8">
           <div className="w-fit">
             <Image
@@ -25,37 +26,38 @@ const NavBar = () => {
               height={125}
             />
           </div>
-          <div>
+          <div className="relative flex items-center ">
+            <Image
+              className="w-5 h-5 absolute ml-3"
+              src="/icons/search-icon.svg"
+              alt="search icon"
+              width={20}
+              height={20}
+            />
             <input
               type="text"
               placeholder="Search..."
-              className="input input-sm input-bordered rounded-lg w-full max-w-xs bg-neutral"
+              className="input input-sm input-bordered w-full max-w-xs bg-neutral pl-10"
             />
           </div>
         </div>
         <div>
           <ul className="flex items-center justify-between space-x-8">
-            <li>
-              <Link href="/">
-                <p
-                  className={`text-xl font-semibold p-2 border border-transparent hover:border hover:border-primary hover:rounded-lg ${
-                    isHome && "text-primary"
-                  }`}
-                >
-                  Home
-                </p>
-              </Link>
-            </li>
-            <li>
-              <Link href="/about">
-                <p className="text-xl font-semibold">Categories</p>
-              </Link>
-            </li>
-            <li>
-              <Link href="/contact">
-                <p className="text-xl font-semibold">Cart</p>
-              </Link>
-            </li>
+            <NavBarListItem
+              text="Home"
+              href="/"
+              styles={`${isHome && "text-primary"}`}
+            />
+            <NavBarListItem
+              text="Categories"
+              href="/categories"
+              styles={`${isCategories && "text-primary"}`}
+            />
+            <NavBarListItem
+              text="Cart"
+              href="/cart"
+              styles={`${isCart && "text-primary"}`}
+            />
             <li>
               <ConnectBtn />
             </li>
