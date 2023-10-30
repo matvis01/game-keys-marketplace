@@ -25,7 +25,7 @@ export default function CryptoStuff() {
         abi: contractAbi,
         functionName: "listGameKey",
         account: address,
-        args: ["test", 3, ethers.parseEther("0.01")],
+        args: ["test", 1, ethers.parseEther("0.2")],
       })
       const receipt = await waitForTransaction({ hash })
       // console.log(receipt)
@@ -100,7 +100,7 @@ export default function CryptoStuff() {
 
   return (
     <div>
-      <div className="flex flex-col gap-2 justify-center items-center">
+      <div className="flex flex-col items-center justify-center gap-2">
         <ConnectBtn />
 
         <button
