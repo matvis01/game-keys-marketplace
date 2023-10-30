@@ -13,7 +13,7 @@ export default function GamePage() {
     if (!id) return
     const fetchGameData = async () => {
       const response = await axios.get(
-        `https://api.rawg.io/api/games/${id}?key=${process.env.NEXT_PUBLIC_RAWG_KEY}`
+        `https://api.rawg.io/api/games/${id}?key=${process.env.NEXT_PUBLIC_RAWG_KEY}`,
       )
       const { data } = response as { data: GameType }
       setGameData(data)
@@ -30,14 +30,14 @@ export default function GamePage() {
 
   return (
     <div className="flex flex-col items-center px-5  lg:px-32">
-      <div className="flex w-full gap-10 flex-col justify-center lg:flex-row">
+      <div className="flex w-full flex-col justify-center gap-10 lg:flex-row">
         <img
           src={gameData?.background_image}
           alt=""
-          className="object-cover h-100 w-full lg:w-1/3"
+          className="h-100 w-full object-cover lg:w-1/3"
         />
-        <div className="flex flex-col justify-around w-1/2 lg:w-1/3">
-          <h1 className="text-2xl font-bold">{gameData?.name}</h1>
+        <div className="flex w-1/2 flex-col justify-around lg:w-1/3">
+          <h1 className="text-2xl font-bold ">{gameData?.name}</h1>
           <div className="flex flex-col">
             <p className="text-l">Platform: steam</p>
             <p className="text-l">Type: Key</p>
@@ -47,7 +47,7 @@ export default function GamePage() {
             </p>
           </div>
         </div>
-        <div className="card bg-neutral w-full lg:w-1/3">
+        <div className="card w-full bg-neutral lg:w-1/3">
           <div className="card-body flex flex-col items-center">
             <h2 className="card-title text-5xl">0.69 eth</h2>
             <p>= 69 usd</p>
