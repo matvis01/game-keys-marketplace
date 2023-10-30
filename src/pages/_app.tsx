@@ -27,7 +27,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig config={wagmiConfig}>
       <ApolloProvider client={client}>
-      <NavBar/>
+        <NavBar />
         <Component {...pageProps} />
       </ApolloProvider>
     </WagmiConfig>
