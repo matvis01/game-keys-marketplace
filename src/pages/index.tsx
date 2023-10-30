@@ -1,16 +1,15 @@
+import React from "react"
+import FeaturedGames from "@/components/HomePage/FeaturedGames/FeaturedGames"
 import QuickAccessBar from "@/components/HomePage/QuickAccessBar/QuickAccessBar"
-import { useEffect } from "react"
-import { themeChange } from "theme-change"
 
 export default function Home() {
-  useEffect(() => {
-    themeChange(false)
-  }, [])
-
   return (
     <main>
       <div className="bg-neutral">
         <QuickAccessBar />
+      </div>
+      <div className="my-8">
+        <FeaturedGames />
       </div>
     </main>
   )
