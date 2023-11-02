@@ -3,7 +3,7 @@ import React from "react"
 const CartMenu = () => {
   return (
     <li>
-      <div className="dropdown-end dropdown-hover dropdown">
+      <div className="dropdown dropdown-end dropdown-hover">
         <label tabIndex={0} className="btn btn-ghost">
           <div className="indicator">
             <svg

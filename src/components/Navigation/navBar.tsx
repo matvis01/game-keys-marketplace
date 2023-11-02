@@ -1,4 +1,5 @@
 import React from "react"
+import Link from "next/link"
 import { Image } from "next/dist/client/image-component"
 import { useRouter } from "next/router"
 import { useAccount } from "wagmi"
@@ -20,12 +21,14 @@ const NavBar = () => {
       <nav className="mx-auto flex w-full max-w-screen-xl items-center justify-between text-white">
         <div className="flex items-center gap-8">
           <div className="w-fit">
-            <Image
-              src="/icons/logo_light.svg"
-              alt="logo"
-              width={125}
-              height={125}
-            />
+            <Link href="/">
+              <Image
+                src="/icons/logo_light.svg"
+                alt="logo"
+                width={125}
+                height={125}
+              />
+            </Link>
           </div>
           <div className="relative flex items-center ">
             <Image
