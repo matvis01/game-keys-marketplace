@@ -12,7 +12,7 @@ const NavBarListItem = ({ styles, text, href }: Props) => {
     <li>
       <Link href={href}>
         <p
-          className={`text-xl font-semibold border-b border-b-transparent hover:border-b hover:border-b-primary ${styles}`}
+          className={`border-b border-b-transparent text-xl font-semibold hover:border-b hover:border-b-primary ${styles}`}
         >
           {text}
         </p>
