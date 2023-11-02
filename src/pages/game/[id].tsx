@@ -30,9 +30,9 @@ export default function GamePage() {
       const { data } = response as { data: GameType }
       setGameData(data)
     }
-    // fetchGameData() // zeby nie zuzywac limitu requestow
+    fetchGameData() // zeby nie zuzywac limitu requestow
 
-    setGameData(exampleGame)
+    // setGameData(exampleGame)
   }, [id])
 
   if (router.isFallback) {
