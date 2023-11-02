@@ -7,6 +7,28 @@
   -webkit-backdrop-filter: blur(6px);
 }
 
+.swiper-pagination-bullet {
+  background-color: #fff !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #ec6090 !important;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 0.6rem;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #ec6090;
+  border-radius: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: #1f2122;
+  border-radius: 8px;
+}
+
 /* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;

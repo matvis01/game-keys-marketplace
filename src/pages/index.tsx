@@ -5,12 +5,10 @@ import QuickAccessBar from "@/components/HomePage/QuickAccessBar/QuickAccessBar"
 export default function Home() {
   return (
     <main>
-      <div className="bg-neutral">
+      <div className="mb-8 bg-neutral">
         <QuickAccessBar />
       </div>
-      <div className="my-8">
-        <FeaturedGames />
-      </div>
+      <FeaturedGames />
     </main>
   )
 }
