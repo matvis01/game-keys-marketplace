@@ -6,6 +6,7 @@ import { writeContract, waitForTransaction } from "@wagmi/core"
 import contractAbi from "../../constants/abi.json"
 import networkMapping from "../../constants/networkMapping.json"
 import axios from "axios"
+import { GameType } from "@/types/gameType"
 
 const contractAddress = networkMapping[11155111]["GameKeyMarketplace"][0]
 
@@ -73,14 +74,17 @@ const AddNewGame = () => {
     setGameKeyInput(e.target.value)
   }
 
-  async function handleAddListing(gameId: number) {
+  async function handleAddListing(gameData: any) {
     try {
       const { hash } = await writeContract({
         address: `0x${contractAddress.slice(2, contractAddress.length)}`,
         abi: contractAbi,
         functionName: "listGameKey",
         account: address,
-        args: [gameKeyInput, gameId, ethers.parseEther(priceInput)],
+        args: [
+          [gameData.id, gameKeyInput, gameData.name, gameData.image],
+          ethers.parseEther(priceInput),
+        ],
       })
       const receipt = await waitForTransaction({ hash })
     } catch (e) {
@@ -88,13 +92,14 @@ const AddNewGame = () => {
     }
   }
 
-  async function getGameId() {
+  async function getGameData() {
     try {
-      const data = await axios.get(
+      const res = await axios.get(
         `https://api.rawg.io/api/games?key=${process.env.NEXT_PUBLIC_RAWG_KEY}&search=${gameNameInput}`,
       )
-      const id = data.data.results[0].id
-      return id
+      const game = res.data.results[0] as GameType
+
+      return { id: game.id, name: game.name, image: game.background_image }
     } catch (e) {
       console.log(e)
     }
@@ -105,9 +110,8 @@ const AddNewGame = () => {
     console.log(gameNameInput, priceInput, gameKeyInput)
     async function addListing() {
       try {
-        const gameId = await getGameId()
-        await handleAddListing(gameId)
-        console.log("gameId", gameId)
+        const gameData = await getGameData()
+        await handleAddListing(gameData)
       } catch (e) {
         console.log(e)
       }
