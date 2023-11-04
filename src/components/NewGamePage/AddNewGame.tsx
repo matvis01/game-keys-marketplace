@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import { useRouter } from "next/router"
 import { useAccount } from "wagmi"
 import { ethers } from "ethers"
@@ -18,26 +18,33 @@ const AddNewGame = () => {
   const [gameKeyInput, setGameKeyInput] = useState("")
   const [showGameOptions, setShowGameOptions] = useState(false)
   const [options, setOptions] = useState<string[]>([])
-  const [gameId, setGameId] = useState<number | undefined>()
 
   useEffect(() => {
     if (status === "disconnected") router.push("/")
   }, [status])
 
-  useEffect(() => {
-    async function getGames() {
-      try {
-        const data = await axios.get(
-          `https://api.rawg.io/api/games?key=${process.env.NEXT_PUBLIC_RAWG_KEY}&search=${gameNameInput}`,
-        )
-        const games = data.data.results.map((game: any) => game.name)
-        setOptions(games)
-      } catch (e) {
-        console.log(e)
-      }
+  const debounce = (func: Function, delay: number) => {
+    let timeoutId: NodeJS.Timeout
+    return function (this: any, ...args: any[]) {
+      clearTimeout(timeoutId)
+      timeoutId = setTimeout(() => func.apply(this, args), delay)
     }
-    getGames()
-  }, [gameNameInput])
+  }
+  const debouncedGetGames = useCallback(
+    debounce(async (input: string) => {
+      try {
+        const response = await axios.get(
+          `https://api.rawg.io/api/games?key=${process.env.NEXT_PUBLIC_RAWG_KEY}&search=${input}`,
+        )
+        const games = response.data.results.map((game: any) => game.name)
+        setOptions(games)
+        setShowGameOptions(true)
+      } catch (error) {
+        console.error(error)
+      }
+    }, 750),
+    [],
+  )
 
   const filteredGames = options.filter((option) =>
     option.toLowerCase().includes(gameNameInput.toLowerCase()),
@@ -46,8 +53,9 @@ const AddNewGame = () => {
   const handleGameNameInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setGameName(e.target.value)
-    setShowGameOptions(true)
+    const input = e.target.value
+    setGameName(input)
+    debouncedGetGames(input)
   }
 
   const handleGameNameSelect = (option: string) => {
@@ -65,7 +73,7 @@ const AddNewGame = () => {
     setGameKeyInput(e.target.value)
   }
 
-  async function handleAddListing() {
+  async function handleAddListing(gameId: number) {
     try {
       const { hash } = await writeContract({
         address: `0x${contractAddress.slice(2, contractAddress.length)}`,
@@ -86,7 +94,7 @@ const AddNewGame = () => {
         `https://api.rawg.io/api/games?key=${process.env.NEXT_PUBLIC_RAWG_KEY}&search=${gameNameInput}`,
       )
       const id = data.data.results[0].id
-      setGameId(id)
+      return id
     } catch (e) {
       console.log(e)
     }
@@ -97,8 +105,8 @@ const AddNewGame = () => {
     console.log(gameNameInput, priceInput, gameKeyInput)
     async function addListing() {
       try {
-        await getGameId()
-        await handleAddListing()
+        const gameId = await getGameId()
+        await handleAddListing(gameId)
         console.log("gameId", gameId)
       } catch (e) {
         console.log(e)
@@ -126,7 +134,7 @@ const AddNewGame = () => {
               className="input input-bordered input-sm max-w-xs"
             />
             {gameNameInput && filteredGames.length > 0 && showGameOptions && (
-              <div className="custom-scrollbar z-10 mt-2 max-h-60 max-w-xs overflow-y-auto rounded-lg border-2 border-primary bg-base-100 shadow-lg">
+              <div className="custom-scrollbar absolute z-10 mt-2 max-h-60 max-w-xs overflow-y-auto rounded-lg border-2 border-primary bg-base-100 shadow-lg">
                 {filteredGames.map((option, index) => (
                   <div
                     key={index}
