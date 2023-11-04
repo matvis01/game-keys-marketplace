@@ -9,6 +9,7 @@
     "type": "error"
   },
   { "inputs": [], "name": "NoListingFound", "type": "error" },
+  { "inputs": [], "name": "PercetageCantBeAbove100", "type": "error" },
   { "inputs": [], "name": "PriceMustBeAboveZero", "type": "error" },
   { "inputs": [], "name": "TransferFailed", "type": "error" },
   {
@@ -25,6 +26,18 @@
         "internalType": "uint256",
         "name": "price",
         "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "gameName",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "gameImage",
+        "type": "string"
       },
       {
         "indexed": true,
@@ -77,6 +90,18 @@
         "type": "uint256"
       },
       {
+        "indexed": false,
+        "internalType": "string",
+        "name": "gameName",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "gameImage",
+        "type": "string"
+      },
+      {
         "indexed": true,
         "internalType": "address",
         "name": "seller",
@@ -85,6 +110,15 @@
     ],
     "name": "ItemListed",
     "type": "event"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "newPercentage", "type": "uint256" }
+    ],
+    "name": "ChangeSellersPercentage",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
     "inputs": [
@@ -120,8 +154,10 @@
     "outputs": [
       {
         "components": [
-          { "internalType": "uint256", "name": "gameId", "type": "uint256" },
-          { "internalType": "string", "name": "gameKey", "type": "string" }
+          { "internalType": "uint256", "name": "id", "type": "uint256" },
+          { "internalType": "string", "name": "key", "type": "string" },
+          { "internalType": "string", "name": "name", "type": "string" },
+          { "internalType": "string", "name": "image", "type": "string" }
         ],
         "internalType": "struct GameKeyMarketplace.Game[]",
         "name": "",
@@ -133,8 +169,17 @@
   },
   {
     "inputs": [
-      { "internalType": "string", "name": "gameKey", "type": "string" },
-      { "internalType": "uint256", "name": "gameId", "type": "uint256" },
+      {
+        "components": [
+          { "internalType": "uint256", "name": "id", "type": "uint256" },
+          { "internalType": "string", "name": "key", "type": "string" },
+          { "internalType": "string", "name": "name", "type": "string" },
+          { "internalType": "string", "name": "image", "type": "string" }
+        ],
+        "internalType": "struct GameKeyMarketplace.Game",
+        "name": "game",
+        "type": "tuple"
+      },
       { "internalType": "uint256", "name": "price", "type": "uint256" }
     ],
     "name": "listGameKey",
