@@ -10,7 +10,7 @@ import { GameType } from "@/types/gameType"
 
 const contractAddress = networkMapping[11155111]["GameKeyMarketplace"][0]
 
-const AddNewGame = () => {
+const NewGameModal = () => {
   const router = useRouter()
   const { status, address } = useAccount()
 
@@ -120,22 +120,22 @@ const AddNewGame = () => {
   }
 
   return (
-    <div className="h-96 bg-neutral py-4">
-      <div className="mx-auto flex w-full max-w-screen-xl flex-col gap-8">
-        <div className="block w-full  border-b-2 border-primary">
-          <h1 className="mb-2 text-center text-3xl">Add new game</h1>
-        </div>
+    <dialog id="new_game_modal" className="modal">
+      <div className="modal-box w-3/12 max-w-5xl">
+        <h3 className="border-b-2 border-primary pb-2 text-center text-2xl font-bold">
+          Add your game
+        </h3>
         <form className="form-control" onSubmit={handleSubmit}>
-          <div className="">
+          <div>
             <label className="label">
-              <span className="label-text">Game name</span>
+              <span className="label-text text-lg">Game name</span>
             </label>
             <input
               type="text"
               placeholder="Search game..."
               value={gameNameInput}
               onChange={handleGameNameInputChange}
-              className="input input-bordered input-sm max-w-xs"
+              className="input input-bordered input-sm w-full"
             />
             {gameNameInput && filteredGames.length > 0 && showGameOptions && (
               <div className="custom-scrollbar absolute z-10 mt-2 max-h-60 max-w-xs overflow-y-auto rounded-lg border-2 border-primary bg-base-100 shadow-lg">
@@ -151,31 +151,45 @@ const AddNewGame = () => {
               </div>
             )}
             <label className="label">
-              <span className="label-text">Game Price</span>
+              <span className="label-text text-lg">Game Price</span>
             </label>
             <input
-              type="number"
+              type="text"
               placeholder="Add price..."
               value={priceInput}
               onChange={handleGamePriceInputChange}
-              className="input input-bordered input-sm max-w-xs"
+              className="input input-bordered input-sm w-full"
             />
             <label className="label">
-              <span className="label-text">Game Key</span>
+              <span className="label-text text-lg">Game Key</span>
             </label>
             <input
               type="text"
               placeholder="Add game key..."
               value={gameKeyInput}
               onChange={handleGameKeyInputChange}
-              className="input input-bordered input-sm max-w-xs"
+              className="input input-bordered input-sm w-full"
             />
+            <button className="btn btn-primary mt-6 w-full">Add game</button>
+            <button
+              className="btn btn-ghost btn-sm absolute right-2 top-2"
+              onClick={() => {
+                if (document)
+                  (
+                    document.getElementById("new_game_modal") as HTMLFormElement
+                  ).close()
+              }}
+            >
+              ✕
+            </button>
           </div>
-          <button className="btn btn-primary btn-sm">Add game</button>
         </form>
       </div>
-    </div>
+      <form method="dialog" className="modal-backdrop">
+        <button>close</button>
+      </form>
+    </dialog>
   )
 }
 
-export default AddNewGame
+export default NewGameModal
