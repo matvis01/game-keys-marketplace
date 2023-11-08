@@ -1,52 +1,27 @@
 import React from "react"
 import { Swiper, SwiperSlide } from "swiper/react"
-
 import "swiper/css"
 import "swiper/css/pagination"
 import "swiper/css/free-mode"
-
 import { FreeMode, Pagination } from "swiper/modules"
 import { RxArrowTopRight } from "react-icons/rx"
 import SwiperCard from "./SwiperCard"
-
 import exampleGame from "@/constants/exampleGame.json"
 import { GameType } from "@/types/gameType"
+import { useQuery } from "@apollo/client"
+import { GET_FEATURED_GAMES } from "@/constants/graphQueries"
+
+type FeaturedGame = {
+  gameId: number
+  gameName: string
+  gameImage: string
+}
 
 const FeaturedGames = () => {
-  const { name, background_image, description } = exampleGame as GameType
-  const TEST_ARR = [
-    {
-      name,
-      description,
-      background_image,
-    },
-    {
-      name,
-      description,
-      background_image,
-    },
-    {
-      name,
-      description,
-      background_image,
-    },
-    {
-      name,
-      description,
-      background_image,
-    },
-    {
-      name,
-      description,
-      background_image,
-    },
-    {
-      name,
-      description,
-      background_image,
-    },
-  ]
-  const mappedGames = TEST_ARR.map((game, index) => {
+  const { loading, error, data: listings } = useQuery(GET_FEATURED_GAMES)
+  const games = listings?.listingsByGames
+
+  const mappedGames = games?.map((game: FeaturedGame, index: number) => {
     return (
       <SwiperSlide key={index}>
         <SwiperCard gameProps={game} />
