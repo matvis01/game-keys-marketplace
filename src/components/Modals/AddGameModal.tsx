@@ -1,11 +1,20 @@
 import React, { useState, useEffect, useCallback } from "react"
-import { CSSTransition } from "react-transition-group"
 import { useRouter } from "next/router"
+import { useAccount } from "wagmi"
+import { ethers } from "ethers"
+import { writeContract, waitForTransaction } from "@wagmi/core"
 import contractAbi from "../../constants/abi.json"
 import networkMapping from "../../constants/networkMapping.json"
 import axios from "axios"
+import { toast, ToastContainer } from "react-toastify"
+
 import { GameType } from "@/types/gameType"
+import contractAbi from "../../constants/abi.json"
+import networkMapping from "../../constants/networkMapping.json"
 import useContractFunctions from "../../hooks/useContractFunctions"
+import "react-toastify/dist/ReactToastify.css"
+
+const contractAddress = networkMapping[11155111]["GameKeyMarketplace"][0]
 
 const NewGameModal = () => {
   const router = useRouter()
@@ -15,8 +24,7 @@ const NewGameModal = () => {
   const [gameKeyInput, setGameKeyInput] = useState("")
   const [showGameOptions, setShowGameOptions] = useState(false)
   const [options, setOptions] = useState<string[]>([])
-  const [successModal, setSuccessModal] = useState(false)
-  const [errorModal, setErrorModal] = useState(false)
+  const [blockButton, setBlockButton] = useState(false)
 
   const { addListing } = useContractFunctions()
 
@@ -24,15 +32,29 @@ const NewGameModal = () => {
     if (status === "disconnected") router.push("/")
   }, [status])
 
-  useEffect(() => {
-    let timer: NodeJS.Timeout
-    if (successModal) {
-      timer = setTimeout(() => {
-        setSuccessModal(false)
-      }, 10000)
-    }
-    return () => clearTimeout(timer)
-  }, [successModal])
+  const toastifySuccess = () => {
+    toast.success("Your game has been listed!", {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "colored",
+    })
+  }
+
+  const toastifyError = () => {
+    toast.error("Something went wrong, please try again!", {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "colored",
+    })
+  }
 
   const debounce = (func: Function, delay: number) => {
     let timeoutId: NodeJS.Timeout
@@ -114,6 +136,7 @@ const NewGameModal = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     console.log(gameNameInput, priceInput, gameKeyInput)
+    setBlockButton(true)
     async function addListing() {
       try {
         const gameData = await getGameData()
@@ -123,10 +146,13 @@ const NewGameModal = () => {
           setPriceInput("")
           setGameKeyInput("")
           closeModal()
-          setSuccessModal(true)
+          setBlockButton(false)
+          toastifySuccess()
         }
       } catch (e) {
         console.log(e)
+        setBlockButton(false)
+        toastifyError()
       }
     }
     addListing()
@@ -199,38 +225,7 @@ const NewGameModal = () => {
           <button>close</button>
         </form>
       </dialog>
-      <CSSTransition
-        in={successModal}
-        timeout={300}
-        unmountOnExit
-        classNames={{
-          enter: "opacity-0",
-          enterActive: "opacity-100 transition-opacity duration-300",
-        }}
-      >
-        <div className="alert alert-success absolute bottom-4 right-4 z-20 w-80">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 shrink-0 stroke-current"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-          <span>Your game has been listed!</span>
-          <span
-            className="hover:cursor-pointer"
-            onClick={() => setSuccessModal(false)}
-          >
-            ✕
-          </span>
-        </div>
-      </CSSTransition>
+      <ToastContainer />
     </>
   )
 }
