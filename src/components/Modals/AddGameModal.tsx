@@ -3,11 +3,12 @@ import { useRouter } from "next/router"
 import { useAccount } from "wagmi"
 import { ethers } from "ethers"
 import { writeContract, waitForTransaction } from "@wagmi/core"
+import axios from "axios"
+import { toast, ToastContainer } from "react-toastify"
+
+import { GameType } from "@/types/gameType"
 import contractAbi from "../../constants/abi.json"
 import networkMapping from "../../constants/networkMapping.json"
-import axios from "axios"
-import { GameType } from "@/types/gameType"
-import { toast, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 
 const contractAddress = networkMapping[11155111]["GameKeyMarketplace"][0]
@@ -21,6 +22,7 @@ const NewGameModal = () => {
   const [gameKeyInput, setGameKeyInput] = useState("")
   const [showGameOptions, setShowGameOptions] = useState(false)
   const [options, setOptions] = useState<string[]>([])
+  const [blockButton, setBlockButton] = useState(false)
 
   useEffect(() => {
     if (status === "disconnected") router.push("/")
@@ -140,6 +142,7 @@ const NewGameModal = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     console.log(gameNameInput, priceInput, gameKeyInput)
+    setBlockButton(true)
     async function addListing() {
       try {
         const gameData = await getGameData()
@@ -149,10 +152,12 @@ const NewGameModal = () => {
           setPriceInput("")
           setGameKeyInput("")
           closeModal()
+          setBlockButton(false)
           toastifySuccess()
         }
       } catch (e) {
         console.log(e)
+        setBlockButton(false)
         toastifyError()
       }
     }
@@ -161,18 +166,6 @@ const NewGameModal = () => {
 
   return (
     <>
-      <button
-        className="btn btn-primary btn-sm absolute left-20 top-20"
-        onClick={toastifySuccess}
-      >
-        Success
-      </button>
-      <button
-        className="btn btn-primary btn-sm absolute left-20 top-40"
-        onClick={toastifyError}
-      >
-        Error
-      </button>
       <dialog id="new_game_modal" className="modal">
         <div className="modal-box w-3/12 max-w-5xl">
           <h3 className="border-b-2 border-primary pb-2 text-center text-2xl font-bold">
@@ -239,38 +232,6 @@ const NewGameModal = () => {
         </form>
       </dialog>
       <ToastContainer />
-      {/* <CSSTransition
-        in={successModal}
-        timeout={300}
-        unmountOnExit
-        classNames={{
-          enter: "opacity-0",
-          enterActive: "opacity-100 transition-opacity duration-300",
-        }}
-      >
-        <div className="alert alert-success absolute bottom-4 right-4 z-20 w-80">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 shrink-0 stroke-current"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-          <span>Your game has been listed!</span>
-          <span
-            className="hover:cursor-pointer"
-            onClick={() => setSuccessModal(false)}
-          >
-            ✕
-          </span>
-        </div>
-      </CSSTransition> */}
     </>
   )
 }
