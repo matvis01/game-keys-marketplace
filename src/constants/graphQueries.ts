@@ -6,6 +6,7 @@ export const GET_LISTINGS_BY_GAME = gql`
       gameId
       allListings {
         id
+        gameId
         numOfItems
         price
         seller
@@ -20,6 +21,7 @@ export function GET_LISTINGS_FOR_GAME(gameId: Number) {
     listingsByGame(id: ${gameId}) {
       gameId
       allListings(orderBy: price) {
+        gameId
         numOfItems
         price
         seller

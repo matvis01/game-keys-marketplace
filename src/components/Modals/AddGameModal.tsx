@@ -1,19 +1,14 @@
 import React, { useState, useEffect, useCallback } from "react"
 import { CSSTransition } from "react-transition-group"
 import { useRouter } from "next/router"
-import { useAccount } from "wagmi"
-import { ethers } from "ethers"
-import { writeContract, waitForTransaction } from "@wagmi/core"
 import contractAbi from "../../constants/abi.json"
 import networkMapping from "../../constants/networkMapping.json"
 import axios from "axios"
 import { GameType } from "@/types/gameType"
-
-const contractAddress = networkMapping[11155111]["GameKeyMarketplace"][0]
+import useContractFunctions from "../../hooks/useContractFunctions"
 
 const NewGameModal = () => {
   const router = useRouter()
-  const { status, address } = useAccount()
 
   const [gameNameInput, setGameName] = useState("")
   const [priceInput, setPriceInput] = useState("")
@@ -22,6 +17,8 @@ const NewGameModal = () => {
   const [options, setOptions] = useState<string[]>([])
   const [successModal, setSuccessModal] = useState(false)
   const [errorModal, setErrorModal] = useState(false)
+
+  const { addListing } = useContractFunctions()
 
   useEffect(() => {
     if (status === "disconnected") router.push("/")
@@ -94,17 +91,7 @@ const NewGameModal = () => {
 
   async function handleAddListing(gameData: any) {
     try {
-      const { hash } = await writeContract({
-        address: `0x${contractAddress.slice(2, contractAddress.length)}`,
-        abi: contractAbi,
-        functionName: "listGameKey",
-        account: address,
-        args: [
-          [gameData.id, gameKeyInput, gameData.name, gameData.image],
-          ethers.parseEther(priceInput),
-        ],
-      })
-      const receipt = await waitForTransaction({ hash })
+      const receipt = await addListing(gameData, gameKeyInput, priceInput)
       return receipt
     } catch (e) {
       console.log(e)

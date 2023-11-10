@@ -19,7 +19,7 @@ export default function GamePage() {
     | ListingType[]
     | undefined
 
-  console.log(listings)
+  console.log("listings", listings)
 
   useEffect(() => {
     if (!id) return
@@ -38,7 +38,6 @@ export default function GamePage() {
   if (router.isFallback) {
     return <div>Loading...</div>
   }
-
   return (
     <div className="flex  flex-col items-center gap-6  px-5  lg:px-32">
       <div className="flex w-full flex-col justify-center gap-10 lg:flex-row">
