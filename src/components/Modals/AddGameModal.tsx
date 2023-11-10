@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from "react"
-import { CSSTransition } from "react-transition-group"
 import { useRouter } from "next/router"
 import { useAccount } from "wagmi"
 import { ethers } from "ethers"
@@ -8,6 +7,8 @@ import contractAbi from "../../constants/abi.json"
 import networkMapping from "../../constants/networkMapping.json"
 import axios from "axios"
 import { GameType } from "@/types/gameType"
+import { toast, ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 const contractAddress = networkMapping[11155111]["GameKeyMarketplace"][0]
 
@@ -20,22 +21,34 @@ const NewGameModal = () => {
   const [gameKeyInput, setGameKeyInput] = useState("")
   const [showGameOptions, setShowGameOptions] = useState(false)
   const [options, setOptions] = useState<string[]>([])
-  const [successModal, setSuccessModal] = useState(false)
-  const [errorModal, setErrorModal] = useState(false)
 
   useEffect(() => {
     if (status === "disconnected") router.push("/")
   }, [status])
 
-  useEffect(() => {
-    let timer: NodeJS.Timeout
-    if (successModal) {
-      timer = setTimeout(() => {
-        setSuccessModal(false)
-      }, 10000)
-    }
-    return () => clearTimeout(timer)
-  }, [successModal])
+  const toastifySuccess = () => {
+    toast.success("Your game has been listed!", {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "colored",
+    })
+  }
+
+  const toastifyError = () => {
+    toast.error("Something went wrong, please try again!", {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "colored",
+    })
+  }
 
   const debounce = (func: Function, delay: number) => {
     let timeoutId: NodeJS.Timeout
@@ -136,10 +149,11 @@ const NewGameModal = () => {
           setPriceInput("")
           setGameKeyInput("")
           closeModal()
-          setSuccessModal(true)
+          toastifySuccess()
         }
       } catch (e) {
         console.log(e)
+        toastifyError()
       }
     }
     addListing()
@@ -147,6 +161,18 @@ const NewGameModal = () => {
 
   return (
     <>
+      <button
+        className="btn btn-primary btn-sm absolute left-20 top-20"
+        onClick={toastifySuccess}
+      >
+        Success
+      </button>
+      <button
+        className="btn btn-primary btn-sm absolute left-20 top-40"
+        onClick={toastifyError}
+      >
+        Error
+      </button>
       <dialog id="new_game_modal" className="modal">
         <div className="modal-box w-3/12 max-w-5xl">
           <h3 className="border-b-2 border-primary pb-2 text-center text-2xl font-bold">
@@ -212,7 +238,8 @@ const NewGameModal = () => {
           <button>close</button>
         </form>
       </dialog>
-      <CSSTransition
+      <ToastContainer />
+      {/* <CSSTransition
         in={successModal}
         timeout={300}
         unmountOnExit
@@ -243,7 +270,7 @@ const NewGameModal = () => {
             ✕
           </span>
         </div>
-      </CSSTransition>
+      </CSSTransition> */}
     </>
   )
 }
