@@ -3,19 +3,21 @@ import { useRouter } from "next/router"
 import { useAccount } from "wagmi"
 import { ethers } from "ethers"
 import { writeContract, waitForTransaction } from "@wagmi/core"
+import contractAbi from "../../constants/abi.json"
+import networkMapping from "../../constants/networkMapping.json"
 import axios from "axios"
 import { toast, ToastContainer } from "react-toastify"
 
 import { GameType } from "@/types/gameType"
 import contractAbi from "../../constants/abi.json"
 import networkMapping from "../../constants/networkMapping.json"
+import useContractFunctions from "../../hooks/useContractFunctions"
 import "react-toastify/dist/ReactToastify.css"
 
 const contractAddress = networkMapping[11155111]["GameKeyMarketplace"][0]
 
 const NewGameModal = () => {
   const router = useRouter()
-  const { status, address } = useAccount()
 
   const [gameNameInput, setGameName] = useState("")
   const [priceInput, setPriceInput] = useState("")
@@ -23,6 +25,8 @@ const NewGameModal = () => {
   const [showGameOptions, setShowGameOptions] = useState(false)
   const [options, setOptions] = useState<string[]>([])
   const [blockButton, setBlockButton] = useState(false)
+
+  const { addListing } = useContractFunctions()
 
   useEffect(() => {
     if (status === "disconnected") router.push("/")
@@ -109,17 +113,7 @@ const NewGameModal = () => {
 
   async function handleAddListing(gameData: any) {
     try {
-      const { hash } = await writeContract({
-        address: `0x${contractAddress.slice(2, contractAddress.length)}`,
-        abi: contractAbi,
-        functionName: "listGameKey",
-        account: address,
-        args: [
-          [gameData.id, gameKeyInput, gameData.name, gameData.image],
-          ethers.parseEther(priceInput),
-        ],
-      })
-      const receipt = await waitForTransaction({ hash })
+      const receipt = await addListing(gameData, gameKeyInput, priceInput)
       return receipt
     } catch (e) {
       console.log(e)
