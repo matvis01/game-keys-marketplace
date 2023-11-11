@@ -9,7 +9,7 @@ import SwiperCard from "./SwiperCard"
 import exampleGame from "@/constants/exampleGame.json"
 import { GameType } from "@/types/gameType"
 import { useQuery } from "@apollo/client"
-import { GET_FEATURED_GAMES } from "@/constants/graphQueries"
+import { GET_FEATURED_GAMES } from "@/utils/graphQueries"
 
 type FeaturedGame = {
   gameId: number

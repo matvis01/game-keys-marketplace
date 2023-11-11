@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client"
+import { getTimestampWeeksAgo } from "./dateUtils"
 
 export const GET_LISTINGS_BY_GAME = gql`
   {
@@ -45,3 +46,21 @@ export const GET_FEATURED_GAMES = gql`
     }
   }
 `
+
+export function GET_SOLD_LAST_WEEKS_WITH_LISTING(numOfWeeks: number) {
+  const timestamp = getTimestampWeeksAgo(numOfWeeks)
+  return gql`
+  {
+    itemsBoughtByGames(where: {hasListings: true}) {
+      gameId
+      allItemsBought(where: {date_gte: "${timestamp}"}) {
+        date
+        price
+        numOfItems
+      }
+      gameName
+      gameImage
+    }
+  }
+`
+}

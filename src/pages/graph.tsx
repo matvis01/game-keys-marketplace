@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client"
-import { GET_LISTINGS_BY_GAME } from "../constants/graphQueries"
+import { GET_LISTINGS_BY_GAME } from "../utils/graphQueries"
 
 function Graph() {
   const { loading, error, data: listings } = useQuery(GET_LISTINGS_BY_GAME)
