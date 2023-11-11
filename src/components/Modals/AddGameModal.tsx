@@ -4,12 +4,12 @@ import { useAccount } from "wagmi"
 import { ethers } from "ethers"
 import { writeContract, waitForTransaction } from "@wagmi/core"
 import axios from "axios"
-import { toast, ToastContainer } from "react-toastify"
+import { ToastContainer } from "react-toastify"
 
 import { GameType } from "@/types/gameType"
 import contractAbi from "../../constants/abi.json"
 import networkMapping from "../../constants/networkMapping.json"
-import "react-toastify/dist/ReactToastify.css"
+import { toastifySuccess, toastifyError } from "@/utils/alertToast"
 
 const contractAddress = networkMapping[11155111]["GameKeyMarketplace"][0]
 
@@ -27,30 +27,6 @@ const NewGameModal = () => {
   useEffect(() => {
     if (status === "disconnected") router.push("/")
   }, [status])
-
-  const toastifySuccess = () => {
-    toast.success("Your game has been listed!", {
-      position: "bottom-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      theme: "colored",
-    })
-  }
-
-  const toastifyError = () => {
-    toast.error("Something went wrong, please try again!", {
-      position: "bottom-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      theme: "colored",
-    })
-  }
 
   const debounce = (func: Function, delay: number) => {
     let timeoutId: NodeJS.Timeout
@@ -153,12 +129,12 @@ const NewGameModal = () => {
           setGameKeyInput("")
           closeModal()
           setBlockButton(false)
-          toastifySuccess()
+          toastifySuccess("Your game has been listed!", 3000)
         }
       } catch (e) {
         console.log(e)
         setBlockButton(false)
-        toastifyError()
+        toastifyError("Something went wrong, please try again later", 3000)
       }
     }
     addListing()
