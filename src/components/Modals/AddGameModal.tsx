@@ -5,11 +5,14 @@ import { ethers } from "ethers"
 import { writeContract, waitForTransaction } from "@wagmi/core"
 import axios from "axios"
 import { ToastContainer } from "react-toastify"
+import { Form, Formik } from "formik"
 
 import { GameType } from "@/types/gameType"
 import contractAbi from "../../constants/abi.json"
 import networkMapping from "../../constants/networkMapping.json"
 import { toastifySuccess, toastifyError } from "@/utils/alertToast"
+import { gameListingSchema } from "@/utils/validators"
+import CustomInput from "./CustomInput"
 
 const contractAddress = networkMapping[11155111]["GameKeyMarketplace"][0]
 
@@ -17,12 +20,9 @@ const NewGameModal = () => {
   const router = useRouter()
   const { status, address } = useAccount()
 
-  const [gameNameInput, setGameName] = useState("")
-  const [priceInput, setPriceInput] = useState("")
-  const [gameKeyInput, setGameKeyInput] = useState("")
-  const [showGameOptions, setShowGameOptions] = useState(false)
+  const [isSelectedGame, setIsSelectedGame] = useState(false)
+  const [isListingGame, setIsListingGame] = useState(false)
   const [options, setOptions] = useState<string[]>([])
-  const [blockButton, setBlockButton] = useState(false)
 
   useEffect(() => {
     if (status === "disconnected") router.push("/")
@@ -43,7 +43,6 @@ const NewGameModal = () => {
         )
         const games = response.data.results.map((game: any) => game.name)
         setOptions(games)
-        setShowGameOptions(true)
       } catch (error) {
         console.error(error)
       }
@@ -51,31 +50,15 @@ const NewGameModal = () => {
     [],
   )
 
-  const filteredGames = options.filter((option) =>
-    option.toLowerCase().includes(gameNameInput.toLowerCase()),
-  )
-
-  const handleGameNameInputChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const input = e.target.value
-    setGameName(input)
+  const handleGetGames = (input: string) => {
+    setIsSelectedGame(false)
     debouncedGetGames(input)
   }
 
-  const handleGameNameSelect = (option: string) => {
-    setGameName(option)
-    setShowGameOptions(false)
-  }
-
-  const handleGamePriceInputChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    setPriceInput(e.target.value)
-  }
-
-  const handleGameKeyInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setGameKeyInput(e.target.value)
+  const filterGames = (options: string[], input: string) => {
+    return options.filter((option) =>
+      option.toLowerCase().includes(input.toLowerCase()),
+    )
   }
 
   const closeModal = () => {
@@ -83,7 +66,11 @@ const NewGameModal = () => {
       (document.getElementById("new_game_modal") as HTMLFormElement).close()
   }
 
-  async function handleAddListing(gameData: any) {
+  async function handleAddListing(
+    gameData: any,
+    gamePrice: string,
+    gameKey: string,
+  ) {
     try {
       const { hash } = await writeContract({
         address: `0x${contractAddress.slice(2, contractAddress.length)}`,
@@ -91,8 +78,8 @@ const NewGameModal = () => {
         functionName: "listGameKey",
         account: address,
         args: [
-          [gameData.id, gameKeyInput, gameData.name, gameData.image],
-          ethers.parseEther(priceInput),
+          [gameData.id, gameKey, gameData.name, gameData.image],
+          ethers.parseEther(gamePrice),
         ],
       })
       const receipt = await waitForTransaction({ hash })
@@ -102,10 +89,10 @@ const NewGameModal = () => {
     }
   }
 
-  async function getGameData() {
+  async function getGameData(gameName: string) {
     try {
       const res = await axios.get(
-        `https://api.rawg.io/api/games?key=${process.env.NEXT_PUBLIC_RAWG_KEY}&search=${gameNameInput}`,
+        `https://api.rawg.io/api/games?key=${process.env.NEXT_PUBLIC_RAWG_KEY}&search_exact=${gameName}`,
       )
       const game = res.data.results[0] as GameType
 
@@ -115,25 +102,26 @@ const NewGameModal = () => {
     }
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    console.log(gameNameInput, priceInput, gameKeyInput)
-    setBlockButton(true)
+  const onSubmit = (values: any) => {
+    console.log(values)
+
     async function addListing() {
+      setIsListingGame(true)
       try {
-        const gameData = await getGameData()
-        const receipt = await handleAddListing(gameData)
+        const gameData = await getGameData(values.gameName)
+        const receipt = await handleAddListing(
+          gameData,
+          values.gamePrice,
+          values.gameKey,
+        )
         if (receipt?.status === "success") {
-          setGameName("")
-          setPriceInput("")
-          setGameKeyInput("")
           closeModal()
-          setBlockButton(false)
+          setIsListingGame(false)
           toastifySuccess("Your game has been listed!", 3000)
         }
       } catch (e) {
         console.log(e)
-        setBlockButton(false)
+        setIsListingGame(false)
         toastifyError("Something went wrong, please try again later", 3000)
       }
     }
@@ -147,61 +135,71 @@ const NewGameModal = () => {
           <h3 className="border-b-2 border-primary pb-2 text-center text-2xl font-bold">
             Add your game
           </h3>
-          <form className="form-control" onSubmit={handleSubmit}>
-            <div>
-              <label className="label">
-                <span className="label-text text-lg">Game name</span>
-              </label>
-              <input
-                type="text"
-                placeholder="Search game..."
-                value={gameNameInput}
-                onChange={handleGameNameInputChange}
-                className="input input-bordered input-sm w-full"
-              />
-              {gameNameInput && filteredGames.length > 0 && showGameOptions && (
-                <div className="custom-scrollbar absolute z-10 mt-2 max-h-60 max-w-xs overflow-y-auto rounded-lg border-2 border-primary bg-base-100 shadow-lg">
-                  {filteredGames.map((option, index) => (
-                    <div
-                      key={index}
-                      className="cursor-pointer rounded-lg px-4 py-2 hover:bg-neutral"
-                      onClick={() => handleGameNameSelect(option)}
-                    >
-                      {option}
-                    </div>
-                  ))}
+          <Formik
+            initialValues={{ gameName: "", gamePrice: "", gameKey: "" }}
+            onSubmit={onSubmit}
+            validationSchema={gameListingSchema}
+          >
+            {(props) => (
+              <Form className="form-control" autoComplete="off">
+                <div>
+                  <CustomInput
+                    label="Game Name"
+                    name="gameName"
+                    type="text"
+                    placeholder="Enter Game Name"
+                    customFunction={() => handleGetGames(props.values.gameName)}
+                  />
+                  {props.values.gameName &&
+                    filterGames(options, props.values.gameName).length > 0 &&
+                    !isSelectedGame && (
+                      <div className="custom-scrollbar absolute z-10 mt-2 max-h-60 max-w-xs overflow-y-auto rounded-lg border-2 border-primary bg-base-100 shadow-lg">
+                        {filterGames(options, props.values.gameName).map(
+                          (option, index) => (
+                            <div
+                              key={index}
+                              className="cursor-pointer rounded-lg px-4 py-2 hover:bg-neutral"
+                              onClick={() => {
+                                props.setFieldValue("gameName", option)
+                                setIsSelectedGame(true)
+                              }}
+                            >
+                              {option}
+                            </div>
+                          ),
+                        )}
+                      </div>
+                    )}
+                  <CustomInput
+                    label="Game Price"
+                    name="gamePrice"
+                    type="text"
+                    placeholder="Enter Game Price"
+                  />
+                  <CustomInput
+                    label="Game Key"
+                    name="gameKey"
+                    type="text"
+                    placeholder="Enter Game Key"
+                  />
                 </div>
-              )}
-              <label className="label">
-                <span className="label-text text-lg">Game Price</span>
-              </label>
-              <input
-                type="text"
-                placeholder="Add price..."
-                value={priceInput}
-                onChange={handleGamePriceInputChange}
-                className="input input-bordered input-sm w-full"
-              />
-              <label className="label">
-                <span className="label-text text-lg">Game Key</span>
-              </label>
-              <input
-                type="text"
-                placeholder="Add game key..."
-                value={gameKeyInput}
-                onChange={handleGameKeyInputChange}
-                className="input input-bordered input-sm w-full"
-              />
-              <button className="btn btn-primary mt-6 w-full">Add game</button>
-              <button
-                className="btn btn-ghost btn-sm absolute right-2 top-2"
-                type="button"
-                onClick={() => closeModal()}
-              >
-                ✕
-              </button>
-            </div>
-          </form>
+                <button
+                  className="btn btn-primary mt-6 w-full"
+                  type="submit"
+                  disabled={!props.isValid || isListingGame}
+                >
+                  Add game
+                </button>
+              </Form>
+            )}
+          </Formik>
+          <button
+            className="btn btn-ghost btn-sm absolute right-2 top-2"
+            type="button"
+            onClick={() => closeModal()}
+          >
+            ✕
+          </button>
         </div>
         <form method="dialog" className="modal-backdrop">
           <button>close</button>
