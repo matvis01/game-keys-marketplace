@@ -5,7 +5,8 @@ import { useRouter } from "next/router"
 import { useAccount } from "wagmi"
 
 import ConnectBtn from "../ConnectBtn"
-import NavBarListItem from "./NavBarListItem"
+import NavBarListItem from "./navBarListItem"
+import SearchInput from "./SearchInput"
 import ProfileMenu from "./ProfileMenu"
 import CartMenu from "./CartMenu"
 
@@ -15,6 +16,7 @@ const NavBar = () => {
   const { pathname } = router
   const isHome = pathname === "/"
   const isCategories = pathname.includes("/categories")
+  const [searchValue, setSearchValue] = React.useState("")
 
   return (
     <div className="blur-backdrop-filter sticky top-0 z-10 h-fit w-full bg-base-100 bg-opacity-80 bg-clip-padding py-4">
@@ -38,11 +40,8 @@ const NavBar = () => {
               width={20}
               height={20}
             />
-            <input
-              type="text"
-              placeholder="Search..."
-              className="input input-bordered input-sm w-full max-w-xs bg-neutral pl-10"
-            />
+
+            <SearchInput />
           </div>
         </div>
         <div>
