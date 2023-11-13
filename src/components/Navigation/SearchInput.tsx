@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react"
 import { Image } from "next/dist/client/image-component"
 import { useQuery } from "@apollo/client"
 import { GET_ALL_NAMES_AND_IDS } from "@/utils/graphQueries"
+import { useRouter } from "next/router"
 
 type OptionType = {
   gameId: number
@@ -13,6 +14,7 @@ const SearchInput: React.FC = () => {
   const [filteredOptions, setFilteredOptions] = useState<OptionType[]>([])
   const inputRef = useRef<HTMLInputElement>(null)
   const { data } = useQuery(GET_ALL_NAMES_AND_IDS)
+  const router = useRouter()
 
   const options = data?.listingsByGames as OptionType[]
 
@@ -35,7 +37,7 @@ const SearchInput: React.FC = () => {
   const handleOptionSelect = (option: OptionType) => {
     setInputValue(option.gameName)
     setFilteredOptions([])
-    window.location.href = `game/${option.gameId}`
+    router.push(`/game/${option.gameId}`)
     inputRef.current?.blur()
   }
 
