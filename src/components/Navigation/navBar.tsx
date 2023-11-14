@@ -5,7 +5,7 @@ import { useRouter } from "next/router"
 import { useAccount } from "wagmi"
 
 import ConnectBtn from "../ConnectBtn"
-import NavBarListItem from "./navBarListItem"
+import NavBarListItem from "./NavBarListItem"
 import SearchInput from "./SearchInput"
 import ProfileMenu from "./ProfileMenu"
 import CartMenu from "./CartMenu"
