@@ -1,19 +1,16 @@
 import { ethers } from "ethers"
 import { useExchangePrice } from "../../hooks/useExchangePrice"
 import { ListingType } from "@/types/listingType"
-import useContractFunctions from "@/hooks/useContractFunctions"
 
-export default function TopListing({ listing }: { listing: ListingType }) {
-  const { price, numOfItems, seller, gameId } = listing
+type Props = {
+  listing: ListingType
+  handleBuy: (listing: ListingType) => void
+}
+
+export default function TopListing({ listing, handleBuy }: Props) {
+  const { price, numOfItems, seller } = listing
   const formatPrice = ethers.formatUnits(price)
   const exchangePrice = useExchangePrice(Number(formatPrice), "ETH", "USD")
-  const { buy } = useContractFunctions()
-
-  const handleBuy = async () => {
-    console.log(gameId)
-    const tx = await buy(gameId, seller, price)
-    console.log(tx)
-  }
 
   return (
     <div className="card-body flex flex-col items-center">
@@ -25,7 +22,7 @@ export default function TopListing({ listing }: { listing: ListingType }) {
         {seller.slice(seller.length - 4, seller.length)}
       </p>
       <div className="card-actions justify-end">
-        <button className="btn btn-primary" onClick={handleBuy}>
+        <button className="btn btn-primary" onClick={() => handleBuy(listing)}>
           add to cart
         </button>
       </div>

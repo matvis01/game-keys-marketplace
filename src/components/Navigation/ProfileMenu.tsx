@@ -45,6 +45,9 @@ const ProfileMenu = () => {
               </p>
             </li>
             <li>
+              <Link href="/profile">Profile</Link>
+            </li>
+            <li>
               <button onClick={disconnect}>Logout</button>
             </li>
           </ul>

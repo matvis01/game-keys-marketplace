@@ -13,12 +13,15 @@ type gameDataType = {
   id: number
   name: string
   image: string
+  tags: string[]
+  genres: string[]
 }
 
 function useContractFunctions() {
   const [balance, setBalance] = useState(0)
 
-  const contractAddress = networkMapping[11155111]["GameKeyMarketplace"][0]
+  const contractAddresses = networkMapping[11155111]["GameKeyMarketplace"]
+  const contractAddress = contractAddresses[contractAddresses.length - 1]
   const { address, isConnected, status } = useAccount()
 
   async function addListing(
@@ -33,7 +36,14 @@ function useContractFunctions() {
         functionName: "listGameKey",
         account: address,
         args: [
-          [gameData.id, key, gameData.name, gameData.image],
+          [
+            gameData.id,
+            key,
+            gameData.name,
+            gameData.image,
+            gameData.tags,
+            gameData.genres,
+          ],
           ethers.parseEther(price),
         ],
       })
@@ -73,7 +83,9 @@ function useContractFunctions() {
         args: [id, seller, price],
         value: ethers.toBigInt(price),
       })
+      // const { hash } = data
       const receipt = await waitForTransaction({ hash })
+
       return receipt
     } catch (e) {
       console.log(e)

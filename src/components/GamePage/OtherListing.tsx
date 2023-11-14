@@ -5,10 +5,11 @@ import { ListingType } from "@/types/listingType"
 type Props = {
   listing: ListingType
   image: string | undefined
+  handleBuy: (id: ListingType) => void
 }
 
-export default function OtherListing({ listing, image }: Props) {
-  const { price, numOfItems, seller } = listing
+export default function OtherListing({ listing, image, handleBuy }: Props) {
+  const { price, numOfItems, seller, gameId } = listing
   const formatPrice = ethers.formatUnits(price)
   const exchangePrice = useExchangePrice(Number(formatPrice), "ETH", "USD")
 
@@ -25,8 +26,11 @@ export default function OtherListing({ listing, image }: Props) {
       </div>
 
       <div className="flex flex-grow justify-end pr-2 md:pr-7 lg:pr-10">
-        <button className="btn btn-primary btn-sm lg:btn-md">
-          add to cart
+        <button
+          className="btn btn-primary btn-sm lg:btn-md"
+          onClick={() => handleBuy(listing)}
+        >
+          buy
         </button>
       </div>
     </div>
