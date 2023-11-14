@@ -1,15 +1,15 @@
 import React from "react"
 import { Swiper, SwiperSlide } from "swiper/react"
+import { FreeMode, Pagination } from "swiper/modules"
+import { useSwiper } from "swiper/react"
+
+import { useQuery } from "@apollo/client"
+import { GET_FEATURED_GAMES } from "@/utils/graphQueries"
+import SwiperCard from "./SwiperCard"
+
 import "swiper/css"
 import "swiper/css/pagination"
 import "swiper/css/free-mode"
-import { FreeMode, Pagination } from "swiper/modules"
-import { RxArrowTopRight } from "react-icons/rx"
-import SwiperCard from "./SwiperCard"
-import exampleGame from "@/constants/exampleGame.json"
-import { GameType } from "@/types/gameType"
-import { useQuery } from "@apollo/client"
-import { GET_FEATURED_GAMES } from "@/utils/graphQueries"
 
 type FeaturedGame = {
   gameId: number
@@ -21,6 +21,8 @@ const FeaturedGames = () => {
   const { loading, error, data: listings } = useQuery(GET_FEATURED_GAMES)
   const games = listings?.listingsByGames
 
+  const swiper = useSwiper()
+
   const mappedGames = games?.map((game: FeaturedGame, index: number) => {
     return (
       <SwiperSlide key={index}>
@@ -29,26 +31,38 @@ const FeaturedGames = () => {
     )
   })
   return (
-    <div className="mb-8 flex flex-col items-center">
+    <>
       <h1 className="mb-6 text-center text-4xl text-white">Featured Games</h1>
-      <Swiper
-        breakpoints={{
-          340: { slidesPerView: 2, spaceBetween: 13 },
-          700: { slidesPerView: 3, spaceBetween: 15 },
-        }}
-        freeMode={true}
-        pagination={{ clickable: true }}
-        modules={[FreeMode, Pagination]}
-        className="mb-5 max-w-[90%] lg:max-w-[70%]"
-      >
-        {mappedGames}
-      </Swiper>
-      <div>
-        <button className="btn btn-primary btn-wide text-white">
-          Explore more
-        </button>
-      </div>
-    </div>
+      {loading && (
+        <div className="flex h-96 items-center justify-center">
+          <span className="loading loading-spinner loading-lg"></span>
+        </div>
+      )}
+      {!loading && !error && (
+        <>
+          <div className="flex items-center justify-center">
+            <Swiper
+              breakpoints={{
+                340: { slidesPerView: 2, spaceBetween: 13 },
+                700: { slidesPerView: 3, spaceBetween: 15 },
+                1550: { slidesPerView: 4, spaceBetween: 20 },
+              }}
+              freeMode={true}
+              pagination={{ clickable: true }}
+              modules={[FreeMode, Pagination]}
+              className="mb-5 max-w-[90%] lg:max-w-[80%]"
+            >
+              {mappedGames}
+            </Swiper>
+          </div>
+          <div className="flex items-center justify-center">
+            <button className="btn btn-primary btn-wide text-white">
+              Explore more
+            </button>
+          </div>
+        </>
+      )}
+    </>
   )
 }
 
