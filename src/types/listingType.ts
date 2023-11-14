@@ -10,3 +10,16 @@ export type listingsByGameType = {
   gameId: number
   allListings: ListingType[]
 }
+
+export type soldListingsByGameType = {
+  gameId: number
+  gameImage: string
+  gameName: string
+  allItemsBought: soldListingType[]
+}
+
+export type soldListingType = {
+  date: string
+  price: number
+  numOfItems: number
+}

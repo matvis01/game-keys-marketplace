@@ -1,9 +1,9 @@
 import React from "react"
 import { createPortal } from "react-dom"
-import Link from "next/link"
 
 import { disconnect } from "wagmi/actions"
 import NewGameModal from "../Modals/AddGameModal"
+import Link from "next/link"
 
 const ProfileMenu = () => {
   return (
