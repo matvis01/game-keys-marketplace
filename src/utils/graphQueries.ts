@@ -30,6 +30,8 @@ export function GET_LISTINGS_FOR_GAME(gameId: Number) {
   query MyQuery {
     listingsByGame(id: ${gameId}) {
       gameId
+      tags
+      genres
       allListings(orderBy: price) {
         gameId
         numOfItems
@@ -52,6 +54,8 @@ export const GET_FEATURED_GAMES = gql`
       gameName
       gameImage
       gameId
+      tags
+      genres
     }
   }
 `
@@ -69,6 +73,37 @@ export function GET_SOLD_LAST_WEEKS_WITH_LISTING(numOfWeeks: number) {
       }
       gameName
       gameImage
+      tags
+      genres
+    }
+  }
+`
+}
+
+export function GET_LISTINGS_BY_CRITERIA(
+  tags: string[] = [],
+  genres: string[] = [],
+  priceFrom: number = 0,
+  priceTo: number = Infinity,
+) {
+  return gql`
+  {
+    listingsByGames(
+      where: {
+        numOfListings_gt: "0"
+        tags_contains_some: ${JSON.stringify(tags)}
+        genres_contains_some: ${JSON.stringify(genres)}
+        allListings_some: {
+          price_gte: ${priceFrom}
+          price_lte: ${priceTo}
+        }
+      }
+    ) {
+      gameId
+      gameName
+      gameImage
+      tags
+      genres
     }
   }
 `

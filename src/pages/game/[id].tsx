@@ -14,7 +14,7 @@ export default function GamePage() {
   const router = useRouter()
   const [gameData, setGameData] = useState<GameType | undefined>()
   const { id } = router.query
-  const { loading, error, data } = useQuery(GET_LISTINGS_FOR_GAME(Number(id)))
+  const { error, data, loading } = useQuery(GET_LISTINGS_FOR_GAME(Number(id)))
   const { buy } = useContractFunctions()
 
   const listings = data?.listingsByGame?.allListings as
@@ -83,8 +83,8 @@ export default function GamePage() {
               }}
             />
           ) : loading ? (
-            <div className="card-body flex items-center justify-center">
-              <span className="loading loading-spinner  text-primary"></span>
+            <div className="skeleton card-body">
+              {/* <span className="loading loading-spinner  text-primary"></span> */}
             </div>
           ) : (
             <div className="card-body flex items-center justify-center">

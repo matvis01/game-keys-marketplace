@@ -61,7 +61,7 @@ const SearchInput: React.FC = () => {
     <div className="relative ">
       <div className="absolute flex h-full items-center ">
         <Image
-          className="ml-3 h-5 w-5  "
+          className="ml-3 h-5 w-5"
           src="/icons/search-icon.svg"
           alt="search icon"
           width={20}
