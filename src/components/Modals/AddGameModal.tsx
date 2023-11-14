@@ -79,7 +79,16 @@ const NewGameModal = () => {
       )
       const game = res.data.results[0] as GameType
 
-      return { id: game.id, name: game.name, image: game.background_image }
+      const tags = game.tags.map((tag: any) => tag.name)
+      const genres = game.genres.map((genre: any) => genre.name)
+
+      return {
+        id: game.id,
+        name: game.name,
+        image: game.background_image,
+        genres: genres,
+        tags: tags,
+      }
     } catch (e) {
       console.log(e)
     }

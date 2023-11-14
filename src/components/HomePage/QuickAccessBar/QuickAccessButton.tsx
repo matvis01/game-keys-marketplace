@@ -9,9 +9,9 @@ interface QuickAccessButtonProps {
 
 const QuickAccessButton = ({ text, icon, alt }: QuickAccessButtonProps) => {
   return (
-    <div className="flex flex-col items-center h-32 w-52 rounded-lg justify-center bg-primary shadow-lg transform transition-all hover:scale-105 hover:cursor-pointer">
+    <div className="flex h-32 w-52 transform select-none flex-col items-center justify-center rounded-lg bg-primary shadow-lg transition-all hover:scale-105 hover:cursor-pointer">
       <Image src={icon} alt={alt} width={60} height={60} />
-      <p className="text-2xl text-white pt-2 ">{text}</p>
+      <p className="pt-2 text-2xl text-white ">{text}</p>
     </div>
   )
 }
