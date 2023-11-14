@@ -3,7 +3,7 @@ import { getTimestampWeeksAgo } from "./dateUtils"
 
 export const GET_LISTINGS_BY_GAME = gql`
   {
-    listingsByGames {
+    listingsByGames(where: { numOfListings_gt: "0" }) {
       gameId
       allListings {
         id
@@ -18,7 +18,7 @@ export const GET_LISTINGS_BY_GAME = gql`
 
 export const GET_ALL_NAMES_AND_IDS = gql`
   {
-    listingsByGames {
+    listingsByGames(where: { numOfListings_gt: "0" }) {
       gameId
       gameName
     }

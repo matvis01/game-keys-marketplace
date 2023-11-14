@@ -1,24 +1,21 @@
 import React, { useState, useEffect, useCallback } from "react"
 import { useRouter } from "next/router"
 import { useAccount } from "wagmi"
-import { ethers } from "ethers"
-import { writeContract, waitForTransaction } from "@wagmi/core"
 import axios from "axios"
 import { ToastContainer } from "react-toastify"
 import { Form, Formik } from "formik"
 
 import { GameType } from "@/types/gameType"
-import contractAbi from "../../constants/abi.json"
-import networkMapping from "../../constants/networkMapping.json"
 import { toastifySuccess, toastifyError } from "@/utils/alertToast"
 import { gameListingSchema } from "@/utils/validators"
 import CustomInput from "./CustomInput"
 
-const contractAddress = networkMapping[11155111]["GameKeyMarketplace"][0]
+import useContractFunctions from "@/hooks/useContractFunctions"
 
 const NewGameModal = () => {
   const router = useRouter()
   const { status, address } = useAccount()
+  const { addListing } = useContractFunctions()
 
   const [isSelectedGame, setIsSelectedGame] = useState(false)
   const [isListingGame, setIsListingGame] = useState(false)
@@ -71,28 +68,14 @@ const NewGameModal = () => {
     gamePrice: string,
     gameKey: string,
   ) {
-    try {
-      const { hash } = await writeContract({
-        address: `0x${contractAddress.slice(2, contractAddress.length)}`,
-        abi: contractAbi,
-        functionName: "listGameKey",
-        account: address,
-        args: [
-          [gameData.id, gameKey, gameData.name, gameData.image],
-          ethers.parseEther(gamePrice),
-        ],
-      })
-      const receipt = await waitForTransaction({ hash })
-      return receipt
-    } catch (e) {
-      console.log(e)
-    }
+    const receipt = await addListing(gameData, gameKey, gamePrice)
+    return receipt
   }
 
   async function getGameData(gameName: string) {
     try {
       const res = await axios.get(
-        `https://api.rawg.io/api/games?key=${process.env.NEXT_PUBLIC_RAWG_KEY}&search_exact=${gameName}`,
+        `https://api.rawg.io/api/games?key=${process.env.NEXT_PUBLIC_RAWG_KEY}&search=${gameName}`,
       )
       const game = res.data.results[0] as GameType
 

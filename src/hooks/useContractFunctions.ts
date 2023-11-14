@@ -27,6 +27,9 @@ function useContractFunctions() {
     price: string,
   ) {
     try {
+      console.log("----------------")
+      console.log(gameData, key, price)
+      console.log("----------------")
       const { hash } = await writeContract({
         address: `0x${contractAddress.slice(2, contractAddress.length)}`,
         abi: contractAbi,
@@ -73,7 +76,9 @@ function useContractFunctions() {
         args: [id, seller, price],
         value: ethers.toBigInt(price),
       })
+      // const { hash } = data
       const receipt = await waitForTransaction({ hash })
+
       return receipt
     } catch (e) {
       console.log(e)

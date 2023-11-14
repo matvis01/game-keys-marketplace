@@ -3,17 +3,19 @@ import { useQuery } from "@apollo/client"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { GameType } from "../../types/gameType"
-import exampleGame from "../../constants/exampleGame.json"
 import { GET_LISTINGS_FOR_GAME } from "@/utils/graphQueries"
 import { ListingType } from "@/types/listingType"
 import TopListing from "@/components/GamePage/TopListing"
 import OtherListing from "@/components/GamePage/OtherListing"
+import useContractFunctions from "@/hooks/useContractFunctions"
+import { toastifySuccess, toastifyError } from "@/utils/alertToast"
 
 export default function GamePage() {
   const router = useRouter()
   const [gameData, setGameData] = useState<GameType | undefined>()
   const { id } = router.query
   const { loading, error, data } = useQuery(GET_LISTINGS_FOR_GAME(Number(id)))
+  const { buy } = useContractFunctions()
 
   const listings = data?.listingsByGame?.allListings as
     | ListingType[]
@@ -34,6 +36,22 @@ export default function GamePage() {
 
     // setGameData(exampleGame)
   }, [id])
+
+  async function handleBuy(listing: ListingType) {
+    const { price, seller, gameId } = listing
+    console.log(gameId)
+    const returnedData = await buy(gameId, seller, price)
+    console.log(returnedData)
+    // console.log(receipt)
+    // if (receipt?.status === "success") {
+    //   toastifySuccess("Transaction confirmed", 3)
+
+    //   // Convert bytes to a UTF-8 string
+    // } else {
+    //   toastifyError("Transaction failed", 3)
+    // }
+  }
+  function handleAddToCart() {}
 
   if (router.isFallback) {
     return <div>Loading...</div>
@@ -58,7 +76,12 @@ export default function GamePage() {
         </div>
         <div className="card w-full bg-neutral lg:w-1/3">
           {listings && listings.length > 0 ? (
-            <TopListing listing={listings[0]} />
+            <TopListing
+              listing={listings[0]}
+              handleBuy={(listing: ListingType) => {
+                handleBuy(listing)
+              }}
+            />
           ) : loading ? (
             <div className="card-body flex items-center justify-center">
               <span className="loading loading-spinner  text-primary"></span>
@@ -81,6 +104,9 @@ export default function GamePage() {
                     key={listing.id}
                     listing={listing}
                     image={gameData?.background_image}
+                    handleBuy={(listing: ListingType) => {
+                      handleBuy(listing)
+                    }}
                   />
                 )
               }
