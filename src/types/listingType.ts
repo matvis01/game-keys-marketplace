@@ -15,6 +15,8 @@ export type soldListingsByGameType = {
   gameId: number
   gameImage: string
   gameName: string
+  genres: string[]
+  tags: string[]
   allItemsBought: soldListingType[]
 }
 

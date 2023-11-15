@@ -62,6 +62,8 @@ export function GET_SOLD_LAST_WEEKS_WITH_LISTING(numOfWeeks: number) {
   {
     itemsBoughtByGames(where: {hasListings: true}) {
       gameId
+      tags
+      genres
       allItemsBought(where: {date_gte: "${timestamp}"}) {
         date
         price
