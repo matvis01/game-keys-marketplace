@@ -81,7 +81,8 @@ const NewGameModal = () => {
 
       let tags = game.tags.filter((tag: any) => tag.language === "eng")
       tags = game.tags.map((tag: any) => tag.name)
-      const genres = game.genres.map((genre: any) => genre.name)
+      let genres = game.genres.filter((genre: any) => genre.language === "eng")
+      genres = genres.map((genre: any) => genre.name)
 
       return {
         id: game.id,
@@ -96,8 +97,6 @@ const NewGameModal = () => {
   }
 
   const onSubmit = (values: any) => {
-    console.log(values)
-
     async function addListing() {
       setIsListingGame(true)
       try {

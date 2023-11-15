@@ -117,3 +117,12 @@ export function GET_LISTINGS_BY_CRITERIA(filters: filtersType) {
 }
 `
 }
+
+export const GET_ALL_FILTERS = gql`
+  {
+    allFilter(id: "filters") {
+      tags
+      genres
+    }
+  }
+`

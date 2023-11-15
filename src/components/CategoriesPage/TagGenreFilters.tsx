@@ -25,6 +25,8 @@ export default function TagGenreFilters({
   }
 
   function filterItems() {
+    let itemsSet = new Set(items) //
+    items = Array.from(itemsSet) // usunac jak ogarne to na backendzie
     return items.filter((item) =>
       item.toLowerCase().includes(searchInput.toLowerCase()),
     )
