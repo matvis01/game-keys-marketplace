@@ -43,6 +43,17 @@ export function GET_LISTINGS_FOR_GAME(gameId: Number) {
 `
 }
 
+export function GET_BEST_PRICE(gameId: Number) {
+  return gql`
+  {
+    listingsByGame(id: ${gameId}) {
+      allListings(orderBy: price, first: 1) {
+        price
+      }
+    }
+  }`
+}
+
 // na razie zwraca wszystkie gry
 export const GET_FEATURED_GAMES = gql`
   {
