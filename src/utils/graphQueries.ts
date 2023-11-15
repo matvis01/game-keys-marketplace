@@ -73,8 +73,6 @@ export function GET_SOLD_LAST_WEEKS_WITH_LISTING(numOfWeeks: number) {
       }
       gameName
       gameImage
-      tags
-      genres
     }
   }
 `
@@ -83,28 +81,27 @@ export function GET_SOLD_LAST_WEEKS_WITH_LISTING(numOfWeeks: number) {
 export function GET_LISTINGS_BY_CRITERIA(
   tags: string[] = [],
   genres: string[] = [],
-  priceFrom: number = 0,
-  priceTo: number = Infinity,
+  priceFrom: string = "0",
+  priceTo: string = "100000000000000000000000000000000000000",
 ) {
-  return gql`
-  {
-    listingsByGames(
-      where: {
-        numOfListings_gt: "0"
-        tags_contains_some: ${JSON.stringify(tags)}
-        genres_contains_some: ${JSON.stringify(genres)}
-        allListings_some: {
-          price_gte: ${priceFrom}
-          price_lte: ${priceTo}
-        }
-      }
-    ) {
-      gameId
-      gameName
-      gameImage
-      tags
-      genres
+  tags = tags.map((tag) => `"${tag}"`)
+  genres = genres.map((genre) => `"${genre}"`)
+
+  return gql`{
+  listingsByGames(
+    where: {genres_contains: [${genres}], numOfListings_gt: "0", tags_contains: [${tags}]},
+  ) {
+    gameName
+    allListings(where: {price_gt: "${priceFrom}", price_lt: "${priceTo}"}) {
+      price
     }
+    gameId
+    gameImage
+    genres
+    tags
+    numOfListings
+    id
   }
+}
 `
 }

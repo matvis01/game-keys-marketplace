@@ -59,7 +59,7 @@ const SearchInput: React.FC = () => {
 
   return (
     <div className="relative ">
-      <div className="absolute flex h-full items-center ">
+      <div className="absolute flex h-full items-center  ">
         <Image
           className="ml-3 h-5 w-5"
           src="/icons/search-icon.svg"
@@ -69,7 +69,7 @@ const SearchInput: React.FC = () => {
         />
       </div>
       <input
-        className="input input-bordered input-sm w-full max-w-xs bg-neutral pl-10"
+        className="input input-bordered input-sm w-full max-w-xs bg-neutral !pl-10"
         type="text"
         placeholder="Search..."
         value={inputValue}
