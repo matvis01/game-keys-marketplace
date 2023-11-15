@@ -4,20 +4,24 @@ interface BestsellerCardProps {
   gameId: number
   gameName: string
   gameImage: string
-  gameImageAlt: string
   gamePrice: number
+  tags?: string[]
+  genres?: string[]
 }
 
 const BestsellerCard = ({
   gameId,
   gameName,
   gameImage,
-  gameImageAlt,
   gamePrice,
 }: BestsellerCardProps) => {
   return (
     <div>
-      <img src={gameImage} alt={gameImageAlt} />
+      <img
+        src={gameImage}
+        alt={`Thumbnail image of ${gameName}.`}
+        className="h-40"
+      />
       <div>
         <div>
           <h2>{gameName}</h2>
