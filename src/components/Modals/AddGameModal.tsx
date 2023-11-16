@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import { useAccount } from "wagmi"
 import axios from "axios"
 import { ToastContainer } from "react-toastify"
-import { Form, Formik } from "formik"
+import { Form, Formik, FormikHelpers } from "formik"
 
 import { GameType } from "@/types/gameType"
 import { toastifySuccess, toastifyError } from "@/utils/alertToast"
@@ -96,7 +96,17 @@ const NewGameModal = () => {
     }
   }
 
-  const onSubmit = (values: any) => {
+  interface FormValues {
+    gameName: string
+    gamePrice: string
+    gameKey: string
+  }
+
+  const onSubmit = (
+    values: FormValues,
+    { resetForm }: FormikHelpers<FormValues>,
+  ) => {
+    console.log(values)
     async function addListing() {
       setIsListingGame(true)
       try {
@@ -108,6 +118,7 @@ const NewGameModal = () => {
         )
         if (receipt?.status === "success") {
           closeModal()
+          resetForm()
           setIsListingGame(false)
           toastifySuccess("Your game has been listed!", 3000)
         }
