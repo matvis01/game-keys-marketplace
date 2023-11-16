@@ -67,16 +67,16 @@ const BestsellerCard = ({
           </div>
           <div className="relative flex w-1/2 flex-col rounded-r-lg bg-base-100 ">
             <div className="mx-3 mt-2">
-              <p className="line-clamp-2 text-xl">{gameName}</p>
+              <p className="line-clamp-2 text-xl text-white">{gameName}</p>
               <p className="text-xs text-primary">GLOBAL</p>
             </div>
             <div className="mx-3 mb-2 mt-auto">
               <p className="text-neutral-light text-xs">FROM</p>
               <div className="indicator">
-                <p className="text-2xl text-white">{`${gamePrice} eth`}</p>
+                <p className="text-2xl text-white">{`${gamePrice} ETH`}</p>
                 <div
                   className="tooltip h-4 w-4 rounded-full"
-                  data-tip={`${exchangePrice} usd`}
+                  data-tip={`${exchangePrice} USD`}
                 >
                   <Image
                     src="icons/info.svg"
@@ -88,7 +88,7 @@ const BestsellerCard = ({
               </div>
               <div className="mb-2 mt-1 flex gap-2">{mappedGenres}</div>
             </div>
-            <RxArrowTopRight className="absolute bottom-2 right-2 h-8 w-8 text-white duration-100 group-hover:rotate-45 group-hover:text-primary" />
+            <RxArrowTopRight className="absolute bottom-2 right-2 h-8 w-8 text-white opacity-0 duration-100 group-hover:rotate-45 group-hover:text-primary lg:opacity-100" />
           </div>
         </div>
       )}

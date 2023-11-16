@@ -38,7 +38,7 @@ const Bestsellers = () => {
         </div>
       )}
       {!loading && !error && (
-        <div className="mx-auto grid h-fit max-w-screen-xl grid-flow-col grid-cols-2 grid-rows-3 gap-3">
+        <div className="mx-auto grid h-fit max-w-screen-xl grid-flow-col grid-cols-1 grid-rows-6 gap-3 lg:grid-cols-2 lg:grid-rows-3">
           <>{mappedGames}</>
         </div>
       )}
