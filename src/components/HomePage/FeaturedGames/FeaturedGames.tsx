@@ -53,7 +53,7 @@ const FeaturedGames = () => {
             </Swiper>
           </div>
           <div className="flex items-center justify-center">
-            <button className="btn btn-primary btn-wide text-white">
+            <button className="btn btn-primary btn-wide mb-3 text-white">
               Explore more
             </button>
           </div>
