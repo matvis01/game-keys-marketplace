@@ -1,4 +1,5 @@
 import React from "react"
+import { franc } from "franc"
 import { RxArrowTopRight } from "react-icons/rx"
 
 interface SwiperCardProps {
@@ -6,11 +7,39 @@ interface SwiperCardProps {
     gameId: number
     gameName: string
     gameImage: string
+    genres?: string[]
+    tags?: string[]
   }
 }
 
 const SwiperCard = ({ gameProps }: SwiperCardProps) => {
-  const { gameName, gameImage, gameId } = gameProps
+  const { gameName, gameImage, gameId, genres, tags } = gameProps
+
+  const isTextInEnglish = (text: string): boolean => {
+    const detectedLanguage = franc(text)
+
+    return detectedLanguage === "eng"
+  }
+
+  const mappedTags = tags
+    ?.filter((tag: string) => isTextInEnglish(tag))
+    ?.slice(0, 2)
+    .map((genre: string, index: number) => (
+      <div
+        key={index}
+        className="badge badge-secondary badge-outline badge-sm h-fit"
+      >
+        {genre}
+      </div>
+    ))
+
+  const mappedGenres = genres
+    ?.slice(0, 3)
+    .map((genre: string, index: number) => (
+      <div key={index} className="badge badge-primary badge-outline badge-sm">
+        {genre}
+      </div>
+    ))
 
   const handleRedirect = () => {
     window.location.href = `game/${gameId}`
@@ -19,17 +48,19 @@ const SwiperCard = ({ gameProps }: SwiperCardProps) => {
   return (
     <div
       onClick={handleRedirect}
-      className="group mb-12 flex h-64 w-56 transform flex-col gap-6 rounded-lg bg-neutral text-white transition-all hover:cursor-pointer hover:shadow-xl lg:h-72 lg:w-80 "
+      className="group mb-12 flex h-64 w-56 transform flex-col rounded-lg bg-neutral text-white transition-all hover:cursor-pointer hover:shadow-xl lg:h-72 lg:w-80 "
     >
       <img
         src={gameImage}
         alt="game image"
         className="h-1/2 rounded-t-lg lg:h-2/3"
       />
-      <div className="ml-5 flex max-h-16 w-[70%] flex-col">
-        <h2 className="card-title">{gameName}</h2>
+      <div className="ml-3 flex h-1/2 w-48 flex-col lg:h-1/3 lg:w-72">
+        <h2 className="mt-3 line-clamp-1 text-xl">{gameName}</h2>
+        <div className="mt-auto flex gap-2 ">{mappedTags}</div>
+        <div className="mb-3 mt-1 flex gap-2">{mappedGenres}</div>
       </div>
-      <RxArrowTopRight className="absolute bottom-5 right-5 h-8 w-8 text-white duration-100 group-hover:rotate-45 group-hover:text-primary" />
+      <RxArrowTopRight className="absolute bottom-2 right-2 h-8 w-8 text-white opacity-0 duration-100 group-hover:rotate-45 group-hover:text-primary lg:opacity-100" />
     </div>
   )
 }
