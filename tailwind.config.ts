@@ -15,6 +15,7 @@ const config: Config = {
           secondary: "#B059D5",
           accent: "#B059D5",
           neutral: "#353738",
+          "neutral-light": "#AFAFAF",
           "base-100": "#1F2122",
           "--rounded-box": "0.5rem", // border radius rounded-box utility class, used in card and other large boxes
           "--rounded-btn": "0.5rem", // border radius rounded-btn utility class, used in buttons and similar element
