@@ -15,7 +15,6 @@ const Bestsellers = () => {
   let mappedGames
 
   if (listings) {
-    console.log(listings.itemsBoughtByGames)
     mappedGames = listings.itemsBoughtByGames.map(
       (game: soldListingsByGameType) => (
         <BestsellerCard
