@@ -1,13 +1,27 @@
 import React from "react"
 import QuickAccessButton from "./QuickAccessButton"
 
-const QuickAccessBar = () => {
+interface QuickAccessBarProps {
+  refs: {
+    bestsellersRef: React.RefObject<HTMLDivElement>
+  }
+}
+
+const QuickAccessBar = ({ refs }: QuickAccessBarProps) => {
+  const { bestsellersRef } = refs
+  const scrollTo = (ref: any) => {
+    if (ref?.current) {
+      ref.current.scrollIntoView({ behavior: "smooth" })
+    }
+  }
+
   return (
-    <div className="flex items-center justify-between h-40 w-full max-w-screen-xl px-16 mx-auto">
+    <div className="mx-auto flex h-40 w-full max-w-screen-xl items-center justify-between px-16">
       <QuickAccessButton
         text="Bestsellers"
         icon="/icons/bestseller-icon.svg"
         alt="bestseller icon"
+        onClick={() => scrollTo(bestsellersRef)}
       />
       <QuickAccessButton
         text="New Arrivals"
