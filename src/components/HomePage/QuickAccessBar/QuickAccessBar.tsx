@@ -11,7 +11,8 @@ const QuickAccessBar = ({ refs }: QuickAccessBarProps) => {
   const { bestsellersRef } = refs
   const scrollTo = (ref: any) => {
     if (ref?.current) {
-      ref.current.scrollIntoView({ behavior: "smooth" })
+      const offsetTop = ref.current.offsetTop - 64
+      window.scrollTo({ behavior: "smooth", top: offsetTop })
     }
   }
 
