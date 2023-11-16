@@ -16,7 +16,6 @@ const NavBar = () => {
   const { pathname } = router
   const isHome = pathname === "/"
   const isCategories = pathname.includes("/categories")
-  const [searchValue, setSearchValue] = React.useState("")
 
   return (
     <div className="blur-backdrop-filter sticky top-0 z-10 h-fit w-full bg-base-100 bg-opacity-80 bg-clip-padding py-4">

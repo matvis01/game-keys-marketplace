@@ -21,8 +21,6 @@ const FeaturedGames = () => {
   const { loading, error, data: listings } = useQuery(GET_FEATURED_GAMES)
   const games = listings?.listingsByGames
 
-  const swiper = useSwiper()
-
   const mappedGames = games?.map((game: FeaturedGame, index: number) => {
     return (
       <SwiperSlide key={index}>

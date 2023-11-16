@@ -1,9 +1,10 @@
+import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 import { useQuery } from "@apollo/client"
-import { useEffect, useState } from "react"
 import axios from "axios"
-import { GameType } from "../../types/gameType"
 import { GET_LISTINGS_FOR_GAME } from "@/utils/graphQueries"
+
+import { GameType } from "../../types/gameType"
 import { ListingType } from "@/types/listingType"
 import TopListing from "@/components/GamePage/TopListing"
 import OtherListing from "@/components/GamePage/OtherListing"
@@ -21,8 +22,6 @@ export default function GamePage() {
     | ListingType[]
     | undefined
 
-  console.log("listings", listings)
-
   useEffect(() => {
     if (!id) return
     const fetchGameData = async () => {
@@ -32,9 +31,7 @@ export default function GamePage() {
       const { data } = response as { data: GameType }
       setGameData(data)
     }
-    fetchGameData() // zeby nie zuzywac limitu requestow
-
-    // setGameData(exampleGame)
+    fetchGameData()
   }, [id])
 
   async function handleBuy(listing: ListingType) {
