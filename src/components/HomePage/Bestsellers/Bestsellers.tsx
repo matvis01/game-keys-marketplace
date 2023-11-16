@@ -38,9 +38,16 @@ const Bestsellers = () => {
         </div>
       )}
       {!loading && !error && (
-        <div className="mx-auto grid h-fit max-w-screen-xl grid-flow-col grid-cols-1 grid-rows-6 gap-3 lg:grid-cols-2 lg:grid-rows-3">
-          <>{mappedGames}</>
-        </div>
+        <>
+          <div className="mx-auto grid h-fit max-w-screen-xl grid-flow-col grid-cols-1 grid-rows-6 gap-y-6 px-4 lg:grid-cols-2 lg:grid-rows-3">
+            <>{mappedGames}</>
+          </div>
+          <div className="flex items-center justify-center">
+            <button className="btn btn-primary btn-wide mb-3 mt-6 text-white">
+              Explore more
+            </button>
+          </div>
+        </>
       )}
     </>
   )
