@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client"
 import { getTimestampWeeksAgo } from "./dateUtils"
+import { filtersType } from "../types/filtersType"
 
 export const GET_LISTINGS_BY_GAME = gql`
   {
@@ -91,21 +92,19 @@ export function GET_SOLD_LAST_WEEKS_WITH_LISTING(numOfWeeks: number) {
 `
 }
 
-export function GET_LISTINGS_BY_CRITERIA(
-  tags: string[] = [],
-  genres: string[] = [],
-  priceFrom: string = "0",
-  priceTo: string = "100000000000000000000000000000000000000",
-) {
-  tags = tags.map((tag) => `"${tag}"`)
-  genres = genres.map((genre) => `"${genre}"`)
+export function GET_LISTINGS_BY_CRITERIA(filters: filtersType) {
+  let { tags, genres, minPrice, maxPrice } = filters
+  tags = tags?.map((tag) => `"${tag}"`)
+  const tagsString = tags?.join(", ")
+  genres = genres?.map((genre) => `"${genre}"`)
+  const genresString = genres?.join(", ")
 
   return gql`{
   listingsByGames(
-    where: {genres_contains: [${genres}], numOfListings_gt: "0", tags_contains: [${tags}]},
+    where: {genres_contains: [${genresString}], numOfListings_gt: "0", tags_contains: [${tagsString}]},
   ) {
     gameName
-    allListings(where: {price_gt: "${priceFrom}", price_lt: "${priceTo}"}) {
+    allListings(where: {price_gt: "${minPrice}", price_lt: "${maxPrice}"}) {
       price
     }
     gameId
@@ -118,3 +117,12 @@ export function GET_LISTINGS_BY_CRITERIA(
 }
 `
 }
+
+export const GET_ALL_FILTERS = gql`
+  {
+    allFilter(id: "filters") {
+      tags
+      genres
+    }
+  }
+`
