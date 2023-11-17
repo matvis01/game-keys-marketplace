@@ -8,20 +8,22 @@ import { RxArrowTopRight } from "react-icons/rx"
 import { useExchangePrice } from "@/hooks/useExchangePrice"
 import { GET_BEST_PRICE } from "@/utils/graphQueries"
 
-interface BestsellerCardProps {
+interface GameCardProps {
   gameId: number
   gameName: string
   gameImage: string
   tags?: string[]
   genres?: string[]
+  bgColor: string
 }
 
-const BestsellerCard = ({
+const GameCard = ({
   gameId,
   gameName,
   gameImage,
   genres,
-}: BestsellerCardProps) => {
+  bgColor,
+}: GameCardProps) => {
   const { loading, error, data: listings } = useQuery(GET_BEST_PRICE(gameId))
   const router = useRouter()
 
@@ -65,7 +67,9 @@ const BestsellerCard = ({
               className="h-full w-full rounded-l-lg"
             />
           </div>
-          <div className="relative flex w-1/2 flex-col rounded-r-lg bg-base-100 ">
+          <div
+            className={`relative flex w-1/2 flex-col rounded-r-lg bg-${bgColor}`}
+          >
             <div className="mx-3 mt-2">
               <p className="line-clamp-2 text-xl text-white">{gameName}</p>
               <p className="text-xs text-primary">GLOBAL</p>
@@ -96,4 +100,4 @@ const BestsellerCard = ({
   )
 }
 
-export default BestsellerCard
+export default GameCard
