@@ -41,7 +41,7 @@ const FeaturedGames = () => {
             <Swiper
               breakpoints={{
                 340: { slidesPerView: 2 },
-                700: { slidesPerView: 3, spaceBetween: 50 },
+                700: { slidesPerView: 3 },
                 1550: { slidesPerView: 4 },
               }}
               effect="coverflow"
