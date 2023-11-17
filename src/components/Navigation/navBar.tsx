@@ -18,7 +18,7 @@ const NavBar = () => {
   const isCategories = pathname.includes("/categories")
 
   return (
-    <div className="blur-backdrop-filter sticky top-0 z-10 h-12 w-full bg-base-100 bg-opacity-80 bg-clip-padding py-4">
+    <div className="blur-backdrop-filter sticky top-0 z-10 h-fit w-full bg-base-100 bg-opacity-80 bg-clip-padding py-4">
       <nav className="mx-auto flex w-full max-w-screen-xl items-center justify-between text-white">
         <div className="flex items-center gap-8">
           <div className="w-fit">
