@@ -4,6 +4,8 @@ export type ListingType = {
   numOfItems: number
   price: string
   seller: string
+  gameName: string
+  gameImage: string
 }
 
 export type listingsByGameType = {

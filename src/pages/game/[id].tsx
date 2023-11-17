@@ -39,14 +39,13 @@ export default function GamePage() {
     console.log(gameId)
     const returnedData = await buy(gameId, seller, price)
     console.log(returnedData)
-    // console.log(receipt)
-    // if (receipt?.status === "success") {
-    //   toastifySuccess("Transaction confirmed", 3)
+    if (returnedData?.status === "success") {
+      toastifySuccess("Transaction confirmed", 3)
 
-    //   // Convert bytes to a UTF-8 string
-    // } else {
-    //   toastifyError("Transaction failed", 3)
-    // }
+      // Convert bytes to a UTF-8 string
+    } else {
+      toastifyError("Transaction failed", 3)
+    }
   }
   function handleAddToCart() {}
 
@@ -80,7 +79,7 @@ export default function GamePage() {
               }}
             />
           ) : loading ? (
-            <div className="skeleton card-body">
+            <div className="card-body skeleton">
               {/* <span className="loading loading-spinner  text-primary"></span> */}
             </div>
           ) : (
