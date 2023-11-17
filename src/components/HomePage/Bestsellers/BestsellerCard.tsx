@@ -55,10 +55,10 @@ const BestsellerCard = ({
       )}
       {!loading && !error && (
         <div
-          className="group mx-4 my-4 flex h-[169px] w-[600px] transition-all duration-500 hover:cursor-pointer hover:shadow-xl"
+          className="group mx-auto flex h-[169px] w-[600px] rounded-lg transition-all duration-500 hover:cursor-pointer hover:shadow-xl"
           onClick={handleClick}
         >
-          <div className="w-1/2 overflow-hidden rounded-l-lg">
+          <div className="w-1/2 overflow-hidden">
             <img
               src={gameImage}
               alt={`Thumbnail image of ${gameName}.`}
