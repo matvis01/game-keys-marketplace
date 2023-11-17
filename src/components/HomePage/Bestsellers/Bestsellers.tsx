@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client"
 
 import { soldListingsByGameType } from "@/types/listingType"
 import { GET_SOLD_LAST_WEEKS_WITH_LISTING } from "@/utils/graphQueries"
-import BestsellerCard from "./BestsellerCard"
+import GameCard from "./GameCard"
 
 const Bestsellers = () => {
   const {
@@ -17,13 +17,14 @@ const Bestsellers = () => {
   if (listings) {
     mappedGames = listings.itemsBoughtByGames.map(
       (game: soldListingsByGameType) => (
-        <BestsellerCard
+        <GameCard
           key={game.gameId}
           gameId={game.gameId}
           gameName={game.gameName}
           gameImage={game.gameImage}
           tags={game.tags}
           genres={game.genres}
+          bgColor="base-100"
         />
       ),
     )
