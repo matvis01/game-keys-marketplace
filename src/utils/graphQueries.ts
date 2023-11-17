@@ -126,3 +126,24 @@ export const GET_ALL_FILTERS = gql`
     }
   }
 `
+
+export const GET_LATEST_LISTINGS = gql`
+  {
+    listingsByGames(
+      orderBy: latestDate
+      orderDirection: desc
+      where: { numOfListings_gt: "0" }
+    ) {
+      latestDate
+      gameName
+      numOfListings
+      gameImage
+      gameId
+      tags
+      genres
+      allListings(orderBy: price, where: { numOfItems_gt: "0" }) {
+        price
+      }
+    }
+  }
+`

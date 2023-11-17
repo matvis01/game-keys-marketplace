@@ -1,6 +1,11 @@
 import React from "react"
+import { useQuery } from "@apollo/client"
+import { GET_LATEST_LISTINGS } from "@/utils/graphQueries"
 
 const NewArrivals = () => {
+  const { error, data, loading } = useQuery(GET_LATEST_LISTINGS)
+
+  console.log(data)
   return (
     <>
       <h1 className="mb-6 text-center text-4xl text-white">Bestsellers</h1>
