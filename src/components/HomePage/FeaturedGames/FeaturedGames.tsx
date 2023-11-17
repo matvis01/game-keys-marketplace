@@ -1,6 +1,6 @@
 import React from "react"
 import { Swiper, SwiperSlide } from "swiper/react"
-import { EffectCoverflow, FreeMode } from "swiper/modules"
+import { EffectCoverflow, Navigation } from "swiper/modules"
 
 import { useQuery } from "@apollo/client"
 import { GET_FEATURED_GAMES } from "@/utils/graphQueries"
@@ -8,6 +8,7 @@ import SwiperCard from "./SwiperCard"
 
 import "swiper/css"
 import "swiper/css/free-mode"
+import "swiper/css/navigation"
 import "swiper/css/effect-coverflow"
 
 type FeaturedGame = {
@@ -47,14 +48,14 @@ const FeaturedGames = () => {
               effect="coverflow"
               centeredSlides={true}
               loop={true}
-              freeMode={true}
+              navigation={true}
               coverflowEffect={{
                 rotate: 0,
                 stretch: 0,
                 depth: 100,
                 modifier: 2,
               }}
-              modules={[FreeMode, EffectCoverflow]}
+              modules={[EffectCoverflow, Navigation]}
               className="mb-5 max-w-[90%] lg:max-w-[80%]"
             >
               {mappedGames}
