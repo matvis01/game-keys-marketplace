@@ -39,8 +39,7 @@ export default function GamePage() {
     const returnedData = await buy(gameId, seller, price)
     if (returnedData?.status === "success") {
       toastifySuccess("Transaction confirmed", 3)
-
-      // Convert bytes to a UTF-8 string
+      router.push("/profile")
     } else {
       toastifyError("Transaction failed", 3)
     }
@@ -77,8 +76,8 @@ export default function GamePage() {
               }}
             />
           ) : loading ? (
-            <div className="card-body skeleton">
-              {/* <span className="loading loading-spinner  text-primary"></span> */}
+            <div className="card-body ">
+              <span className="loading loading-spinner  text-primary"></span>
             </div>
           ) : (
             <div className="card-body flex items-center justify-center">

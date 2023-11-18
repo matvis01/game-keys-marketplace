@@ -23,7 +23,7 @@ export default function TopListing({ listing, handleBuy }: Props) {
       </p>
       <div className="card-actions justify-end">
         <button className="btn btn-primary" onClick={() => handleBuy(listing)}>
-          add to cart
+          buy
         </button>
       </div>
     </div>

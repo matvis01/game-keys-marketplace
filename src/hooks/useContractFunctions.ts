@@ -106,6 +106,7 @@ function useContractFunctions() {
         functionName: "getGamesBought",
         account: address,
       })
+      return data
     } catch (e) {
       console.log(e)
     }
