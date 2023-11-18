@@ -36,7 +36,6 @@ export default function GamePage() {
 
   async function handleBuy(listing: ListingType) {
     const { price, seller, gameId } = listing
-    console.log(gameId)
     const returnedData = await buy(gameId, seller, price)
     console.log(returnedData)
     if (returnedData?.status === "success") {

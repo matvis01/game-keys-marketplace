@@ -30,6 +30,8 @@ function useContractFunctions() {
     price: string,
   ) {
     try {
+      if (!address) return
+      const listingId = getIdFromParams(String(gameData.id), price, address)
       const { hash } = await writeContract({
         address: `0x${contractAddress.slice(2, contractAddress.length)}`,
         abi: contractAbi,
@@ -38,12 +40,13 @@ function useContractFunctions() {
         args: [
           [
             gameData.id,
-            key,
             gameData.name,
             gameData.image,
             gameData.tags,
             gameData.genres,
           ],
+          listingId,
+          key,
           ethers.parseEther(price),
         ],
       })
@@ -75,15 +78,16 @@ function useContractFunctions() {
 
   async function buy(id: number, seller: string, price: string) {
     try {
+      if (!address) return
+      const listingId = getIdFromParams(String(id), price, address)
       const { hash } = await writeContract({
         address: `0x${contractAddress.slice(2, contractAddress.length)}`,
         abi: contractAbi,
         functionName: "buyGameKey",
         account: address,
-        args: [id, seller, price],
+        args: [listingId, id, seller, price],
         value: ethers.toBigInt(price),
       })
-      // const { hash } = data
       const receipt = await waitForTransaction({ hash })
 
       return receipt
@@ -126,6 +130,14 @@ function useContractFunctions() {
     handleWithdraw,
     balance,
   }
+}
+
+function getIdFromParams(
+  gameId: string,
+  price: string,
+  seller: string,
+): string {
+  return gameId + "-" + price + "-" + seller
 }
 
 export default useContractFunctions
