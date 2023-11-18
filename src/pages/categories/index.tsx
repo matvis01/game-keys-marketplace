@@ -3,7 +3,7 @@ import Filters from "../../components/CategoriesPage/Filters"
 import { useQuery } from "@apollo/client"
 import { GET_LISTINGS_BY_CRITERIA } from "../../utils/graphQueries"
 import { filtersType } from "../../types/filtersType"
-import BestsellerCard from "@/components/HomePage/Bestsellers/BestsellerCard"
+// import BestsellerCard from "@/components/HomePage/Bestsellers/BestsellerCard"
 import { ListingType } from "@/types/listingType"
 
 const CategoriesPage = () => {
@@ -44,10 +44,10 @@ const CategoriesPage = () => {
         </div>
       </div>
       <div className="w-1/2 overflow-auto border border-black">
-        {!error &&
+        {/* {!error &&
           listings?.listingsByGames?.map((listing: ListingType) => (
             <BestsellerCard key={listing.id} {...listing} />
-          ))}
+          ))} */}
       </div>
     </div>
   )

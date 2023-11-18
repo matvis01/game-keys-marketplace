@@ -31,7 +31,11 @@ function useContractFunctions() {
   ) {
     try {
       if (!address) return
-      const listingId = getIdFromParams(String(gameData.id), price, address)
+      const listingId = getIdFromParams(
+        String(gameData.id),
+        ethers.parseEther(price).toString(),
+        address,
+      )
       const { hash } = await writeContract({
         address: `0x${contractAddress.slice(2, contractAddress.length)}`,
         abi: contractAbi,
@@ -57,29 +61,9 @@ function useContractFunctions() {
     }
   }
 
-  useEffect(() => {
-    async function getBalance() {
-      try {
-        const data = await readContract({
-          address: `0x${contractAddress.slice(2, contractAddress.length)}`,
-          abi: contractAbi,
-          functionName: "getBalance",
-          account: address,
-        })
-        console.log(ethers.formatEther(String(data)))
-        setBalance(Number(ethers.formatEther(String(data))))
-      } catch (e) {
-        console.log(e)
-      }
-    }
-    if (!isConnected) return
-    getBalance()
-  }, [])
-
   async function buy(id: number, seller: string, price: string) {
     try {
-      if (!address) return
-      const listingId = getIdFromParams(String(id), price, address)
+      const listingId = getIdFromParams(String(id), price, seller)
       const { hash } = await writeContract({
         address: `0x${contractAddress.slice(2, contractAddress.length)}`,
         abi: contractAbi,
@@ -96,6 +80,24 @@ function useContractFunctions() {
     }
   }
 
+  useEffect(() => {
+    async function getBalance() {
+      try {
+        const data = await readContract({
+          address: `0x${contractAddress.slice(2, contractAddress.length)}`,
+          abi: contractAbi,
+          functionName: "getBalance",
+          account: address,
+        })
+        setBalance(Number(ethers.formatEther(String(data))))
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    if (!isConnected) return
+    getBalance()
+  }, [])
+
   async function getMyGames() {
     try {
       const data = await readContract({
@@ -104,8 +106,6 @@ function useContractFunctions() {
         functionName: "getGamesBought",
         account: address,
       })
-
-      console.log(data)
     } catch (e) {
       console.log(e)
     }
@@ -137,7 +137,7 @@ function getIdFromParams(
   price: string,
   seller: string,
 ): string {
-  return gameId + "-" + price + "-" + seller
+  return gameId + "-" + price + "-" + seller.toLocaleLowerCase()
 }
 
 export default useContractFunctions

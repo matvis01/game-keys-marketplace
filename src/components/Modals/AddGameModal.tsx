@@ -80,9 +80,8 @@ const NewGameModal = () => {
       const game = res.data.results[0] as GameType
 
       let tags = game.tags.filter((tag: any) => tag.language === "eng")
-      tags = game.tags.map((tag: any) => tag.name)
-      let genres = game.genres.filter((genre: any) => genre.language === "eng")
-      genres = genres.map((genre: any) => genre.name)
+      tags = tags.map((tag: any) => tag.name)
+      let genres = game.genres.map((genre: any) => genre.name)
 
       return {
         id: game.id,
