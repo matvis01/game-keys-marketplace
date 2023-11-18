@@ -1,6 +1,7 @@
 import { ethers } from "ethers"
 import { useExchangePrice } from "../../hooks/useExchangePrice"
 import { ListingType } from "@/types/listingType"
+import { useAccount } from "wagmi"
 
 type Props = {
   listing: ListingType
@@ -12,6 +13,7 @@ export default function OtherListing({ listing, image, handleBuy }: Props) {
   const { price, numOfItems, seller, gameId } = listing
   const formatPrice = ethers.formatUnits(price)
   const exchangePrice = useExchangePrice(Number(formatPrice), "ETH", "USD")
+  const { isConnected } = useAccount()
 
   return (
     <div className=" card flex h-20 w-full flex-row items-center justify-start gap-3  overflow-hidden bg-neutral">
@@ -29,6 +31,7 @@ export default function OtherListing({ listing, image, handleBuy }: Props) {
         <button
           className="btn btn-primary btn-sm lg:btn-md"
           onClick={() => handleBuy(listing)}
+          disabled={!isConnected}
         >
           buy
         </button>
