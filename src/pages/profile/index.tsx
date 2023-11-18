@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import useContractFunctions from "../../hooks/useContractFunctions"
-import GameKey from "../../components/Profile/gameKey"
+import GameKey from "../../components/Profile/GameKey"
 
 type gameBought = {
   gameId: number
@@ -36,6 +36,7 @@ function Profile() {
             </button>
           </div>
         </div>
+
         <div className="overflow-y-auto">
           <h2 className="mb-4 text-gray-300">My Games</h2>
           {games?.map((game: any, i: number) => (

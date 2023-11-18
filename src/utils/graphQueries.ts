@@ -55,6 +55,15 @@ export function GET_BEST_PRICE(gameId: Number) {
   }`
 }
 
+export function GET_NAME(gameId: Number) {
+  return gql`
+  {
+    itemsBoughtByGame(id: ${gameId}) {
+     gameName
+    }
+  }`
+}
+
 // na razie zwraca wszystkie gry
 export const GET_FEATURED_GAMES = gql`
   {
