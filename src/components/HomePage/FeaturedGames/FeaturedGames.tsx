@@ -1,14 +1,15 @@
 import React from "react"
 import { Swiper, SwiperSlide } from "swiper/react"
-import { FreeMode, Pagination } from "swiper/modules"
+import { EffectCoverflow, Navigation } from "swiper/modules"
 
 import { useQuery } from "@apollo/client"
 import { GET_FEATURED_GAMES } from "@/utils/graphQueries"
 import SwiperCard from "./SwiperCard"
 
 import "swiper/css"
-import "swiper/css/pagination"
 import "swiper/css/free-mode"
+import "swiper/css/navigation"
+import "swiper/css/effect-coverflow"
 
 type FeaturedGame = {
   gameId: number
@@ -40,13 +41,21 @@ const FeaturedGames = () => {
           <div className="flex items-center justify-center">
             <Swiper
               breakpoints={{
-                340: { slidesPerView: 2, spaceBetween: 13 },
-                700: { slidesPerView: 3, spaceBetween: 15 },
-                1550: { slidesPerView: 4, spaceBetween: 20 },
+                340: { slidesPerView: 2 },
+                700: { slidesPerView: 3 },
+                1550: { slidesPerView: 4 },
               }}
-              freeMode={true}
-              pagination={{ clickable: true }}
-              modules={[FreeMode, Pagination]}
+              effect="coverflow"
+              centeredSlides={true}
+              loop={true}
+              navigation={true}
+              coverflowEffect={{
+                rotate: 0,
+                stretch: 0,
+                depth: 100,
+                modifier: 2,
+              }}
+              modules={[EffectCoverflow, Navigation]}
               className="mb-5 max-w-[90%] lg:max-w-[80%]"
             >
               {mappedGames}

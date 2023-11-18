@@ -48,14 +48,14 @@ const SwiperCard = ({ gameProps }: SwiperCardProps) => {
   return (
     <div
       onClick={handleRedirect}
-      className="group mb-12 flex h-64 w-56 transform flex-col rounded-lg bg-neutral text-white transition-all hover:cursor-pointer hover:shadow-xl lg:h-72 lg:w-80 "
+      className="group flex h-72 w-full transform flex-col rounded-lg bg-neutral text-white transition-all hover:cursor-pointer hover:shadow-xl "
     >
       <img
         src={gameImage}
         alt="game image"
-        className="h-1/2 rounded-t-lg lg:h-2/3"
+        className="h-1/2 w-full rounded-t-lg object-cover lg:h-2/3" // Ensure full width
       />
-      <div className="ml-3 flex h-1/2 w-48 flex-col lg:h-1/3 lg:w-72">
+      <div className="ml-3 flex h-1/2 flex-col lg:h-1/3">
         <h2 className="mt-3 line-clamp-1 text-xl">{gameName}</h2>
         <div className="mt-auto flex gap-2 ">{mappedTags}</div>
         <div className="mb-3 mt-1 flex gap-2">{mappedGenres}</div>

@@ -21,6 +21,11 @@ input::-webkit-inner-spin-button {
   background-color: #ec6090 !important;
 }
 
+.swiper-button-next,
+.swiper-button-prev {
+  color: #ec6090 !important;
+}
+
 .custom-scrollbar::-webkit-scrollbar {
   width: 0.6rem;
 }
