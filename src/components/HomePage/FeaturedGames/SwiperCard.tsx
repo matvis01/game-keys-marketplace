@@ -1,5 +1,4 @@
 import React from "react"
-import { franc } from "franc"
 import { RxArrowTopRight } from "react-icons/rx"
 
 interface SwiperCardProps {
@@ -15,23 +14,14 @@ interface SwiperCardProps {
 const SwiperCard = ({ gameProps }: SwiperCardProps) => {
   const { gameName, gameImage, gameId, genres, tags } = gameProps
 
-  const isTextInEnglish = (text: string): boolean => {
-    const detectedLanguage = franc(text)
-
-    return detectedLanguage === "eng"
-  }
-
-  const mappedTags = tags
-    ?.filter((tag: string) => isTextInEnglish(tag))
-    ?.slice(0, 2)
-    .map((genre: string, index: number) => (
-      <div
-        key={index}
-        className="badge badge-secondary badge-outline badge-sm h-fit"
-      >
-        {genre}
-      </div>
-    ))
+  const mappedTags = tags?.slice(0, 2).map((genre: string, index: number) => (
+    <div
+      key={index}
+      className="badge badge-secondary badge-outline badge-sm h-fit"
+    >
+      {genre}
+    </div>
+  ))
 
   const mappedGenres = genres
     ?.slice(0, 3)
@@ -53,7 +43,7 @@ const SwiperCard = ({ gameProps }: SwiperCardProps) => {
       <img
         src={gameImage}
         alt="game image"
-        className="h-1/2 w-full rounded-t-lg object-cover lg:h-2/3" // Ensure full width
+        className="h-1/2 w-full rounded-t-lg object-cover lg:h-2/3"
       />
       <div className="ml-3 flex h-1/2 flex-col lg:h-1/3">
         <h2 className="mt-3 line-clamp-1 text-xl">{gameName}</h2>
