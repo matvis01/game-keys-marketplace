@@ -11,9 +11,9 @@ interface QuickAccessBarProps {
 
 const QuickAccessBar = ({ refs }: QuickAccessBarProps) => {
   const { bestsellersRef, newArrivalsRef, topRatedRef } = refs
-  const scrollTo = (ref: any) => {
+  const scrollTo = (ref: React.RefObject<HTMLDivElement>) => {
     if (ref?.current) {
-      const offsetTop = ref.current.offsetTop - 64
+      const offsetTop = ref.current.offsetTop - 80
       window.scrollTo({ behavior: "smooth", top: offsetTop })
     }
   }
