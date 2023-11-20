@@ -5,11 +5,12 @@ interface QuickAccessBarProps {
   refs: {
     bestsellersRef: React.RefObject<HTMLDivElement>
     newArrivalsRef: React.RefObject<HTMLDivElement>
+    topRatedRef: React.RefObject<HTMLDivElement>
   }
 }
 
 const QuickAccessBar = ({ refs }: QuickAccessBarProps) => {
-  const { bestsellersRef, newArrivalsRef } = refs
+  const { bestsellersRef, newArrivalsRef, topRatedRef } = refs
   const scrollTo = (ref: any) => {
     if (ref?.current) {
       const offsetTop = ref.current.offsetTop - 64
@@ -26,15 +27,16 @@ const QuickAccessBar = ({ refs }: QuickAccessBarProps) => {
         onClick={() => scrollTo(bestsellersRef)}
       />
       <QuickAccessButton
+        text="Top Rated"
+        icon="/icons/top-rated.svg"
+        alt="top rated icon"
+        onClick={() => scrollTo(topRatedRef)}
+      />
+      <QuickAccessButton
         text="New Arrivals"
         icon="/icons/new-arrival-icon.svg"
         alt="new arrival icon"
         onClick={() => scrollTo(newArrivalsRef)}
-      />
-      <QuickAccessButton
-        text="Gift Cards"
-        icon="/icons/gift-icon.svg"
-        alt="gift icon"
       />
       <QuickAccessButton
         text="Categories"
