@@ -18,6 +18,8 @@ export default function GamePage() {
   const { error, data, loading } = useQuery(GET_LISTINGS_FOR_GAME(Number(id)))
   const { buy } = useContractFunctions()
 
+  console.log(gameData)
+
   const listings = data?.listingsByGame?.allListings as
     | ListingType[]
     | undefined

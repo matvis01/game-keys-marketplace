@@ -13,6 +13,7 @@ type gameDataType = {
   id: number
   name: string
   image: string
+  rating: number
   tags: string[]
   genres: string[]
 }
@@ -46,6 +47,7 @@ function useContractFunctions() {
             gameData.id,
             gameData.name,
             gameData.image,
+            gameData.rating * 100,
             gameData.tags,
             gameData.genres,
           ],

@@ -89,6 +89,7 @@ const NewGameModal = () => {
         image: game.background_image,
         genres: genres,
         tags: tags,
+        rating: game.rating,
       }
     } catch (e) {
       console.log(e)
