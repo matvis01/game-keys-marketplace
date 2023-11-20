@@ -1,29 +1,33 @@
 import React from "react"
 import { useQuery } from "@apollo/client"
 
-import { GET_LATEST_LISTINGS } from "@/utils/graphQueries"
+import { GET_TOP_RATED } from "@/utils/graphQueries"
 import GameCard from "../Bestsellers/GameCard"
 import { gameCardType } from "@/types/listingType"
 
-const NewArrivals = () => {
-  const { error, data, loading } = useQuery(GET_LATEST_LISTINGS)
+const TopRated = () => {
+  const { loading, error, data: listings } = useQuery(GET_TOP_RATED)
 
-  const mappedGames = data?.listingsByGames
-    .slice(0, 6)
-    .map((game: gameCardType) => (
+  console.log(listings)
+  let mappedGames
+
+  if (listings) {
+    mappedGames = listings.listingsByGames.map((game: gameCardType) => (
       <GameCard
         key={game.gameId}
         gameId={game.gameId}
         gameName={game.gameName}
         gameImage={game.gameImage}
-        genres={game.genres}
         tags={game.tags}
-        bgColor="base-100"
+        genres={game.genres}
+        bgColor="neutral"
       />
     ))
+  }
+
   return (
     <>
-      <h1 className="mb-6 text-center text-4xl text-white">New Arrivals</h1>
+      <h1 className="mb-6 text-center text-4xl text-white">Top Rated</h1>
       {loading && (
         <div className="flex h-96 items-center justify-center">
           <span className="loading loading-spinner loading-lg"></span>
@@ -45,4 +49,4 @@ const NewArrivals = () => {
   )
 }
 
-export default NewArrivals
+export default TopRated

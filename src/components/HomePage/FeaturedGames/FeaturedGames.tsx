@@ -15,6 +15,8 @@ type FeaturedGame = {
   gameId: number
   gameName: string
   gameImage: string
+  genres?: string[]
+  tags?: string[]
 }
 
 const FeaturedGames = () => {
