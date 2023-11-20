@@ -16,7 +16,7 @@ const NewArrivals = () => {
         gameImage={game.gameImage}
         genres={game.genres}
         tags={game.tags}
-        bgColor="neutral"
+        bgColor="base-100"
       />
     ))
   return (
