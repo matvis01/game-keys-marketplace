@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client"
 
 import { GET_TOP_RATED } from "@/utils/graphQueries"
 import GameCard from "../Bestsellers/GameCard"
-import { topRatedListings } from "@/types/listingType"
+import { gameCardType } from "@/types/listingType"
 
 const TopRated = () => {
   const { loading, error, data: listings } = useQuery(GET_TOP_RATED)
@@ -12,7 +12,7 @@ const TopRated = () => {
   let mappedGames
 
   if (listings) {
-    mappedGames = listings.listingsByGames.map((game: topRatedListings) => (
+    mappedGames = listings.listingsByGames.map((game: gameCardType) => (
       <GameCard
         key={game.gameId}
         gameId={game.gameId}

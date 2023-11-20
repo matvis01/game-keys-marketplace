@@ -28,7 +28,7 @@ export type soldListingType = {
   numOfItems: number
 }
 
-export type topRatedListings = {
+export type gameCardType = {
   key: string
   gameId: number
   gameName: string

@@ -1,14 +1,16 @@
 import React from "react"
 import { useQuery } from "@apollo/client"
+
 import { GET_LATEST_LISTINGS } from "@/utils/graphQueries"
 import GameCard from "../Bestsellers/GameCard"
+import { gameCardType } from "@/types/listingType"
 
 const NewArrivals = () => {
   const { error, data, loading } = useQuery(GET_LATEST_LISTINGS)
 
   const mappedGames = data?.listingsByGames
     .slice(0, 6)
-    .map((game: any) => (
+    .map((game: gameCardType) => (
       <GameCard
         key={game.gameId}
         gameId={game.gameId}

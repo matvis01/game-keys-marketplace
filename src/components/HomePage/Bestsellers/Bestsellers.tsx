@@ -1,9 +1,9 @@
 import React from "react"
 import { useQuery } from "@apollo/client"
 
-import { soldListingsByGameType } from "@/types/listingType"
 import { GET_SOLD_LAST_WEEKS_WITH_LISTING } from "@/utils/graphQueries"
 import GameCard from "./GameCard"
+import { gameCardType } from "@/types/listingType"
 
 const Bestsellers = () => {
   const {
@@ -16,7 +16,7 @@ const Bestsellers = () => {
 
   if (listings) {
     mappedGames = listings.itemsBoughtByGames.map(
-      (game: soldListingsByGameType) => (
+      (game: gameCardType) => (
         <GameCard
           key={game.gameId}
           gameId={game.gameId}
