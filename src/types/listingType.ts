@@ -27,3 +27,13 @@ export type soldListingType = {
   price: number
   numOfItems: number
 }
+
+export type topRatedListings = {
+  key: string
+  gameId: number
+  gameName: string
+  gameImage: string
+  tags: string[]
+  genres: string[]
+  bgColor: string
+}
