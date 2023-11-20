@@ -158,19 +158,21 @@ export const GET_LATEST_LISTINGS = gql`
 `
 
 export const GET_TOP_RATED = gql`
-listingsByGames(
-  orderBy: rating
-  orderDirection: desc
-  where: {numOfListings_gt: "0"}
-  first: 6
-) {
-  gameId
-  gameImage
-  gameName
-  genres
-  id
-  numOfListings
-  rating
-  tags
-}
+  {
+    listingsByGames(
+      orderBy: rating
+      orderDirection: desc
+      where: { numOfListings_gt: "0" }
+      first: 6
+    ) {
+      gameId
+      gameImage
+      gameName
+      genres
+      id
+      numOfListings
+      rating
+      tags
+    }
+  }
 `
