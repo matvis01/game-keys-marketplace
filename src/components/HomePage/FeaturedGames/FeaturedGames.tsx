@@ -23,13 +23,16 @@ const FeaturedGames = () => {
   const { loading, error, data: listings } = useQuery(GET_FEATURED_GAMES)
   const games = listings?.listingsByGames
 
-  const mappedGames = games?.map((game: FeaturedGame, index: number) => {
-    return (
-      <SwiperSlide key={index}>
-        <SwiperCard gameProps={game} />
-      </SwiperSlide>
-    )
-  })
+  let mappedGames: JSX.Element[] = []
+  if (games) {
+    mappedGames = games?.map((game: FeaturedGame, index: number) => {
+      return (
+        <SwiperSlide key={index}>
+          <SwiperCard gameProps={game} />
+        </SwiperSlide>
+      )
+    })
+  }
   return (
     <>
       <h1 className="mb-6 text-center text-4xl text-white">Featured Games</h1>
