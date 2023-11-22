@@ -29,62 +29,78 @@ const Categories = () => {
     // console.log(filteredTags)
   }
   return (
-    <div className="mx-auto flex h-40 w-full max-w-screen-xl items-center justify-between px-16">
-      <CategoryButton
-        imgSrc="/icons/categoryIcons/adventure.svg"
-        imgAlt="icon by Icons8"
-        text="Action"
-        number={1}
-      />
-      <CategoryButton
-        imgSrc="/icons/categoryIcons/rpg.svg"
-        imgAlt="icon by Icons8"
-        text="RPG"
-        number={1}
-      />
-      <CategoryButton
-        imgSrc="/icons/categoryIcons/strategy.svg"
-        imgAlt="icon by Icons8"
-        text="Strategy"
-        number={1}
-      />
-      <CategoryButton
-        imgSrc="/icons/categoryIcons/simulation.svg"
-        imgAlt="icon by Icons8"
-        text="Simulation"
-        number={1}
-      />
-      <CategoryButton
-        imgSrc="/icons/categoryIcons/platformer.svg"
-        imgAlt="icon by Icons8"
-        text="Platform"
-        number={1}
-      />
-      <CategoryButton
-        imgSrc="/icons/categoryIcons/indie.svg"
-        imgAlt="icon by Icons8"
-        text="Indie"
-        number={1}
-      />
-      <CategoryButton
-        imgSrc="/icons/categoryIcons/shooter.svg"
-        imgAlt="icon by Icons8"
-        text="Shooter"
-        number={1}
-      />
-      {/* <CategoryButton
-        imgSrc="/icons/categoryIcons/casual.svg"
-        imgAlt="icon by Icons8"
-        text="Casual"
-        number={1}
-      />
-      <CategoryButton
-        imgSrc="/icons/categoryIcons/sports.svg"
-        imgAlt="icon by Icons8"
-        text="Sports"
-        number={1}
-      /> */}
-    </div>
+    <>
+      <div
+        className={`mx-auto grid ${
+          isShowAll ? "h-fit" : "h-40"
+        } w-full max-w-screen-xl grid-cols-7 items-center justify-between gap-y-5 ${
+          isShowAll ? "overflow-y-visible" : "overflow-hidden"
+        } px-16`}
+      >
+        <CategoryButton
+          imgSrc="/icons/categoryIcons/adventure.svg"
+          imgAlt="icon by Icons8"
+          text="Action"
+          number={1}
+        />
+        <CategoryButton
+          imgSrc="/icons/categoryIcons/rpg.svg"
+          imgAlt="icon by Icons8"
+          text="RPG"
+          number={1}
+        />
+        <CategoryButton
+          imgSrc="/icons/categoryIcons/strategy.svg"
+          imgAlt="icon by Icons8"
+          text="Strategy"
+          number={1}
+        />
+        <CategoryButton
+          imgSrc="/icons/categoryIcons/simulation.svg"
+          imgAlt="icon by Icons8"
+          text="Simulation"
+          number={1}
+        />
+        <CategoryButton
+          imgSrc="/icons/categoryIcons/platformer.svg"
+          imgAlt="icon by Icons8"
+          text="Platform"
+          number={1}
+        />
+        <CategoryButton
+          imgSrc="/icons/categoryIcons/indie.svg"
+          imgAlt="icon by Icons8"
+          text="Indie"
+          number={1}
+        />
+        <CategoryButton
+          imgSrc="/icons/categoryIcons/shooter.svg"
+          imgAlt="icon by Icons8"
+          text="Shooter"
+          number={1}
+        />
+        <CategoryButton
+          imgSrc="/icons/categoryIcons/casual.svg"
+          imgAlt="icon by Icons8"
+          text="Casual"
+          number={1}
+        />
+        <CategoryButton
+          imgSrc="/icons/categoryIcons/sports.svg"
+          imgAlt="icon by Icons8"
+          text="Sports"
+          number={1}
+        />
+      </div>
+      <div className="flex items-center justify-center">
+        <button
+          className="btn btn-primary btn-wide mb-3 mt-3 text-white"
+          onClick={() => setIsShowAll((prev) => !prev)}
+        >
+          {isShowAll ? "Show less" : "Show more"}
+        </button>
+      </div>
+    </>
   )
 }
 
