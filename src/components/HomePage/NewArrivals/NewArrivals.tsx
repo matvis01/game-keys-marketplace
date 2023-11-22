@@ -8,19 +8,22 @@ import { gameCardType } from "@/types/listingType"
 const NewArrivals = () => {
   const { error, data, loading } = useQuery(GET_LATEST_LISTINGS)
 
-  const mappedGames = data?.listingsByGames
-    .slice(0, 6)
-    .map((game: gameCardType) => (
-      <GameCard
-        key={game.gameId}
-        gameId={game.gameId}
-        gameName={game.gameName}
-        gameImage={game.gameImage}
-        genres={game.genres}
-        tags={game.tags}
-        bgColor="base-100"
-      />
-    ))
+  let mappedGames: JSX.Element[] = []
+  if (data) {
+    mappedGames = data?.listingsByGames
+      .slice(0, 6)
+      .map((game: gameCardType) => (
+        <GameCard
+          key={game.gameId}
+          gameId={game.gameId}
+          gameName={game.gameName}
+          gameImage={game.gameImage}
+          genres={game.genres}
+          tags={game.tags}
+          bgColor="base-100"
+        />
+      ))
+  }
   return (
     <>
       <h1 className="mb-6 text-center text-4xl text-white">New Arrivals</h1>
