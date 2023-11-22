@@ -27,27 +27,39 @@ const Categories = () => {
     )
   }
 
-  console.log(listings)
-
   return (
     <>
-      <div
-        className={`mx-auto grid ${
-          isShowAll ? "h-fit" : "h-40"
-        } w-full max-w-screen-xl grid-cols-7 items-center justify-between gap-y-5 ${
-          isShowAll ? "overflow-y-visible" : "overflow-hidden"
-        } px-16`}
-      >
-        {mappedCategories}
-      </div>
-      <div className="flex items-center justify-center">
-        <button
-          className="btn btn-primary btn-wide mb-3 mt-3 text-white"
-          onClick={() => setIsShowAll((prev) => !prev)}
-        >
-          {isShowAll ? "Show less" : "Show more"}
-        </button>
-      </div>
+      <h1 className="mb-6 text-center text-4xl text-white">Categories</h1>
+      {loading && (
+        <div className="flex h-96 items-center justify-center">
+          <span className="loading loading-spinner loading-lg"></span>
+        </div>
+      )}
+      {!loading && !error && (
+        <>
+          <div
+            className={`mx-auto grid ${
+              isShowAll ? "h-fit" : "h-40"
+            } w-full max-w-screen-xl grid-cols-7 items-center justify-between gap-y-5 ${
+              isShowAll ? "overflow-y-visible" : "overflow-hidden"
+            } px-16`}
+          >
+            {mappedCategories}
+          </div>
+          {mappedCategories.length > 7 && (
+            <div className="flex items-center justify-center">
+              <button
+                className={`btn btn-primary btn-wide mb-3 ${
+                  isShowAll ? "mt-6" : "mt-3"
+                } text-white`}
+                onClick={() => setIsShowAll((prev) => !prev)}
+              >
+                {isShowAll ? "Show less" : "Show more"}
+              </button>
+            </div>
+          )}
+        </>
+      )}
     </>
   )
 }
