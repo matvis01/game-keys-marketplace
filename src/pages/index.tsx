@@ -5,16 +5,19 @@ import QuickAccessBar from "@/components/HomePage/QuickAccessBar/QuickAccessBar"
 import Bestsellers from "@/components/HomePage/Bestsellers/Bestsellers"
 import NewArrivals from "@/components/HomePage/NewArrivals/NewArrivals"
 import TopRated from "@/components/HomePage/TopRated/TopRated"
+import Categories from "@/components/HomePage/Categories/Categories"
 
 export default function Home() {
   const bestsellersRef = useRef(null)
   const newArrivalsRef = useRef(null)
   const topRatedRef = useRef(null)
+  const categoriesRef = useRef(null)
 
   const scrollRefs = {
     bestsellersRef,
     topRatedRef,
     newArrivalsRef,
+    categoriesRef
   }
 
   return (
@@ -33,6 +36,9 @@ export default function Home() {
       </div>
       <div ref={newArrivalsRef} className="bg-neutral py-8">
         <NewArrivals />
+      </div>
+      <div ref={categoriesRef} className="bg-base-100 py-8">
+        <Categories />
       </div>
     </main>
   )
