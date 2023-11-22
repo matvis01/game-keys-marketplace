@@ -8,9 +8,7 @@ import { gameCardType } from "@/types/listingType"
 const TopRated = () => {
   const { loading, error, data: listings } = useQuery(GET_TOP_RATED)
 
-  console.log(listings)
-  let mappedGames
-
+  let mappedGames: JSX.Element[] = []
   if (listings) {
     mappedGames = listings.listingsByGames.map((game: gameCardType) => (
       <GameCard
