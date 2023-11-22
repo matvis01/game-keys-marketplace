@@ -127,11 +127,27 @@ export function GET_LISTINGS_BY_CRITERIA(filters: filtersType) {
 `
 }
 
-export const GET_ALL_FILTERS = gql`
+export const GET_ALL_GENRES = gql`
   {
-    allFilter(id: "filters") {
-      tags
-      genres
+    genres(
+      where: { numberOfGames_gt: "0" }
+      orderBy: numberOfGames
+      orderDirection: desc
+    ) {
+      name
+      numberOfGames
+    }
+  }
+`
+export const GET_ALL_TAGS = gql`
+  {
+    tags(
+      where: { numberOfGames_gt: "0" }
+      orderBy: numberOfGames
+      orderDirection: desc
+    ) {
+      name
+      numberOfGames
     }
   }
 `

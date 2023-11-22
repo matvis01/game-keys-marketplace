@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import TagGenreFilters from "./TagGenreFilters"
-import { GET_ALL_FILTERS } from "../../utils/graphQueries"
+import { GET_ALL_GENRES, GET_ALL_TAGS } from "../../utils/graphQueries"
 import { useQuery } from "@apollo/client"
 
 type filtersType = {
@@ -18,7 +18,11 @@ const Filters: React.FC<FiltersProps> = ({ onFilterChange }) => {
   const [minPrice, setMinPrice] = useState<number>()
   const [maxPrice, setMaxPrice] = useState<number>()
 
-  const { data: filters, loading } = useQuery(GET_ALL_FILTERS)
+  const { data: genresData, loading: genresLoading } = useQuery(GET_ALL_GENRES)
+  const { data: tagsData, loading: tagsLoading } = useQuery(GET_ALL_TAGS)
+
+  const genres = genresData?.genres.map((genre: any) => genre.name)
+  const tags = tagsData?.tags.map((tag: any) => tag.name)
 
   const handleMinPriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let inputValue = event.target.value
@@ -78,14 +82,14 @@ const Filters: React.FC<FiltersProps> = ({ onFilterChange }) => {
       </div>
       <label>Genre:</label>
       <TagGenreFilters
-        items={filters?.allFilter.genres || []}
+        items={genres || []}
         onCheckedItemsChange={(genres: string[]) =>
           onFilterChange({ genres: genres })
         }
       />
       <label>Tags:</label>
       <TagGenreFilters
-        items={filters?.allFilter.tags || []}
+        items={tags || []}
         onCheckedItemsChange={(tags: string[]) =>
           onFilterChange({ tags: tags })
         }
