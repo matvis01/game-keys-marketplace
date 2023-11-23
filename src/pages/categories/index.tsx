@@ -12,20 +12,26 @@ const CategoriesPage = () => {
   const searchParams = useSearchParams()
   const router = useRouter()
   const paramsFilters = searchParams.get("filters")
+  const [listings, setListings] = useState<ListingType[]>([])
 
   const [filters, setFilters] = useState<filtersType>({
-    minPrice: 0,
-    maxPrice: 100,
+    minPrice: undefined,
+    maxPrice: undefined,
     tags: [],
     genres: [],
   })
 
-  const {
-    data: listings,
-    loading,
-    error,
-    refetch,
-  } = useQuery(GET_LISTINGS_BY_CRITERIA(filters))
+  const { data, loading, error, refetch } = useQuery(
+    GET_LISTINGS_BY_CRITERIA(filters),
+  )
+
+  useEffect(() => {
+    if (!data) return
+    let filtered = data.listingsByGames.filter(
+      (listing: any) => listing.allListings.length > 0,
+    )
+    setListings(filtered)
+  }, [data])
 
   useEffect(() => {
     if (!paramsFilters) return
@@ -37,32 +43,21 @@ const CategoriesPage = () => {
   const addFilter = (filter: filtersType) => {
     setFilters((prev) => ({ ...prev, ...filter }))
   }
-  useEffect(() => {
-    if (paramsFilters) return
-
-    router.push({
-      pathname: router.pathname,
-      query: {
-        filters: JSON.stringify(filters),
-      },
-    })
-  }, [])
 
   return (
     <div className="flex h-full w-full justify-center">
-      <div className="max-h-full w-1/4">
-        <div className="sticky top-0">
+      <div className=" max-h-full w-1/4 ">
+        <div className="sticky top-20 flex w-full justify-center">
           <Filters
             onFilterChange={(filter: filtersType) => {
               addFilter(filter)
             }}
-            startFilters={filters}
           />
         </div>
       </div>
       <div className="w-1/2 overflow-auto border border-black">
         {!error &&
-          listings?.listingsByGames?.map((listing: ListingType) => (
+          listings?.map((listing: ListingType) => (
             <GameCard bgColor="base-100" key={listing.id} {...listing} />
           ))}
       </div>

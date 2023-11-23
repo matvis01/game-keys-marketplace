@@ -107,24 +107,28 @@ export function GET_LISTINGS_BY_CRITERIA(filters: filtersType) {
   const tagsString = tags?.join(", ")
   genres = genres?.map((genre) => `"${genre}"`)
   const genresString = genres?.join(", ")
+  console.log(minPrice, maxPrice)
+  minPrice = minPrice && minPrice.length > 0 ? minPrice : "0"
 
   return gql`{
-  listingsByGames(
-    where: {genres_contains: [${genresString}], numOfListings_gt: "0", tags_contains: [${tagsString}]},
-  ) {
-    gameName
-    allListings(where: {price_gt: "${minPrice}", price_lt: "${maxPrice}"}) {
-      price
+    listingsByGames(
+      where: {genres_contains: [${genresString}], numOfListings_gt: "0", tags_contains: [${tagsString}]},
+    ) {
+      gameName
+      allListings(where: {price_gt: "${minPrice}"${
+        maxPrice ? `, price_lt: "${maxPrice}"` : ""
+      }}) {
+        price
+      }
+      gameId
+      gameImage
+      genres
+      tags
+      numOfListings
+      id
     }
-    gameId
-    gameImage
-    genres
-    tags
-    numOfListings
-    id
   }
-}
-`
+  `
 }
 
 export const GET_ALL_GENRES = gql`

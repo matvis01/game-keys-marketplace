@@ -58,8 +58,8 @@ export default function TagGenreFilters({ items, name }: TagGenreFiltersProps) {
   }
 
   return (
-    <div className="max-w-full">
-      <div className="join max-w-full">
+    <div className="w-full">
+      <div className="join w-full">
         <input
           type="text"
           placeholder="Search"
@@ -75,7 +75,7 @@ export default function TagGenreFilters({ items, name }: TagGenreFiltersProps) {
         </button>
       </div>
 
-      <div className="custom-scrollbar h-48 overflow-y-scroll">
+      <div className="custom-scrollbar h-52 overflow-y-scroll">
         {filterItems().map((item) => (
           <label
             className="label cursor-pointer justify-start gap-1"

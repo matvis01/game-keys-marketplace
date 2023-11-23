@@ -3,24 +3,27 @@ import TagGenreFilters from "./TagGenreFilters"
 import { GET_ALL_GENRES, GET_ALL_TAGS } from "../../utils/graphQueries"
 import { useQuery } from "@apollo/client"
 import { useParams, useSearchParams } from "next/navigation"
-
-type filtersType = {
-  minPrice?: number
-  maxPrice?: number
-  tags?: string[]
-  genres?: string[]
-}
+import { useRouter } from "next/router"
+import { filtersType } from "../../types/filtersType"
+import { ethers } from "ethers"
 
 interface FiltersProps {
   onFilterChange: (filter: filtersType) => void
-  startFilters: filtersType
 }
 
-const Filters: React.FC<FiltersProps> = ({ onFilterChange, startFilters }) => {
-  const [prices, setPrices] = useState<{ minPrice: number; maxPrice: number }>({
-    minPrice: 0,
-    maxPrice: 100,
+const Filters: React.FC<FiltersProps> = ({ onFilterChange }) => {
+  const [prices, setPrices] = useState<{
+    minPrice: string | undefined
+    maxPrice: string | undefined
+  }>({
+    minPrice: undefined,
+    maxPrice: undefined,
   })
+  const router = useRouter()
+  const searchParams = useSearchParams().get("filters")
+  const paramsFilters = searchParams
+    ? JSON.parse(searchParams)
+    : { minPrice: undefined, maxPrice: undefined }
 
   const { data: genresData, loading: genresLoading } = useQuery(GET_ALL_GENRES)
   const { data: tagsData, loading: tagsLoading } = useQuery(GET_ALL_TAGS)
@@ -30,19 +33,34 @@ const Filters: React.FC<FiltersProps> = ({ onFilterChange, startFilters }) => {
 
   const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let inputValue = event.target.value
+    let newPrices = { ...prices }
     if (inputValue === "") {
-      setPrices({ ...prices, [event.target.name]: undefined })
-      return
+      newPrices = { ...newPrices, [event.target.name]: "" }
+    } else if (!isNaN(Number(inputValue))) {
+      newPrices = {
+        ...newPrices,
+        [event.target.name]: inputValue,
+      }
     }
-    if (!isNaN(Number(inputValue))) {
-      setPrices({ ...prices, [event.target.name]: Number(inputValue) })
+    setPrices(newPrices)
+    const newPricesInWei = {
+      minPrice: ethers.parseEther(newPrices.minPrice || "0").toString(),
+      maxPrice: newPrices.maxPrice
+        ? ethers.parseEther(newPrices.maxPrice).toString()
+        : null,
     }
+    router.push({
+      pathname: router.pathname,
+      query: {
+        filters: JSON.stringify({ ...paramsFilters, ...newPricesInWei }),
+      },
+    })
   }
 
   return (
-    <div className="flex h-full w-full flex-col items-center gap-4  p-1">
+    <div className="flex h-full w-2/3 flex-col items-center gap-4  p-1">
       <label htmlFor="minPrice">Price:</label>
-      <div className="flex max-w-full justify-center">
+      <div className="flex w-full justify-center">
         <input
           id="minPrice"
           name="minPrice"

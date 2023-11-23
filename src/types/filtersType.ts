@@ -1,6 +1,6 @@
 export type filtersType = {
-  minPrice?: number
-  maxPrice?: number
+  minPrice?: string
+  maxPrice?: string
   tags?: string[]
   genres?: string[]
 }
