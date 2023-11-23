@@ -1,7 +1,8 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import TagGenreFilters from "./TagGenreFilters"
 import { GET_ALL_GENRES, GET_ALL_TAGS } from "../../utils/graphQueries"
 import { useQuery } from "@apollo/client"
+import { useParams, useSearchParams } from "next/navigation"
 
 type filtersType = {
   minPrice?: number
@@ -12,11 +13,14 @@ type filtersType = {
 
 interface FiltersProps {
   onFilterChange: (filter: filtersType) => void
+  startFilters: filtersType
 }
 
-const Filters: React.FC<FiltersProps> = ({ onFilterChange }) => {
-  const [minPrice, setMinPrice] = useState<number>()
-  const [maxPrice, setMaxPrice] = useState<number>()
+const Filters: React.FC<FiltersProps> = ({ onFilterChange, startFilters }) => {
+  const [prices, setPrices] = useState<{ minPrice: number; maxPrice: number }>({
+    minPrice: 0,
+    maxPrice: 100,
+  })
 
   const { data: genresData, loading: genresLoading } = useQuery(GET_ALL_GENRES)
   const { data: tagsData, loading: tagsLoading } = useQuery(GET_ALL_TAGS)
@@ -24,35 +28,14 @@ const Filters: React.FC<FiltersProps> = ({ onFilterChange }) => {
   const genres = genresData?.genres.map((genre: any) => genre.name)
   const tags = tagsData?.tags.map((tag: any) => tag.name)
 
-  const handleMinPriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let inputValue = event.target.value
     if (inputValue === "") {
-      setMinPrice(undefined)
-      onFilterChange({ minPrice: undefined })
+      setPrices({ ...prices, [event.target.name]: undefined })
       return
     }
     if (!isNaN(Number(inputValue))) {
-      // Handle the empty value or valid number
-      // For example, update state or trigger actions accordingly
-
-      setMinPrice(Number(inputValue))
-      onFilterChange({ minPrice: Number(inputValue) })
-    }
-  }
-
-  const handleMaxPriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let inputValue = event.target.value
-    if (inputValue === "") {
-      setMaxPrice(undefined)
-      onFilterChange({ maxPrice: undefined })
-      return
-    }
-    if (!isNaN(Number(inputValue))) {
-      // Handle the empty value or valid number
-      // For example, update state or trigger actions accordingly
-
-      setMaxPrice(Number(inputValue))
-      onFilterChange({ maxPrice: Number(inputValue) })
+      setPrices({ ...prices, [event.target.name]: Number(inputValue) })
     }
   }
 
@@ -63,37 +46,29 @@ const Filters: React.FC<FiltersProps> = ({ onFilterChange }) => {
         <input
           id="minPrice"
           name="minPrice"
-          value={minPrice}
+          value={prices.minPrice}
           type="number"
           step={"any"}
           min={0}
-          onChange={handleMinPriceChange}
+          onChange={handlePriceChange}
           className="input input-bordered input-primary input-sm w-full  bg-base-100"
         />
         <span className="mx-2">-</span>
         <input
           id="maxPrice"
           name="maxPrice"
-          type="text"
-          value={maxPrice}
-          onChange={handleMaxPriceChange}
+          type="number"
+          step={"any"}
+          min={0}
+          value={prices.maxPrice}
+          onChange={handlePriceChange}
           className="input input-bordered input-primary input-sm w-full bg-base-100"
         />
       </div>
       <label>Genre:</label>
-      <TagGenreFilters
-        items={genres || []}
-        onCheckedItemsChange={(genres: string[]) =>
-          onFilterChange({ genres: genres })
-        }
-      />
+      <TagGenreFilters items={genres || []} name="genres" />
       <label>Tags:</label>
-      <TagGenreFilters
-        items={tags || []}
-        onCheckedItemsChange={(tags: string[]) =>
-          onFilterChange({ tags: tags })
-        }
-      />
+      <TagGenreFilters items={tags || []} name="tags" />
     </div>
   )
 }

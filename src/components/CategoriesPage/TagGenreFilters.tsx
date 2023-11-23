@@ -1,16 +1,27 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useSearchParams } from "next/navigation"
+import { useRouter } from "next/router"
 
 interface TagGenreFiltersProps {
   items: string[]
-  onCheckedItemsChange: (checkedItems: string[]) => void
+  name: string
 }
 
-export default function TagGenreFilters({
-  items,
-  onCheckedItemsChange,
-}: TagGenreFiltersProps) {
+export default function TagGenreFilters({ items, name }: TagGenreFiltersProps) {
   const [checkedItems, setCheckedItems] = useState<string[]>([])
   const [searchInput, setSearchInput] = useState("")
+
+  const searchParams = useSearchParams().get("filters")
+  const paramsFilters = searchParams
+    ? JSON.parse(searchParams)
+    : { tags: [], genres: [] }
+
+  useEffect(() => {
+    if (!paramsFilters) return
+    setCheckedItems(paramsFilters[name] || [])
+  }, [searchParams])
+
+  const router = useRouter()
 
   function handleCheckboxChange(event: React.ChangeEvent<HTMLInputElement>) {
     const item = event.target.value
@@ -21,12 +32,16 @@ export default function TagGenreFilters({
       checked = checked.filter((checkedItem) => checkedItem !== item)
     }
     setCheckedItems(checked)
-    onCheckedItemsChange(checked)
+
+    router.push({
+      pathname: router.pathname,
+      query: {
+        filters: JSON.stringify({ ...paramsFilters, [name]: checked }),
+      },
+    })
   }
 
   function filterItems() {
-    let itemsSet = new Set(items) //
-    items = Array.from(itemsSet) // usunac jak ogarne to na backendzie
     return items.filter((item) =>
       item.toLowerCase().includes(searchInput.toLowerCase()),
     )
@@ -34,7 +49,12 @@ export default function TagGenreFilters({
   function clearFilters() {
     setCheckedItems([])
     setSearchInput("")
-    onCheckedItemsChange([])
+    router.push({
+      pathname: router.pathname,
+      query: {
+        filters: JSON.stringify({ ...paramsFilters, [name]: [] }),
+      },
+    })
   }
 
   return (

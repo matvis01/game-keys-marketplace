@@ -10,5 +10,5 @@ export default function ConnectBtn() {
     "--w3m-border-radius-master": "0.05rem",
   })
 
-  return <w3m-button />
+  return <w3m-connect-button />
 }
