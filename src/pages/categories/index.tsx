@@ -10,7 +10,6 @@ import { useRouter } from "next/router"
 
 const CategoriesPage = () => {
   const searchParams = useSearchParams()
-  const router = useRouter()
   const paramsFilters = searchParams.get("filters")
   const [listings, setListings] = useState<ListingType[]>([])
 
@@ -19,6 +18,7 @@ const CategoriesPage = () => {
     maxPrice: undefined,
     tags: [],
     genres: [],
+    order: undefined,
   })
 
   const { data, loading, error, refetch } = useQuery(
@@ -40,19 +40,11 @@ const CategoriesPage = () => {
     refetch()
   }, [paramsFilters])
 
-  const addFilter = (filter: filtersType) => {
-    setFilters((prev) => ({ ...prev, ...filter }))
-  }
-
   return (
     <div className="flex h-full w-full justify-center">
       <div className=" max-h-full w-1/4 ">
         <div className="sticky top-20 flex w-full justify-center">
-          <Filters
-            onFilterChange={(filter: filtersType) => {
-              addFilter(filter)
-            }}
-          />
+          <Filters />
         </div>
       </div>
       <div className="w-1/2 overflow-auto border border-black">

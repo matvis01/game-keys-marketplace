@@ -4,9 +4,11 @@ import { useQuery } from "@apollo/client"
 import { GET_LATEST_LISTINGS } from "@/utils/graphQueries"
 import GameCard from "../Bestsellers/GameCard"
 import { gameCardType } from "@/types/listingType"
+import { useRouter } from "next/router"
 
 const NewArrivals = () => {
   const { error, data, loading } = useQuery(GET_LATEST_LISTINGS)
+  const router = useRouter()
 
   let mappedGames: JSX.Element[] = []
   if (data) {
@@ -24,6 +26,16 @@ const NewArrivals = () => {
         />
       ))
   }
+
+  const handleRedirect = () => {
+    router.push({
+      pathname: router.pathname + "categories",
+      query: {
+        filters: JSON.stringify({ order: "latestDate" }),
+      },
+    })
+  }
+
   return (
     <>
       <h1 className="mb-6 text-center text-4xl text-white">New Arrivals</h1>
@@ -38,7 +50,10 @@ const NewArrivals = () => {
             <>{mappedGames}</>
           </div>
           <div className="flex items-center justify-center">
-            <button className="btn btn-primary btn-wide mb-3 mt-6 text-white">
+            <button
+              onClick={handleRedirect}
+              className="btn btn-primary btn-wide mb-3 mt-6 text-white"
+            >
               Explore more
             </button>
           </div>

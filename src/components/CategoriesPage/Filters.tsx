@@ -2,16 +2,11 @@ import React, { useEffect, useState } from "react"
 import TagGenreFilters from "./TagGenreFilters"
 import { GET_ALL_GENRES, GET_ALL_TAGS } from "../../utils/graphQueries"
 import { useQuery } from "@apollo/client"
-import { useParams, useSearchParams } from "next/navigation"
+import { useSearchParams } from "next/navigation"
 import { useRouter } from "next/router"
-import { filtersType } from "../../types/filtersType"
 import { ethers } from "ethers"
 
-interface FiltersProps {
-  onFilterChange: (filter: filtersType) => void
-}
-
-const Filters: React.FC<FiltersProps> = ({ onFilterChange }) => {
+const Filters: React.FC = () => {
   const [prices, setPrices] = useState<{
     minPrice: string | undefined
     maxPrice: string | undefined
@@ -23,7 +18,7 @@ const Filters: React.FC<FiltersProps> = ({ onFilterChange }) => {
   const searchParams = useSearchParams().get("filters")
   const paramsFilters = searchParams
     ? JSON.parse(searchParams)
-    : { minPrice: undefined, maxPrice: undefined }
+    : { minPrice: undefined, maxPrice: undefined, order: undefined }
 
   const { data: genresData, loading: genresLoading } = useQuery(GET_ALL_GENRES)
   const { data: tagsData, loading: tagsLoading } = useQuery(GET_ALL_TAGS)
@@ -57,8 +52,31 @@ const Filters: React.FC<FiltersProps> = ({ onFilterChange }) => {
     })
   }
 
+  const handleOrderChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    router.push({
+      pathname: router.pathname,
+      query: {
+        filters: JSON.stringify({
+          ...paramsFilters,
+          order: event.target.value,
+        }),
+      },
+    })
+  }
+
   return (
     <div className="flex h-full w-2/3 flex-col items-center gap-4  p-1">
+      <select
+        className="select select-primary select-sm w-full max-w-xs"
+        onChange={handleOrderChange}
+        value={paramsFilters.order}
+        defaultValue={"Sort by"}
+      >
+        <option disabled>Sort by</option>
+        <option value={"rating"}>Top Rated</option>
+        <option value={"latestDate"}>Newest</option>
+        {/* <option value={"allItemsBought"}>Bestsellers</option> */}
+      </select>
       <label htmlFor="minPrice">Price:</label>
       <div className="flex w-full justify-center">
         <input
@@ -67,6 +85,7 @@ const Filters: React.FC<FiltersProps> = ({ onFilterChange }) => {
           value={prices.minPrice}
           type="number"
           step={"any"}
+          placeholder="Min"
           min={0}
           onChange={handlePriceChange}
           className="input input-bordered input-primary input-sm w-full  bg-base-100"
@@ -77,6 +96,7 @@ const Filters: React.FC<FiltersProps> = ({ onFilterChange }) => {
           name="maxPrice"
           type="number"
           step={"any"}
+          placeholder="Max"
           min={0}
           value={prices.maxPrice}
           onChange={handlePriceChange}

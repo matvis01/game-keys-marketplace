@@ -102,16 +102,16 @@ export function GET_SOLD_LAST_WEEKS_WITH_LISTING(numOfWeeks: number) {
 }
 
 export function GET_LISTINGS_BY_CRITERIA(filters: filtersType) {
-  let { tags, genres, minPrice, maxPrice } = filters
+  let { tags, genres, minPrice, maxPrice, order } = filters
   tags = tags?.map((tag) => `"${tag}"`)
   const tagsString = tags?.join(", ")
   genres = genres?.map((genre) => `"${genre}"`)
   const genresString = genres?.join(", ")
-  console.log(minPrice, maxPrice)
   minPrice = minPrice && minPrice.length > 0 ? minPrice : "0"
 
   return gql`{
     listingsByGames(
+      ${order ? `orderBy: ${order} , orderDirection: desc, ` : ""} 
       where: {genres_contains: [${genresString}], numOfListings_gt: "0", tags_contains: [${tagsString}]},
     ) {
       gameName
