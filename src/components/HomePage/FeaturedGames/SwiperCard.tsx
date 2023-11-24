@@ -1,4 +1,5 @@
 import React from "react"
+import { useRouter } from "next/router"
 
 import { RxArrowTopRight } from "react-icons/rx"
 
@@ -14,6 +15,7 @@ interface SwiperCardProps {
 
 const SwiperCard = ({ gameProps }: SwiperCardProps) => {
   const { gameName, gameImage, gameId, genres, tags } = gameProps
+  const router = useRouter()
 
   const mappedTags = tags?.slice(0, 2).map((genre: string, index: number) => (
     <div
@@ -32,13 +34,13 @@ const SwiperCard = ({ gameProps }: SwiperCardProps) => {
       </div>
     ))
 
-  const handleRedirect = () => {
-    window.location.href = `game/${gameId}`
+  const handleClick = () => {
+    router.push(`/game/${gameId}`)
   }
 
   return (
     <div
-      onClick={handleRedirect}
+      onClick={handleClick}
       className="group flex h-72 w-full transform flex-col rounded-lg bg-neutral text-white transition-all hover:cursor-pointer hover:shadow-xl "
     >
       <img
