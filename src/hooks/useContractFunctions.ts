@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react"
 import abi from "../constants/abi.json"
 import networkMapping from "../constants/networkMapping.json"
-import { useAccount, useConnect, useDisconnect } from "wagmi"
+import { useAccount } from "wagmi"
 import { writeContract, readContract } from "@wagmi/core"
 import { waitForTransaction } from "wagmi/actions"
 import { ethers } from "ethers"
+import { encrypt } from "n-krypta"
 
 const chainId: number = Number(process.env.NEXT_PUBLIC_CHAIN_ID) || 1337
 const contractAbi = abi
+
+const secretKey = process.env.NEXT_PUBLIC_ENCRYPT_KEY || "secretKey"
 
 type gameDataType = {
   id: number
@@ -37,6 +40,7 @@ function useContractFunctions() {
         ethers.parseEther(price).toString(),
         address,
       )
+      const encryptedKey = encrypt(key, secretKey)
       const { hash } = await writeContract({
         address: `0x${contractAddress.slice(2, contractAddress.length)}`,
         abi: contractAbi,
@@ -52,7 +56,7 @@ function useContractFunctions() {
             gameData.genres,
           ],
           listingId,
-          key,
+          encryptedKey,
           ethers.parseEther(price),
         ],
       })
