@@ -43,11 +43,11 @@ const CategoriesPage = () => {
   return (
     <div className="mx-auto mb-8 flex h-full w-full max-w-screen-xl justify-center">
       <div className="max-h-full w-1/4 ">
-        <div className="sticky top-20 flex w-full border border-pink-600">
+        <div className="sticky top-20 flex w-full">
           <Filters />
         </div>
       </div>
-      <div className="grid h-fit w-3/4 gap-x-4 gap-y-4 border border-white p-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid h-fit w-3/4 gap-x-4 gap-y-4 p-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {!error &&
           listings?.map((listing: ListingType) => (
             <CategoryGameCard key={listing.id} {...listing} />
