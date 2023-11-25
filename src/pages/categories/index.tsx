@@ -3,10 +3,10 @@ import Filters from "../../components/CategoriesPage/Filters"
 import { useQuery } from "@apollo/client"
 import { GET_LISTINGS_BY_CRITERIA } from "../../utils/graphQueries"
 import { filtersType } from "../../types/filtersType"
-import GameCard from "@/components/HomePage/Bestsellers/GameCard"
 import { ListingType } from "@/types/listingType"
 import { useSearchParams } from "next/navigation"
 import { useRouter } from "next/router"
+import CategoryGameCard from "@/components/CategoriesPage/CategoryGameCard"
 
 const CategoriesPage = () => {
   const searchParams = useSearchParams()
@@ -41,16 +41,16 @@ const CategoriesPage = () => {
   }, [paramsFilters])
 
   return (
-    <div className="flex h-full w-full justify-center">
-      <div className=" max-h-full w-1/4 ">
-        <div className="sticky top-20 flex w-full justify-center">
+    <div className="mx-auto mb-8 flex h-full w-full max-w-screen-xl justify-center">
+      <div className="max-h-full w-1/4 ">
+        <div className="sticky top-20 flex w-full border border-pink-600">
           <Filters />
         </div>
       </div>
-      <div className="w-1/2 overflow-auto border border-black">
+      <div className="grid h-fit w-3/4 gap-x-4 gap-y-4 border border-white p-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {!error &&
           listings?.map((listing: ListingType) => (
-            <GameCard bgColor="base-100" key={listing.id} {...listing} />
+            <CategoryGameCard key={listing.id} {...listing} />
           ))}
       </div>
     </div>
