@@ -41,7 +41,7 @@ const Footer = () => {
           className="grid grid-cols-1 gap-10 pb-5 pt-2
         text-center text-sm text-gray-400 sm:grid-cols-2 lg:grid-cols-3"
         >
-          <span>Copytight © 2023 gameBit. All rights reserved.</span>
+          <span>Copyright © 2023 gameBit. All rights reserved.</span>
           <span>Terms · Privacy Policy</span>
           <SocialIcons icons={ICONS} />
         </div>
