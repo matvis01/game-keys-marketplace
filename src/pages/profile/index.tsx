@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react"
 import useContractFunctions from "../../hooks/useContractFunctions"
 import GameKey from "../../components/Profile/GameKey"
+import { decrypt } from "n-krypta"
 
 type gameBought = {
   gameId: number
   key: string
 }
+
+const secretKey = process.env.NEXT_PUBLIC_ENCRYPT_KEY || ""
 
 function Profile() {
   const { balance, handleWithdraw, getMyGames } = useContractFunctions()
@@ -16,6 +19,7 @@ function Profile() {
         data = data.map((game: gameBought) => ({
           ...game,
           gameId: Number(game.gameId),
+          key: decrypt(game.key, secretKey),
         }))
         data = data.reverse()
         setGames(data)

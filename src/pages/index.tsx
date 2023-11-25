@@ -17,7 +17,7 @@ export default function Home() {
     bestsellersRef,
     topRatedRef,
     newArrivalsRef,
-    categoriesRef
+    categoriesRef,
   }
 
   return (
