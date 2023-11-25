@@ -33,8 +33,12 @@ const GameCard = ({
     gamePrice = ethers.formatUnits(price)
   }
 
-  // DODAC GUARD CLAUSE TUTAJ BO CHUJ BEDZIE JAK NIE BEDZIE CENY
-  const exchangePrice = useExchangePrice(+gamePrice, "ETH", "USD")
+  let exchangePrice: number = 0
+  try {
+    exchangePrice = useExchangePrice(+gamePrice, "ETH", "USD")
+  } catch (error) {
+    console.log(error)
+  }
 
   const mappedGenres = genres
     ?.slice(0, 3)
@@ -57,14 +61,14 @@ const GameCard = ({
       )}
       {!loading && !error && (
         <div
-          className="group mx-auto flex h-[169px] w-[600px] rounded-lg transition-all duration-500 hover:cursor-pointer hover:shadow-xl"
+          className="group mx-auto flex h-[169px] w-[600px] rounded-lg transition-all duration-300 hover:cursor-pointer hover:shadow-xl"
           onClick={handleClick}
         >
           <div className="w-1/2 overflow-hidden">
             <img
               src={gameImage}
               alt={`Thumbnail image of ${gameName}.`}
-              className="h-full w-full rounded-l-lg"
+              className="h-full w-full rounded-l-lg object-cover transition-all duration-300 group-hover:opacity-60"
             />
           </div>
           <div
@@ -75,11 +79,11 @@ const GameCard = ({
               <p className="text-xs text-primary">GLOBAL</p>
             </div>
             <div className="mx-3 mb-2 mt-auto">
-              <p className="text-neutral-light text-xs">FROM</p>
+              <p className="text-neutral-light text-xs font-extralight">FROM</p>
               <div className="indicator">
                 <p className="text-2xl text-white">{`${gamePrice} ETH`}</p>
                 <div
-                  className="tooltip h-4 w-4 rounded-full"
+                  className={`tooltip tooltip-secondary h-4 w-4 rounded-full`}
                   data-tip={`${exchangePrice} USD`}
                 >
                   <Image
