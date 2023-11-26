@@ -55,8 +55,8 @@ const CategoriesPage = () => {
 
   return (
     <div className="mx-auto mb-8 flex h-full w-full max-w-screen-xl justify-center">
-      <div className="max-h-full w-1/4 ">
-        <div className="sticky top-20 flex w-full">
+      <div className="flex max-h-full w-1/4 justify-center ">
+        <div className="sticky top-20 w-3/4">
           <Filters />
         </div>
       </div>
@@ -69,37 +69,39 @@ const CategoriesPage = () => {
                 <CategoryGameCard key={listing.id} {...listing} />
               ))}
         </div>
-        <ReactPaginate
-          pageCount={pageCount}
-          onPageChange={handlePageClick}
-          nextLabel={
-            <Image
-              src={"icons/icon-arrow.svg"}
-              alt="arrow icon"
-              width={25}
-              height={25}
-            />
-          }
-          previousLabel={
-            <Image
-              src={"icons/icon-arrow.svg"}
-              alt="arrow icon"
-              width={25}
-              height={25}
-              style={{ transform: "rotate(180deg)" }}
-            />
-          }
-          breakLabel="..."
-          pageRangeDisplayed={3}
-          renderOnZeroPageCount={null}
-          className="join flex justify-center text-white"
-          nextClassName="p-2 border border-primary bg-neutral rounded-lg join-item"
-          previousClassName="p-2 border border-primary bg-neutral rounded-lg join-item"
-          pageClassName="p-2 border border-primary bg-neutral px-4 rounded-lg join-item"
-          activeClassName="text-primary font-bold"
-          disabledClassName="opacity-50"
-          disabledLinkClassName="cursor-not-allowed"
-        />
+        {!error && listings.length > 0 && (
+          <ReactPaginate
+            pageCount={pageCount}
+            onPageChange={handlePageClick}
+            nextLabel={
+              <Image
+                src={"icons/icon-arrow.svg"}
+                alt="arrow icon"
+                width={25}
+                height={25}
+              />
+            }
+            previousLabel={
+              <Image
+                src={"icons/icon-arrow.svg"}
+                alt="arrow icon"
+                width={25}
+                height={25}
+                style={{ transform: "rotate(180deg)" }}
+              />
+            }
+            breakLabel="..."
+            pageRangeDisplayed={3}
+            renderOnZeroPageCount={null}
+            className="join flex justify-center text-white"
+            nextClassName="p-2 border border-primary bg-neutral rounded-lg join-item"
+            previousClassName="p-2 border border-primary bg-neutral rounded-lg join-item"
+            pageClassName="p-2 border border-primary bg-neutral px-4 rounded-lg join-item"
+            activeClassName="text-primary font-bold"
+            disabledClassName="opacity-50"
+            disabledLinkClassName="cursor-not-allowed"
+          />
+        )}
       </div>
     </div>
   )
