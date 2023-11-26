@@ -18,7 +18,7 @@ const Footer = () => {
   return (
     <footer className=" bg-neutral text-white">
       <div className="mx-auto max-w-screen-xl">
-        <div className="px-4 pb-2 pt-7 sm:px-12 md:flex md:items-center md:justify-between">
+        <div className="px-4 pb-2 pt-5 sm:px-12 md:flex md:items-center md:justify-between">
           <h1
             className="mb-6 text-center text-3xl font-semibold md:mb-0 md:w-2/5
          lg:text-4xl lg:leading-normal"
@@ -38,10 +38,10 @@ const Footer = () => {
         </div>
         <div className="divider divider-primary" />
         <div
-          className="grid grid-cols-1 gap-10 pb-8 pt-2
+          className="grid grid-cols-1 gap-10 pb-5 pt-2
         text-center text-sm text-gray-400 sm:grid-cols-2 lg:grid-cols-3"
         >
-          <span>Copytight © 2023 gameBit. All rights reserved.</span>
+          <span>Copyright © 2023 gameBit. All rights reserved.</span>
           <span>Terms · Privacy Policy</span>
           <SocialIcons icons={ICONS} />
         </div>
