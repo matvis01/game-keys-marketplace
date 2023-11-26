@@ -41,6 +41,7 @@ function useContractFunctions() {
         address,
       )
       const encryptedKey = encrypt(key, secretKey)
+      const intRating = Math.round(gameData.rating * 100)
       const { hash } = await writeContract({
         address: `0x${contractAddress.slice(2, contractAddress.length)}`,
         abi: contractAbi,
@@ -51,7 +52,7 @@ function useContractFunctions() {
             gameData.id,
             gameData.name,
             gameData.image,
-            gameData.rating * 100,
+            intRating,
             gameData.tags,
             gameData.genres,
           ],
