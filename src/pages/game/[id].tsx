@@ -51,8 +51,8 @@ export default function GamePage() {
     return <div>Loading...</div>
   }
   return (
-    <div className="flex  flex-col items-center gap-6  px-5  lg:px-32">
-      <div className="flex w-full flex-col justify-center gap-10 lg:flex-row">
+    <div className="mb-8 flex flex-col items-center gap-6 px-5 lg:px-32">
+      <div className="flex w-full flex-col justify-center gap-10 lg:flex-row ">
         <img
           src={gameData?.background_image}
           alt=""
@@ -68,7 +68,7 @@ export default function GamePage() {
             <p className="text-l">Developer: {gameData?.developers[0].name}</p>
           </div>
         </div>
-        <div className="card w-full bg-neutral lg:w-1/3">
+        <div className="card w-full bg-neutral lg:w-1/3 ">
           {listings && listings.length > 0 ? (
             <TopListing
               listing={listings[0]}

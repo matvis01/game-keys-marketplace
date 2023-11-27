@@ -28,9 +28,11 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig config={wagmiConfig}>
       <ApolloProvider client={client}>
-        <NavBar />
-        <Component {...pageProps} />
-        <Footer />
+        <div className="flex min-h-screen flex-col">
+          <NavBar />
+          <Component {...pageProps} />
+          <Footer />
+        </div>
       </ApolloProvider>
     </WagmiConfig>
   )
