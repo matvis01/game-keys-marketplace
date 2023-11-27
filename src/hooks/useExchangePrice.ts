@@ -2,7 +2,7 @@ import axios from "axios"
 import { useState, useEffect } from "react"
 
 export const useExchangePrice = (amount: number = 0) => {
-  const [currency, setCurrency] = useState<string>("USD")
+  const [currency, setCurrency] = useState<string | undefined>()
   const [convertedPrice, setConvertedPrice] = useState<number>(0)
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export const useExchangePrice = (amount: number = 0) => {
   useEffect(() => {
     getExchangedPrice()
     async function getExchangedPrice() {
-      if (!amount) return
+      if (!amount || !currency) return
       try {
         const response = await axios.get(
           `https://api.coinbase.com/v2/exchange-rates?currency=ETH`,

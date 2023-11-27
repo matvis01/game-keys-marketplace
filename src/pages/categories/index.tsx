@@ -10,6 +10,7 @@ import { ListingType } from "@/types/listingType"
 import Filters from "../../components/CategoriesPage/Filters"
 import CategoryGameCard from "@/components/CategoriesPage/CategoryGameCard"
 import Image from "next/image"
+import AlternativeGameCard from "@/components/CategoriesPage/AlternativeGameCard"
 
 const CategoriesPage = () => {
   const searchParams = useSearchParams()
@@ -66,7 +67,8 @@ const CategoriesPage = () => {
             listings
               ?.slice(itemsOffset, endOffset)
               .map((listing: ListingType) => (
-                <CategoryGameCard key={listing.id} {...listing} />
+                // <CategoryGameCard key={listing.id} {...listing} />
+                <AlternativeGameCard key={listing.id} {...listing} />
               ))}
         </div>
         {!error && listings.length > 0 && (
