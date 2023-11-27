@@ -33,12 +33,7 @@ const GameCard = ({
     gamePrice = ethers.formatUnits(price)
   }
 
-  let exchangePrice: number = 0
-  try {
-    exchangePrice = useExchangePrice(+gamePrice, "ETH", "USD")
-  } catch (error) {
-    console.log(error)
-  }
+  const { currency, convertedPrice } = useExchangePrice(+gamePrice)
 
   const mappedGenres = genres
     ?.slice(0, 3)
@@ -84,7 +79,7 @@ const GameCard = ({
                 <p className="text-2xl text-white">{`${gamePrice} ETH`}</p>
                 <div
                   className={`tooltip tooltip-secondary h-4 w-4 rounded-full`}
-                  data-tip={`${exchangePrice} USD`}
+                  data-tip={`${convertedPrice} ${currency}`}
                 >
                   <Image
                     src="icons/info.svg"

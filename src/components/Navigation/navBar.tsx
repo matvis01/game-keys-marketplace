@@ -3,6 +3,7 @@ import Link from "next/link"
 import { Image } from "next/dist/client/image-component"
 import { useRouter } from "next/router"
 import { useAccount } from "wagmi"
+import CurrencySelector from "./CurrencySelector"
 
 import ConnectBtn from "../ConnectBtn"
 import NavBarListItem from "./NavBarListItem"
@@ -55,7 +56,8 @@ const NavBar = () => {
               href="/categories"
               styles={`${isCategories && "text-primary"}`}
             />
-            <CartMenu />
+            <CurrencySelector />
+            {/* <CartMenu /> */}
             {status === "connected" && <ProfileMenu />}
             {status !== "connected" && (
               <li>
