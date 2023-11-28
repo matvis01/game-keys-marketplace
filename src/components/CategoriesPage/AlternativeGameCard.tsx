@@ -1,5 +1,4 @@
 import React from "react"
-import Image from "next/image"
 import { useRouter } from "next/router"
 import { useQuery } from "@apollo/client"
 import { ethers } from "ethers"
@@ -76,10 +75,10 @@ const CategoryGameCard = ({
             </div>
             <div className="mx-3 mb-1 mt-auto">
               <p className="text-neutral-light text-xs font-extralight">FROM</p>
-              <div className="flex items-baseline gap-1">
+              <div className="flex items-baseline gap-2">
                 <p className="text-lg text-white">{`${gamePrice} ETH`}</p>
                 <p className="text-sm font-extralight">
-                  ({convertedPrice} {currency})
+                  {convertedPrice} {currency}
                 </p>
               </div>
               <div className="mb-2 mt-1 flex gap-2">{mappedGenres}</div>
