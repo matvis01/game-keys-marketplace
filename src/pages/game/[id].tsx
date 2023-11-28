@@ -51,8 +51,8 @@ export default function GamePage() {
     return <div>Loading...</div>
   }
   return (
-    <div className="mb-8 flex flex-col items-center gap-6 px-5 lg:px-32">
-      <div className="flex w-full flex-col justify-center gap-10 lg:flex-row ">
+    <div className="mx-auto mb-8 flex max-w-screen-xl flex-col items-center gap-6">
+      <div className="flex w-full flex-col justify-center gap-10 lg:flex-row  ">
         <img
           src={gameData?.background_image}
           alt=""
