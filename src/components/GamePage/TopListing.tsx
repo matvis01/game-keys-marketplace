@@ -20,7 +20,7 @@ export default function TopListing({ listing, handleBuy }: Props) {
     <div className="card-body flex flex-col items-center">
       <h2 className="card-title text-5xl">{formatPrice.toString()} eth</h2>
       <p>
-        = {convertedPrice} {currency}
+        {convertedPrice} {currency}
       </p>
       <p>items left: {numOfItems}</p>
       <p>

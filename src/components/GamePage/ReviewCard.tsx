@@ -9,7 +9,7 @@ type ReviewProps = {
 const maxLen = 200
 
 export default function ReviewCard({ review }: ReviewProps) {
-  const { rating, user, text: fullText, id } = review
+  const { rating, user, text: fullText } = review
   const [expanded, setExpanded] = useState(false)
 
   const text =
@@ -18,7 +18,7 @@ export default function ReviewCard({ review }: ReviewProps) {
       : fullText.slice(0, maxLen) + "..."
 
   return (
-    <div className=" card  w-full bg-neutral p-3">
+    <div className="card w-full bg-neutral p-3">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <span className="text-xl font-bold">{user?.username}</span>
@@ -31,7 +31,7 @@ export default function ReviewCard({ review }: ReviewProps) {
           className="link-primary link"
           onClick={() => setExpanded(!expanded)}
         >
-          {expanded ? "show less" : "show more"}
+          {expanded ? "collapse" : "expand"}
         </button>
       )}
     </div>

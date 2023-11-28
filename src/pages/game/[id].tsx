@@ -7,9 +7,9 @@ import OtherListing from "@/components/GamePage/OtherListing"
 import useContractFunctions from "@/hooks/useContractFunctions"
 import { toastifySuccess, toastifyError } from "@/utils/alertToast"
 import useGameData from "@/hooks/useGameData"
-import ReviewCard from "@/components/GamePage/Review"
 import Stars from "@/components/GamePage/Stars"
-import { ST } from "next/dist/shared/lib/utils"
+import Reviews from "@/components/GamePage/Reviews"
+import Screenshots from "@/components/GamePage/Screenshots"
 
 export default function GamePage() {
   const router = useRouter()
@@ -48,7 +48,10 @@ export default function GamePage() {
         <div className="flex  flex-col justify-around lg:w-1/3">
           <h1 className="text-4xl font-bold ">{gameData?.name}</h1>
           <div className="flex flex-col justify-start gap-1">
-            {gameData?.rating && <Stars rating={gameData.rating} />}
+            <div className="flex gap-2 text-lg">
+              {gameData?.rating && <Stars rating={gameData.rating} />}
+              <p>{gameData?.rating}/5</p>
+            </div>
             <p className="text-l">Platform: steam</p>
             <p className="text-l">Type: Key</p>
             <p className="text-l">Region: Global</p>
@@ -65,8 +68,8 @@ export default function GamePage() {
               }}
             />
           ) : loading ? (
-            <div className="card-body ">
-              <span className="loading loading-spinner  text-primary"></span>
+            <div className="card-body flex items-center justify-center ">
+              <span className="loading loading-spinner loading-lg  text-primary"></span>
             </div>
           ) : (
             <div className="card-body flex items-center justify-center">
@@ -96,23 +99,21 @@ export default function GamePage() {
           </div>
         </div>
       )}
-      <h2 className="mb-1 self-start text-2xl font-bold">Description</h2>
       {gameData?.description && (
-        <div
-          className="w-full"
-          dangerouslySetInnerHTML={{ __html: gameData.description }}
-        />
+        <>
+          <h2 className="mb-1 self-start text-2xl font-bold">Description</h2>
+          <div
+            className="w-full"
+            dangerouslySetInnerHTML={{ __html: gameData.description }}
+          />
+        </>
       )}
-      {reviews && reviews.length > 0 && (
-        <div className=" w-full">
-          <h2 className="mb-8 self-start text-2xl font-bold">Reviews</h2>
-          <div className=" flex flex-col gap-5 px-5">
-            {reviews?.map((review) => {
-              return <ReviewCard key={review.id} review={review} />
-            })}
-          </div>
+      {screenshots && screenshots.length > 0 && (
+        <div className=" flex w-full justify-center">
+          <Screenshots screenshots={screenshots} />
         </div>
       )}
+      {reviews && reviews.length > 0 && <Reviews allReviews={reviews} />}
     </div>
   )
 }
