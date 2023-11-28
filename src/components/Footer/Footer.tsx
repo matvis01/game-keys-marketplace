@@ -16,7 +16,7 @@ const ICONS = [
 
 const Footer = () => {
   return (
-    <footer className=" bg-neutral text-white">
+    <footer className="mt-auto bg-neutral text-white">
       <div className="mx-auto max-w-screen-xl">
         <div className="px-4 pb-2 pt-5 sm:px-12 md:flex md:items-center md:justify-between">
           <h1

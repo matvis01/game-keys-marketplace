@@ -59,7 +59,7 @@ export default function GamePage() {
             <p className="text-l">Developer: {gameData?.developers[0].name}</p>
           </div>
         </div>
-        <div className="card w-full bg-neutral lg:w-1/3">
+        <div className="card w-full bg-neutral lg:w-1/3 ">
           {listings && listings.length > 0 ? (
             <TopListing
               listing={listings[0]}
