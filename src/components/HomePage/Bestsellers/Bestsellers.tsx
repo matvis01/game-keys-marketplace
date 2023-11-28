@@ -2,7 +2,7 @@ import React from "react"
 import { useQuery } from "@apollo/client"
 
 import { GET_SOLD_LAST_WEEKS_WITH_LISTING } from "@/utils/graphQueries"
-import GameCard from "./GameCard"
+import GameCard from "../GameCard"
 import { gameCardType } from "@/types/listingType"
 
 const Bestsellers = () => {
@@ -15,19 +15,17 @@ const Bestsellers = () => {
   let mappedGames
 
   if (listings) {
-    mappedGames = listings.itemsBoughtByGames.map(
-      (game: gameCardType) => (
-        <GameCard
-          key={game.gameId}
-          gameId={game.gameId}
-          gameName={game.gameName}
-          gameImage={game.gameImage}
-          tags={game.tags}
-          genres={game.genres}
-          bgColor="base-100"
-        />
-      ),
-    )
+    mappedGames = listings.itemsBoughtByGames.map((game: gameCardType) => (
+      <GameCard
+        key={game.gameId}
+        gameId={game.gameId}
+        gameName={game.gameName}
+        gameImage={game.gameImage}
+        tags={game.tags}
+        genres={game.genres}
+        bgColor="base-100"
+      />
+    ))
   }
 
   return (

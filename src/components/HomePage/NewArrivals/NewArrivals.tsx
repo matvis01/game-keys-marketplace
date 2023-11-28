@@ -2,7 +2,7 @@ import React from "react"
 import { useQuery } from "@apollo/client"
 
 import { GET_LATEST_LISTINGS } from "@/utils/graphQueries"
-import GameCard from "../Bestsellers/GameCard"
+import GameCard from "../GameCard"
 import { gameCardType } from "@/types/listingType"
 import { useRouter } from "next/router"
 
