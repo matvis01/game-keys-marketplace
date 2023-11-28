@@ -56,12 +56,12 @@ const CategoriesPage = () => {
 
   return (
     <div className="mx-auto mb-8 flex h-full w-full max-w-screen-xl justify-center">
-      <div className="flex max-h-full w-1/4 justify-center ">
+      <div className="flex max-h-full w-1/4 justify-center  ">
         <div className="sticky top-20 w-3/4">
           <Filters />
         </div>
       </div>
-      <div className="flex w-3/4 flex-col">
+      <div className="flex w-3/4 flex-col ">
         <div className="grid h-fit gap-x-4 gap-y-4 p-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {!error &&
             listings

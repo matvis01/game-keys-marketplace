@@ -9,7 +9,7 @@ const ProfileMenu = () => {
   return (
     <>
       <li>
-        <div className="dropdown-end dropdown-bottom dropdown dropdown-hover ">
+        <div className="dropdown dropdown-end dropdown-bottom dropdown-hover ">
           <label tabIndex={0} className="btn btn-ghost">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -48,7 +48,7 @@ const ProfileMenu = () => {
               <Link href="/profile">Profile</Link>
             </li>
             <li>
-              <button onClick={disconnect}>Logout</button>
+              <button onClick={disconnect}>Disconnect</button>
             </li>
           </ul>
         </div>
