@@ -28,7 +28,7 @@ const ProfileMenu = () => {
           </label>
           <ul
             tabIndex={0}
-            className="menu dropdown-content rounded-box menu-sm z-[1] w-52 bg-base-100 p-2 shadow"
+            className="menu dropdown-content menu-sm z-[1] w-52 rounded-box bg-base-100 p-2 shadow"
           >
             <li>
               <p
@@ -48,7 +48,7 @@ const ProfileMenu = () => {
               <Link href="/profile">Profile</Link>
             </li>
             <li>
-              <button onClick={disconnect}>Logout</button>
+              <button onClick={disconnect}>Disconnect</button>
             </li>
           </ul>
         </div>

@@ -10,6 +10,7 @@ import { ListingType } from "@/types/listingType"
 import Filters from "../../components/CategoriesPage/Filters"
 import CategoryGameCard from "@/components/CategoriesPage/CategoryGameCard"
 import Image from "next/image"
+import AlternativeGameCard from "@/components/CategoriesPage/AlternativeGameCard"
 
 const CategoriesPage = () => {
   const searchParams = useSearchParams()
@@ -60,13 +61,14 @@ const CategoriesPage = () => {
           <Filters />
         </div>
       </div>
-      <div className="flex w-3/4 flex-col">
+      <div className="flex w-3/4 flex-col ">
         <div className="grid h-fit gap-x-4 gap-y-4 p-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {!error &&
             listings
               ?.slice(itemsOffset, endOffset)
               .map((listing: ListingType) => (
-                <CategoryGameCard key={listing.id} {...listing} />
+                // <CategoryGameCard key={listing.id} {...listing} />
+                <AlternativeGameCard key={listing.id} {...listing} />
               ))}
         </div>
         {!error && listings.length > 0 && (

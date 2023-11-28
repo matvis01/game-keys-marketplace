@@ -57,13 +57,13 @@ const CategoryGameCard = ({
       )}
       {!loading && !error && (
         <div
-          className="group mx-auto flex h-[300px] w-[220px] flex-col rounded-lg transition-all duration-300 hover:cursor-pointer hover:shadow-xl"
+          className="group mx-auto flex h-[300px] w-[220px]  flex-col rounded-lg transition-all duration-200 hover:-translate-y-0.5 hover:cursor-pointer hover:shadow-xl"
           onClick={handleClick}
         >
           <img
             src={gameImage}
             alt={`Thumbnail image of ${gameName}.`}
-            className="h-3/5 rounded-t-lg object-cover transition-all duration-300 group-hover:opacity-60"
+            className="h-3/5 rounded-t-lg object-cover"
           />
 
           <div
@@ -76,19 +76,11 @@ const CategoryGameCard = ({
             </div>
             <div className="mx-3 mb-1 mt-auto">
               <p className="text-neutral-light text-xs font-extralight">FROM</p>
-              <div className="indicator">
+              <div className="flex items-baseline gap-1">
                 <p className="text-lg text-white">{`${gamePrice} ETH`}</p>
-                <div
-                  className={`tooltip tooltip-secondary h-4 w-4 rounded-full`}
-                  data-tip={`${convertedPrice} ${currency}`}
-                >
-                  <Image
-                    src="icons/info.svg"
-                    alt="info icon"
-                    width={16}
-                    height={16}
-                  />
-                </div>
+                <p className="text-sm font-extralight">
+                  ({convertedPrice} {currency})
+                </p>
               </div>
               <div className="mb-2 mt-1 flex gap-2">{mappedGenres}</div>
             </div>

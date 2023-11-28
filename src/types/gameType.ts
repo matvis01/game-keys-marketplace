@@ -126,3 +126,53 @@ export type GameType = {
   clip: null | any // Define a more specific type if needed
   description_raw: string
 }
+
+export interface Screenshot {
+  id: number
+  image: string
+  width: number
+  height: number
+  is_deleted: boolean
+}
+
+export interface Review {
+  id: number
+  user: {
+    username: string
+  }
+  game: number
+  text: string
+  text_preview: string
+  text_previews: string[]
+  text_attachments: number
+  rating: number
+  reactions: any[] // Define a more specific type if needed
+  created: string
+  edited: string
+  likes_count: number
+  likes_positive: number
+  likes_rating: number
+  comments_count: number
+  comments_parent_count: number
+  posts_count: number
+  share_image: string
+  is_text: boolean
+  external_avatar: string
+  comments: {
+    count: number
+    results: any[] // Define a more specific type if needed
+  }
+  can_delete: boolean
+  external_store: {
+    id: number
+    name: string
+    domain: string
+    slug: string
+    games_count: number
+    image_background: string
+  }
+  external_lang: string
+  external_author: string
+  external_source: string
+  is_external: boolean
+}

@@ -1,19 +1,18 @@
-import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 import { useQuery } from "@apollo/client"
-import axios from "axios"
 import { GET_LISTINGS_FOR_GAME } from "@/utils/graphQueries"
-
-import { GameType } from "../../types/gameType"
 import { ListingType } from "@/types/listingType"
 import TopListing from "@/components/GamePage/TopListing"
 import OtherListing from "@/components/GamePage/OtherListing"
 import useContractFunctions from "@/hooks/useContractFunctions"
 import { toastifySuccess, toastifyError } from "@/utils/alertToast"
+import useGameData from "@/hooks/useGameData"
+import Stars from "@/components/GamePage/Stars"
+import Reviews from "@/components/GamePage/Reviews"
+import Screenshots from "@/components/GamePage/Screenshots"
 
 export default function GamePage() {
   const router = useRouter()
-  const [gameData, setGameData] = useState<GameType | undefined>()
   const { id } = router.query
   const { error, data, loading } = useQuery(GET_LISTINGS_FOR_GAME(Number(id)))
   const { buy } = useContractFunctions()
@@ -22,18 +21,7 @@ export default function GamePage() {
     | ListingType[]
     | undefined
 
-  useEffect(() => {
-    if (!id) return
-    const fetchGameData = async () => {
-      const response = await axios.get(
-        `https://api.rawg.io/api/games/${id}?key=${process.env.NEXT_PUBLIC_RAWG_KEY}`,
-      )
-      const { data } = response as { data: GameType }
-      setGameData(data)
-    }
-    fetchGameData()
-    console.log(gameData)
-  }, [id])
+  const { gameData, screenshots, reviews } = useGameData(Number(id))
 
   async function handleBuy(listing: ListingType) {
     const { price, seller, gameId } = listing
@@ -45,14 +33,13 @@ export default function GamePage() {
       toastifyError("Transaction failed", 3)
     }
   }
-  function handleAddToCart() {}
 
   if (router.isFallback) {
     return <div>Loading...</div>
   }
   return (
-    <div className="mx-auto mb-8 flex max-w-screen-xl flex-col items-center gap-6">
-      <div className="flex w-full flex-col justify-center gap-10 lg:flex-row  ">
+    <div className="mx-auto flex  max-w-screen-2xl flex-col items-center gap-6  px-5  lg:px-32">
+      <div className="flex w-full flex-col justify-center gap-10 lg:flex-row">
         <img
           src={gameData?.background_image}
           alt=""
@@ -60,7 +47,11 @@ export default function GamePage() {
         />
         <div className="flex  flex-col justify-around lg:w-1/3">
           <h1 className="text-4xl font-bold ">{gameData?.name}</h1>
-          <div className="flex flex-col">
+          <div className="flex flex-col justify-start gap-1">
+            <div className="flex gap-2 text-lg">
+              {gameData?.rating && <Stars rating={gameData.rating} />}
+              <p>{gameData?.rating}/5</p>
+            </div>
             <p className="text-l">Platform: steam</p>
             <p className="text-l">Type: Key</p>
             <p className="text-l">Region: Global</p>
@@ -77,8 +68,8 @@ export default function GamePage() {
               }}
             />
           ) : loading ? (
-            <div className="card-body ">
-              <span className="loading loading-spinner  text-primary"></span>
+            <div className="card-body flex items-center justify-center ">
+              <span className="loading loading-spinner loading-lg  text-primary"></span>
             </div>
           ) : (
             <div className="card-body flex items-center justify-center">
@@ -90,12 +81,12 @@ export default function GamePage() {
       {listings && listings.length > 1 && (
         <div className=" w-full">
           <h2 className="mb-5 self-start text-3xl font-bold">Other listings</h2>
-          <div className="flex flex-col gap-5">
+          <div className="join flex flex-col ">
             {listings?.map((listing, index) => {
               if (index !== 0) {
                 return (
                   <OtherListing
-                    key={listing.id}
+                    key={index}
                     listing={listing}
                     image={gameData?.background_image}
                     handleBuy={(listing: ListingType) => {
@@ -109,11 +100,20 @@ export default function GamePage() {
         </div>
       )}
       {gameData?.description && (
-        <div
-          className="w-full"
-          dangerouslySetInnerHTML={{ __html: gameData.description }}
-        />
+        <>
+          <h2 className="mb-1 self-start text-2xl font-bold">Description</h2>
+          <div
+            className="w-full"
+            dangerouslySetInnerHTML={{ __html: gameData.description }}
+          />
+        </>
       )}
+      {screenshots && screenshots.length > 0 && (
+        <div className=" flex w-full justify-center">
+          <Screenshots screenshots={screenshots} />
+        </div>
+      )}
+      {reviews && reviews.length > 0 && <Reviews allReviews={reviews} />}
     </div>
   )
 }

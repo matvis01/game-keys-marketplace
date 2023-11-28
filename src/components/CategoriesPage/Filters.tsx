@@ -77,7 +77,7 @@ const Filters: React.FC = () => {
         <option value={"latestDate"}>Newest</option>
         {/* <option value={"allItemsBought"}>Bestsellers</option> */}
       </select>
-      <label htmlFor="minPrice">Price:</label>
+      <label className="self-start">Price:</label>
       <div className="flex w-full justify-center">
         <input
           id="minPrice"
@@ -103,9 +103,9 @@ const Filters: React.FC = () => {
           className="input input-bordered input-primary input-sm w-full bg-base-100"
         />
       </div>
-      <label>Genre:</label>
+      <label className="self-start">Genre:</label>
       <TagGenreFilters items={genres || []} name="genres" />
-      <label>Tags:</label>
+      <label className="self-start">Tags:</label>
       <TagGenreFilters items={tags || []} name="tags" />
     </div>
   )
