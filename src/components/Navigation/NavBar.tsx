@@ -9,7 +9,6 @@ import ConnectBtn from "../ConnectBtn"
 import NavBarListItem from "./NavBarListItem"
 import SearchInput from "./SearchInput"
 import ProfileMenu from "./ProfileMenu"
-import CartMenu from "./CartMenu"
 
 const NavBar = () => {
   const router = useRouter()
