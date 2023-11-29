@@ -38,19 +38,19 @@ export default function GamePage() {
     return <div>Loading...</div>
   }
   return (
-    <div className="mx-auto flex  max-w-screen-2xl flex-col items-center gap-6  px-5  lg:px-32">
-      <div className="flex w-full flex-col justify-center gap-10 lg:flex-row">
+    <div className="mx-auto flex  w-full max-w-screen-2xl flex-col items-center gap-6 px-5 pt-3  lg:px-32">
+      <div className="flex w-full flex-wrap justify-center gap-10 xl:flex-row">
         <img
           src={gameData?.background_image}
           alt=""
-          className="h-100 w-full object-cover lg:w-1/3"
+          className="h-100 w-full object-cover xl:w-1/3"
         />
-        <div className="flex  flex-col justify-around lg:w-1/3">
+        <div className="flex w-full flex-col justify-around  md:w-1/2 xl:w-1/3">
           <h1 className="text-4xl font-bold ">{gameData?.name}</h1>
-          <div className="flex flex-col justify-start gap-1">
-            <div className="flex gap-2 text-lg">
+          <div className="flex flex-col justify-end gap-1">
+            <div className=" flex gap-2 pt-2 text-lg">
               {gameData?.rating && <Stars rating={gameData.rating} />}
-              <p>{gameData?.rating}/5</p>
+              <p>{gameData?.rating}/5.0</p>
             </div>
             <p className="text-l">Platform: steam</p>
             <p className="text-l">Type: Key</p>
@@ -59,7 +59,7 @@ export default function GamePage() {
             <p className="text-l">Developer: {gameData?.developers[0].name}</p>
           </div>
         </div>
-        <div className="card w-full bg-neutral lg:w-1/3 ">
+        <div className=" card w-full min-w-fit bg-neutral lg:w-1/3 xl:w-1/4 ">
           {listings && listings.length > 0 ? (
             <TopListing
               listing={listings[0]}
@@ -101,19 +101,21 @@ export default function GamePage() {
       )}
       {gameData?.description && (
         <>
-          <h2 className="mb-1 self-start text-2xl font-bold">Description</h2>
+          <h2 className="mb-1 self-start text-2xl font-bold ">Description</h2>
           <div
-            className="w-full"
+            className="w-full px-5"
             dangerouslySetInnerHTML={{ __html: gameData.description }}
           />
         </>
       )}
       {screenshots && screenshots.length > 0 && (
-        <div className=" flex w-full justify-center">
+        <div className=" flex w-full justify-center ">
           <Screenshots screenshots={screenshots} />
         </div>
       )}
       {reviews && reviews.length > 0 && <Reviews allReviews={reviews} />}
+
+      <div className="h-10"></div>
     </div>
   )
 }

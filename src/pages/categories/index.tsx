@@ -8,7 +8,6 @@ import { GET_LISTINGS_BY_CRITERIA } from "../../utils/graphQueries"
 import { filtersType } from "../../types/filtersType"
 import { ListingType } from "@/types/listingType"
 import Filters from "../../components/CategoriesPage/Filters"
-import CategoryGameCard from "@/components/CategoriesPage/CategoryGameCard"
 import Image from "next/image"
 import AlternativeGameCard from "@/components/CategoriesPage/AlternativeGameCard"
 

@@ -2,10 +2,12 @@ import { Screenshot } from "../../types/gameType"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Pagination, Navigation } from "swiper/modules"
 import "swiper/css/pagination"
+import "swiper/css"
+import "swiper/css/navigation"
 
 function Screenshots({ screenshots }: { screenshots: Screenshot[] }) {
   return (
-    <div className=" w-1/2 justify-center">
+    <div className="w-full justify-center lg:w-1/2">
       <Swiper
         slidesPerView={1}
         spaceBetween={30}

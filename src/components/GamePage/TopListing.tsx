@@ -17,7 +17,7 @@ export default function TopListing({ listing, handleBuy }: Props) {
   const { isConnected } = useAccount()
 
   return (
-    <div className="card-body flex flex-col items-center">
+    <div className="card-body items-center ">
       <h2 className="card-title text-5xl">{formatPrice.toString()} eth</h2>
       <p>
         {convertedPrice} {currency}
