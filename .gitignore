@@ -8,6 +8,10 @@
 # testing
 /coverage
 
+# cypress example folders
+/cypress/e2e/1-getting-started
+/cypress/e2e/2-advanced-examples
+
 # next.js
 /.next/
 /out/
