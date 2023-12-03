@@ -38,4 +38,25 @@ describe("home page", () => {
     categoriesContainer.should("exist")
     categories.should("exist")
   })
+
+  it("redirects to categories page with the correct filters for the bestsellers section when the button is clicked", () => {
+    cy.visit("/")
+    cy.get('[data-testid="bestsellers-button"]').click()
+    cy.url().should("include", "/categories")
+    cy.url().should("include", "rating")
+  })
+
+  it("redirects to categories page with the correct filters for the top rated section when the button is clicked", () => {
+    cy.visit("/")
+    cy.get('[data-testid="top-rated-button"]').click()
+    cy.url().should("include", "/categories")
+    cy.url().should("include", "rating")
+  })
+
+  it("redirects to categories page with the correct filters for the new arrivals section when the button is clicked", () => {
+    cy.visit("/")
+    cy.get('[data-testid="new-arrivals-button"]').click()
+    cy.url().should("include", "/categories")
+    cy.url().should("include", "latestDate")
+  })
 })
