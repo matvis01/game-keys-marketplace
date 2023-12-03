@@ -21,6 +21,7 @@ const Categories = () => {
             }.svg`}
             imgAlt={`${genre.name} icon`}
             text={`${name === "Massively Multiplayer" ? "MMO" : name}`}
+            linkText={name}
           />
         )
       },

@@ -6,6 +6,7 @@ interface CategoryButtonProps {
   imgSrc: string
   imgAlt: string
   text: string
+  linkText?: string
   width?: number
   height?: number
 }
@@ -14,6 +15,7 @@ const CategoryButton = ({
   imgSrc,
   imgAlt,
   text,
+  linkText,
   width = 64,
   height = 64,
 }: CategoryButtonProps) => {
@@ -21,7 +23,7 @@ const CategoryButton = ({
 
   const handleClick = () => {
     const filters = {
-      genres: [text],
+      genres: [linkText ?? text],
     }
     router.push({
       pathname: router.pathname + "categories",
@@ -32,6 +34,7 @@ const CategoryButton = ({
   }
   return (
     <div
+      data-testid={`category-button-${text.toLowerCase()}`}
       onClick={handleClick}
       className="flex h-36 w-36 flex-col items-center justify-center gap-4 rounded-lg border border-primary bg-neutral text-white shadow-lg transition-all duration-300 hover:cursor-pointer hover:bg-primary"
     >
