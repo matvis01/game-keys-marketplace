@@ -15,12 +15,18 @@ function CurrencySelector() {
 
   return (
     <select
+      data-testid="currency-selector-component"
       value={currency}
       onChange={handleCurrencyChange}
       className="select-s select w-fit max-w-xs bg-transparent hover:bg-base-100"
     >
       {currencies.map((currency) => (
-        <option key={currency} value={currency} className="bg-base-100">
+        <option
+          data-testid="currency-option"
+          key={currency}
+          value={currency}
+          className="bg-base-100"
+        >
           {currency}
         </option>
       ))}

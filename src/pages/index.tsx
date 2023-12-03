@@ -22,22 +22,38 @@ export default function Home() {
 
   return (
     <main>
-      <div className="bg-neutral">
+      <div data-testid="quick-access-bar-container" className="bg-neutral">
         <QuickAccessBar refs={scrollRefs} />
       </div>
-      <div className="bg-base-100 py-8">
+      <div data-testid="featured-games-container" className="bg-base-100 py-8">
         <FeaturedGames />
       </div>
-      <div ref={bestsellersRef} className="bg-neutral py-8">
+      <div
+        data-testid="bestsellers-container"
+        ref={bestsellersRef}
+        className="bg-neutral py-8"
+      >
         <Bestsellers />
       </div>
-      <div ref={topRatedRef} className="bg-base-100 py-8">
+      <div
+        data-testid="top-rated-container"
+        ref={topRatedRef}
+        className="bg-base-100 py-8"
+      >
         <TopRated />
       </div>
-      <div ref={newArrivalsRef} className="bg-neutral py-8">
+      <div
+        data-testid="new-arrivals-container"
+        ref={newArrivalsRef}
+        className="bg-neutral py-8"
+      >
         <NewArrivals />
       </div>
-      <div ref={categoriesRef} className="bg-base-100 py-8">
+      <div
+        data-testid="categories-container"
+        ref={categoriesRef}
+        className="bg-base-100 py-8"
+      >
         <Categories />
       </div>
     </main>

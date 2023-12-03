@@ -38,7 +38,10 @@ const Bestsellers = () => {
       )}
       {!loading && !error && (
         <>
-          <div className="mx-auto grid h-fit max-w-screen-xl grid-flow-col grid-cols-1 grid-rows-6 gap-y-6 px-4 lg:grid-cols-2 lg:grid-rows-3">
+          <div
+            data-testid="bestsellers-component"
+            className="mx-auto grid h-fit max-w-screen-xl grid-flow-col grid-cols-1 grid-rows-6 gap-y-6 px-4 lg:grid-cols-2 lg:grid-rows-3"
+          >
             <>{mappedGames}</>
           </div>
           <div className="flex items-center justify-center">

@@ -38,6 +38,7 @@ const Categories = () => {
       {!loading && !error && (
         <>
           <div
+            data-testid="categories-component"
             className={`mx-auto grid ${
               isShowAll ? "h-fit" : "h-40"
             } w-full max-w-screen-xl grid-cols-7 items-center justify-between gap-y-5 ${

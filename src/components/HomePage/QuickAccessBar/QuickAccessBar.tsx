@@ -20,7 +20,10 @@ const QuickAccessBar = ({ refs }: QuickAccessBarProps) => {
   }
 
   return (
-    <div className="mx-auto flex h-40 w-full max-w-screen-xl items-center justify-between px-16">
+    <div
+      data-testid="quick-access-bar-component"
+      className="mx-auto flex h-40 w-full max-w-screen-xl items-center justify-between px-16"
+    >
       <QuickAccessButton
         text="Bestsellers"
         icon="/icons/bestseller-icon.svg"

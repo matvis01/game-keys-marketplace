@@ -43,7 +43,10 @@ const FeaturedGames = () => {
       )}
       {!loading && !error && (
         <>
-          <div className="flex items-center justify-center">
+          <div
+            data-testid="featured-games-component"
+            className="flex items-center justify-center"
+          >
             <Swiper
               breakpoints={{
                 340: { slidesPerView: 2 },
