@@ -54,6 +54,7 @@ const NewArrivals = () => {
           </div>
           <div className="flex items-center justify-center">
             <button
+              data-testid="new-arrivals-button"
               onClick={handleRedirect}
               className="btn btn-primary btn-wide mb-3 mt-6 text-white"
             >

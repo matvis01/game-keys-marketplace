@@ -44,7 +44,10 @@ const Bestsellers = () => {
           >
             <>{mappedGames}</>
           </div>
-          <div className="flex items-center justify-center">
+          <div
+            data-testid="bestsellers-button"
+            className="flex items-center justify-center"
+          >
             <button className="btn btn-primary btn-wide mb-3 mt-6 text-white">
               Explore more
             </button>
