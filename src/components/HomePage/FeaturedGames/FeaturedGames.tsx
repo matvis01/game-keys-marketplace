@@ -42,39 +42,32 @@ const FeaturedGames = () => {
         </div>
       )}
       {!loading && !error && (
-        <>
-          <div
-            data-testid="featured-games-component"
-            className="flex items-center justify-center"
+        <div
+          data-testid="featured-games-component"
+          className="flex items-center justify-center"
+        >
+          <Swiper
+            breakpoints={{
+              340: { slidesPerView: 2 },
+              700: { slidesPerView: 3 },
+              1550: { slidesPerView: 4 },
+            }}
+            effect="coverflow"
+            centeredSlides={true}
+            loop={true}
+            navigation={true}
+            coverflowEffect={{
+              rotate: 0,
+              stretch: 0,
+              depth: 100,
+              modifier: 2,
+            }}
+            modules={[EffectCoverflow, Navigation]}
+            className="mb-5 max-w-[90%] lg:max-w-[80%]"
           >
-            <Swiper
-              breakpoints={{
-                340: { slidesPerView: 2 },
-                700: { slidesPerView: 3 },
-                1550: { slidesPerView: 4 },
-              }}
-              effect="coverflow"
-              centeredSlides={true}
-              loop={true}
-              navigation={true}
-              coverflowEffect={{
-                rotate: 0,
-                stretch: 0,
-                depth: 100,
-                modifier: 2,
-              }}
-              modules={[EffectCoverflow, Navigation]}
-              className="mb-5 max-w-[90%] lg:max-w-[80%]"
-            >
-              {mappedGames}
-            </Swiper>
-          </div>
-          <div className="flex items-center justify-center">
-            <button className="btn btn-primary btn-wide mb-3 text-white">
-              Explore more
-            </button>
-          </div>
-        </>
+            {mappedGames}
+          </Swiper>
+        </div>
       )}
     </>
   )
