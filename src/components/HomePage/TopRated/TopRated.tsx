@@ -44,10 +44,16 @@ const TopRated = () => {
       )}
       {!loading && !error && (
         <>
-          <div className="mx-auto grid h-fit max-w-screen-xl grid-flow-col grid-cols-1 grid-rows-6 gap-y-6 px-4 lg:grid-cols-2 lg:grid-rows-3">
+          <div
+            data-testid="top-rated-component"
+            className="mx-auto grid h-fit max-w-screen-xl grid-flow-col grid-cols-1 grid-rows-6 gap-y-6 px-4 lg:grid-cols-2 lg:grid-rows-3"
+          >
             <>{mappedGames}</>
           </div>
-          <div className="flex items-center justify-center">
+          <div
+            data-testid="top-rated-button"
+            className="flex items-center justify-center"
+          >
             <button
               onClick={handleRedirect}
               className="btn btn-primary btn-wide mb-3 mt-6 text-white"
