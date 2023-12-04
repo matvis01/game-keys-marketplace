@@ -18,7 +18,6 @@ const Bestsellers = () => {
     let sortedListings = listings.itemsBoughtByGames.toSorted(
       (a: any, b: any) => b.allItemsBought.length - a.allItemsBought.length,
     )
-    console.log(listings)
     mappedGames = sortedListings.map((game: gameCardType) => (
       <GameCard
         key={game.gameId}
