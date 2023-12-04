@@ -34,7 +34,7 @@ const CategoryButton = ({
   }
   return (
     <div
-      data-testid={`category-button-${text.toLowerCase()}`}
+      data-testid={`${linkText?.toLowerCase()}-category-button`}
       onClick={handleClick}
       className="flex h-36 w-36 flex-col items-center justify-center gap-4 rounded-lg border border-primary bg-neutral text-white shadow-lg transition-all duration-300 hover:cursor-pointer hover:bg-primary"
     >
