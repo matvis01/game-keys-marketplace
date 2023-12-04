@@ -15,7 +15,11 @@ const Bestsellers = () => {
   let mappedGames
 
   if (listings) {
-    mappedGames = listings.itemsBoughtByGames.map((game: gameCardType) => (
+    let sortedListings = listings.itemsBoughtByGames.toSorted(
+      (a: any, b: any) => b.allItemsBought.length - a.allItemsBought.length,
+    )
+    console.log(listings)
+    mappedGames = sortedListings.map((game: gameCardType) => (
       <GameCard
         key={game.gameId}
         gameId={game.gameId}

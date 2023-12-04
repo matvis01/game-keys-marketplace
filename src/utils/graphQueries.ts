@@ -131,6 +131,17 @@ export function GET_LISTINGS_BY_CRITERIA(filters: filtersType) {
   `
 }
 
+export const GET_BESTSELLERS = gql`
+  {
+    itemsBoughtByGames(where: { hasListings: true }) {
+      gameId
+      allItemsBought {
+        numOfItems
+      }
+    }
+  }
+`
+
 export const GET_ALL_GENRES = gql`
   {
     genres(
@@ -195,4 +206,14 @@ export const GET_TOP_RATED = gql`
       tags
     }
   }
+`
+
+export const GET_USER_LISTINGS = (address: string) => gql`
+{
+  itemListeds(where: {seller: "${address}"}) {
+    price
+    numOfItems
+    gameId
+  }
+}
 `
