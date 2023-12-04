@@ -40,7 +40,7 @@ const CategoriesPage = () => {
 
   useEffect(() => {
     if (!data) return
-    let filtered = data.listingsByGames.filter(
+    let filtered: ListingType[] = data.listingsByGames.filter(
       (listing: any) => listing.allListings.length > 0,
     )
     setListings(filtered)
