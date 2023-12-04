@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react"
+import { useAccount } from "wagmi"
+import { useRouter } from "next/router"
 import useContractFunctions from "../../hooks/useContractFunctions"
 import GameKey from "../../components/Profile/GameKey"
 import { decrypt } from "n-krypta"
+import Balance from "@/components/Profile/Balance"
 
 type gameBought = {
   gameId: number
@@ -11,7 +14,16 @@ type gameBought = {
 const secretKey = process.env.NEXT_PUBLIC_ENCRYPT_KEY || ""
 
 function Profile() {
-  const { balance, handleWithdraw, getMyGames } = useContractFunctions()
+  const { status } = useAccount()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (status !== "connected") {
+      router.replace("/")
+    }
+  }, [status])
+
+  const { getMyGames } = useContractFunctions()
   const [games, setGames] = useState<gameBought[]>()
   useEffect(() => {
     getMyGames()
@@ -31,16 +43,7 @@ function Profile() {
   return (
     <div className="flex justify-center">
       <div className="w-3/4 lg:w-1/2">
-        <div className="mb-8 rounded-lg bg-neutral p-6 shadow-lg">
-          <h2 className="mb-4 text-gray-300">Balance</h2>
-          <div className="flex items-center justify-between">
-            <h3 className="text-2xl font-bold text-gray-100">{balance} eth</h3>
-            <button className="btn btn-primary" onClick={handleWithdraw}>
-              Withdraw
-            </button>
-          </div>
-        </div>
-
+        <Balance />
         <div className="overflow-y-auto">
           <h2 className="mb-4 text-gray-300">My Games</h2>
           {games?.map((game: any, i: number) => (
