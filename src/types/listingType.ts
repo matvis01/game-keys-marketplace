@@ -37,3 +37,9 @@ export type gameCardType = {
   genres: string[]
   bgColor: string
 }
+
+export type itemListedType = {
+  gameId: string
+  numOfItems: string
+  price: string
+}

@@ -1,51 +1,65 @@
-import { useEffect, useState } from "react"
-import useContractFunctions from "../../hooks/useContractFunctions"
-import GameKey from "../../components/Profile/GameKey"
-import { decrypt } from "n-krypta"
+import { useEffect, useReducer } from "react"
+import { useAccount } from "wagmi"
+import { useRouter } from "next/router"
 
-type gameBought = {
-  gameId: number
-  key: string
+import Balance from "@/components/Profile/Balance"
+import KeysContainer from "@/components/Profile/KeysContainer"
+import OptionButton from "@/components/Profile/OptionButton"
+import ListingsContainer from "@/components/Profile/ListingsContainer"
+
+interface stateProps {
+  showKeys: boolean
+  showListings: boolean
 }
 
-const secretKey = process.env.NEXT_PUBLIC_ENCRYPT_KEY || ""
+interface actionProps {
+  type: "SHOW_KEYS" | "SHOW_LISTINGS"
+}
+
+function reducer(state: stateProps, action: actionProps): stateProps {
+  switch (action.type) {
+    case "SHOW_KEYS":
+      return { ...state, showKeys: true, showListings: false }
+    case "SHOW_LISTINGS":
+      return { ...state, showKeys: false, showListings: true }
+    default:
+      return state
+  }
+}
 
 function Profile() {
-  const { balance, handleWithdraw, getMyGames } = useContractFunctions()
-  const [games, setGames] = useState<gameBought[]>()
+  const [state, dispatch] = useReducer(reducer, {
+    showKeys: true,
+    showListings: false,
+  })
+  const { status } = useAccount()
+  const router = useRouter()
+
   useEffect(() => {
-    getMyGames()
-      .then((data: any) => {
-        data = data.map((game: gameBought) => ({
-          ...game,
-          gameId: Number(game.gameId),
-          key: decrypt(game.key, secretKey),
-        }))
-        data = data.reverse()
-        setGames(data)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }, [])
+    if (status !== "connected") {
+      router.replace("/")
+    }
+  }, [status])
+
   return (
     <div className="flex justify-center">
-      <div className="w-3/4 lg:w-1/2">
-        <div className="mb-8 rounded-lg bg-neutral p-6 shadow-lg">
-          <h2 className="mb-4 text-gray-300">Balance</h2>
-          <div className="flex items-center justify-between">
-            <h3 className="text-2xl font-bold text-gray-100">{balance} eth</h3>
-            <button className="btn btn-primary" onClick={handleWithdraw}>
-              Withdraw
-            </button>
-          </div>
+      <div className="x w-3/4 lg:w-1/2">
+        <Balance />
+        <div className="flex w-full gap-1 ">
+          <OptionButton
+            text="Keys"
+            dispatchState={state.showKeys}
+            dispatchFunction={() => dispatch({ type: "SHOW_KEYS" })}
+          />
+          <OptionButton
+            text="Listings"
+            dispatchState={state.showListings}
+            dispatchFunction={() => dispatch({ type: "SHOW_LISTINGS" })}
+          />
         </div>
-
-        <div className="overflow-y-auto">
-          <h2 className="mb-4 text-gray-300">My Games</h2>
-          {games?.map((game: any, i: number) => (
-            <GameKey key={i} game={game} />
-          ))}
+        <div className="mb-4 h-96 p-1 pb-0 pl-0">
+          {state.showKeys && <KeysContainer />}
+          {state.showListings && <ListingsContainer />}
         </div>
       </div>
     </div>
