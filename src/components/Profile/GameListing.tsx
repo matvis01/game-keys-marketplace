@@ -21,6 +21,11 @@ const GameListing = ({ gameId, price, numOfItems }: GameListingProps) => {
 
   return (
     <>
+      {loading && (
+        <div className="flex h-96 items-center justify-center">
+          <span className="loading loading-spinner loading-lg"></span>
+        </div>
+      )}
       {!error && !loading && name && (
         <div className="mb-1 mr-1 rounded-lg bg-neutral p-6">
           <div className="flex items-center justify-between">
