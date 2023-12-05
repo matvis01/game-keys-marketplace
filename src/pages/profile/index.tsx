@@ -45,7 +45,7 @@ function Profile() {
     <div className="flex justify-center">
       <div className="x w-3/4 lg:w-1/2">
         <Balance />
-        <div className="mb-2 flex w-full gap-2">
+        <div className="flex w-full gap-1 ">
           <OptionButton
             text="Keys"
             dispatchState={state.showKeys}

@@ -14,7 +14,7 @@ const OptionButton = ({
   return (
     <button
       onClick={() => dispatchFunction()}
-      className={`h-8 w-20 ${
+      className={`h-10 w-20 ${
         dispatchState ? "border-none bg-primary" : "bg-base-100"
       } rounded-md border border-primary text-white transition-colors duration-300`}
     >
