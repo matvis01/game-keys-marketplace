@@ -14,6 +14,7 @@ const NavBar = () => {
   const router = useRouter()
   const { status } = useAccount()
   const { pathname } = router
+
   const isHome = pathname === "/"
   const isCategories = pathname.includes("/categories")
 
