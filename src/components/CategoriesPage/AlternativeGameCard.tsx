@@ -36,8 +36,10 @@ const CategoryGameCard = ({
 
   const { convertedPrice, currency } = useExchangePrice(+gamePrice)
 
+  const genresLength = genres?.includes("Massively Multiplayer") ? 2 : 3
+
   const mappedGenres = genres
-    ?.slice(0, 3)
+    ?.slice(0, genresLength)
     .map((genre: string, index: number) => (
       <div key={index} className="badge badge-primary badge-outline badge-xs">
         {genre}
@@ -69,19 +71,23 @@ const CategoryGameCard = ({
             className={`relative flex h-2/5 w-full flex-col rounded-b-lg bg-${bgColor}`}
           >
             <div className="mx-3 mt-2">
-              <p className="line-clamp-2 text-sm font-semibold text-white">
+              <p className="line-clamp-2 text-lg font-semibold text-white">
                 {gameName}
               </p>
             </div>
             <div className="mx-3 mb-1 mt-auto">
-              <p className="text-neutral-light text-xs font-extralight">FROM</p>
+              <p className="text-xs font-extralight text-primary ">FROM</p>
               <div className="flex items-baseline gap-2">
-                <p className="text-lg text-white">{`${gamePrice} ETH`}</p>
-                <p className="text-sm font-extralight">
+                <p className="text-lg text-white">{`${gamePrice
+                  .toString()
+                  .slice(0, 8)} ETH`}</p>
+                <p className="mb-2 text-sm font-extralight">
                   {convertedPrice} {currency}
                 </p>
               </div>
-              <div className="mb-2 mt-1 flex gap-2">{mappedGenres}</div>
+              {/* <div className="mb-2 mt-1 line-clamp-2 flex gap-2">
+                {mappedGenres}
+              </div> */}
             </div>
           </div>
         </div>

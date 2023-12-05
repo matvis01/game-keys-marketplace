@@ -39,7 +39,7 @@ export default function GamePage() {
   }
   return (
     <div className="mx-auto flex  w-full max-w-screen-2xl flex-col items-center gap-6 px-5 pt-3  lg:px-32">
-      <div className="flex w-full flex-wrap justify-center gap-10 xl:flex-row">
+      <div className="flex w-full flex-wrap justify-center gap-10 lg:flex-nowrap xl:flex-row">
         <img
           src={gameData?.background_image}
           alt=""
@@ -114,8 +114,6 @@ export default function GamePage() {
         </div>
       )}
       {reviews && reviews.length > 0 && <Reviews allReviews={reviews} />}
-
-      <div className="h-10"></div>
     </div>
   )
 }

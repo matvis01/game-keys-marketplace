@@ -3,21 +3,21 @@ import { createPortal } from "react-dom"
 import Image from "next/image"
 import { useQuery } from "@apollo/client"
 
-import { GET_NAME } from "@/utils/graphQueries"
+import { GET_LISTING_NAME } from "@/utils/graphQueries"
 import ConfirmDeleteModal from "../Modals/ConfirmDeleteModal"
+import useContractFunctions from "../../hooks/useContractFunctions"
 
 interface GameListingProps {
   gameId: number | string
   price: number | string
   numOfItems: number | string
+  id: string
 }
 
-const GameListing = ({ gameId, price, numOfItems }: GameListingProps) => {
-  const { data, loading, error } = useQuery(GET_NAME(+gameId))
-  let name
-  if (data) {
-    name = data?.itemsBoughtByGame?.gameName
-  }
+const GameListing = ({ gameId, price, numOfItems, id }: GameListingProps) => {
+  const { data, loading, error } = useQuery(GET_LISTING_NAME(Number(gameId)))
+
+  const { cancelListing } = useContractFunctions()
 
   return (
     <>
@@ -26,11 +26,11 @@ const GameListing = ({ gameId, price, numOfItems }: GameListingProps) => {
           <span className="loading loading-spinner loading-lg"></span>
         </div>
       )}
-      {!error && !loading && name && (
+      {!error && !loading && (
         <div className="mb-1 mr-1 rounded-lg bg-neutral p-6">
           <div className="flex items-center justify-between">
             <h3 className="text-lg font-semibold text-gray-200">
-              {loading ? "Loading..." : name}
+              {loading ? "Loading..." : data?.listingsByGame?.gameName}
             </h3>
             <div
               className="flex items-center justify-center font-bold hover:cursor-pointer"
@@ -54,7 +54,11 @@ const GameListing = ({ gameId, price, numOfItems }: GameListingProps) => {
         </div>
       )}
       {createPortal(
-        <ConfirmDeleteModal />,
+        <ConfirmDeleteModal
+          handleDelete={() => {
+            cancelListing(id)
+          }}
+        />,
         document.getElementById("modals") as HTMLElement,
       )}
     </>

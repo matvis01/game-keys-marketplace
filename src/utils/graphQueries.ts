@@ -26,7 +26,7 @@ export const GET_ALL_NAMES_AND_IDS = gql`
   }
 `
 
-export function GET_LISTINGS_FOR_GAME(gameId: Number) {
+export function GET_LISTINGS_FOR_GAME(gameId: number) {
   return gql`
   query MyQuery {
     listingsByGame(id: ${gameId}) {
@@ -44,7 +44,7 @@ export function GET_LISTINGS_FOR_GAME(gameId: Number) {
 `
 }
 
-export function GET_BEST_PRICE(gameId: Number) {
+export function GET_BEST_PRICE(gameId: number) {
   return gql`
   {
     listingsByGame(id: ${gameId}) {
@@ -55,11 +55,20 @@ export function GET_BEST_PRICE(gameId: Number) {
   }`
 }
 
-export function GET_NAME(gameId: Number) {
+export function GET_NAME(gameId: number) {
   return gql`
   {
     itemsBoughtByGame(id: ${gameId}) {
      gameName
+    }
+  }`
+}
+
+export function GET_LISTING_NAME(gameId: number) {
+  return gql`
+  {
+    listingsByGame(id: ${gameId}) {
+      gameName
     }
   }`
 }
@@ -210,10 +219,11 @@ export const GET_TOP_RATED = gql`
 
 export const GET_USER_LISTINGS = (address: string) => gql`
 {
-  itemListeds(where: {seller: "${address}"}) {
+  itemListeds(where: {seller: "${address}", numOfItems_gt: "0"}) {
     price
     numOfItems
     gameId
+    id
   }
 }
 `

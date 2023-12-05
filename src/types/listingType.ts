@@ -42,4 +42,5 @@ export type itemListedType = {
   gameId: string
   numOfItems: string
   price: string
+  id: string
 }

@@ -1,6 +1,6 @@
 import React from "react"
 
-const ConfirmDeleteModal = () => {
+const ConfirmDeleteModal = ({ handleDelete }: { handleDelete: () => void }) => {
   const closeModal = () => {
     if (document)
       (
@@ -19,7 +19,7 @@ const ConfirmDeleteModal = () => {
           <button
             className="w-18 btn btn-error btn-md text-white"
             onClick={() => {
-              console.log("DODAĆ USUWANIE LISTINGU TUTAJ")
+              handleDelete()
             }}
           >
             Delete

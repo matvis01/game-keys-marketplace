@@ -7,7 +7,7 @@ import { waitForTransaction } from "wagmi/actions"
 import { ethers } from "ethers"
 import { encrypt } from "n-krypta"
 
-const chainId: number = Number(process.env.NEXT_PUBLIC_CHAIN_ID) || 1337
+const chainId: string = process.env.NEXT_PUBLIC_CHAIN_ID || "1337"
 const contractAbi = abi
 
 const secretKey = process.env.NEXT_PUBLIC_ENCRYPT_KEY || "secretKey"
@@ -24,7 +24,10 @@ type gameDataType = {
 function useContractFunctions() {
   const [balance, setBalance] = useState(0)
 
-  const contractAddresses = networkMapping[11155111]["GameKeyMarketplace"]
+  const contractAddresses =
+    (networkMapping as Record<string, { GameKeyMarketplace: string[] }>)[
+      chainId
+    ]?.GameKeyMarketplace || []
   const contractAddress = contractAddresses[contractAddresses.length - 1]
   const { address, isConnected, status } = useAccount()
 
@@ -131,12 +134,32 @@ function useContractFunctions() {
       console.log(e)
     }
   }
+
+  async function cancelListing(listingId: string) {
+    try {
+      if (!address) return
+      const { hash } = await writeContract({
+        address: `0x${contractAddress.slice(2, contractAddress.length)}`,
+        abi: contractAbi,
+        functionName: "cancelListing",
+        account: address,
+        args: [listingId],
+      })
+      const receipt = await waitForTransaction({ hash })
+      console.log(receipt)
+      return receipt
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   return {
     addListing,
     buy,
     getMyGames,
     handleWithdraw,
     balance,
+    cancelListing,
   }
 }
 

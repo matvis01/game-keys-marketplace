@@ -76,7 +76,9 @@ const GameCard = ({
             <div className="mx-3 mb-2 mt-auto">
               <p className="text-neutral-light text-xs font-extralight">FROM</p>
               <div className="flex items-baseline gap-2">
-                <p className="text-2xl text-white">{`${gamePrice} ETH`}</p>
+                <p className="text-2xl text-white">{`${gamePrice
+                  .toString()
+                  .slice(0, 8)} ETH`}</p>
                 <p className="text-lg font-extralight">
                   {convertedPrice} {currency}
                 </p>

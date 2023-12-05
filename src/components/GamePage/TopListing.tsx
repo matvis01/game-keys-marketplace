@@ -18,7 +18,9 @@ export default function TopListing({ listing, handleBuy }: Props) {
 
   return (
     <div className="card-body items-center ">
-      <h2 className="card-title text-5xl">{formatPrice.toString()} eth</h2>
+      <h2 className="card-title text-5xl">
+        {formatPrice.toString().slice(0, 8)} eth
+      </h2>
       <p>
         {convertedPrice} {currency}
       </p>

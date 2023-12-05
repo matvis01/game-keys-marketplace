@@ -17,6 +17,7 @@ const ListingsContainer = () => {
         gameId={listing.gameId}
         price={listing.price}
         numOfItems={listing.numOfItems}
+        id={listing.id}
       />
     ),
   )
