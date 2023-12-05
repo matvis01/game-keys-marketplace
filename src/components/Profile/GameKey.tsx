@@ -16,7 +16,7 @@ function GameKey({ game }: Props) {
   const { data, loading } = useQuery(GET_NAME(gameId))
   const name = data?.itemsBoughtByGame?.gameName
   return (
-    <div className="mb-4 rounded-lg bg-neutral p-6 shadow-lg">
+    <div className="mb-1 mr-1 rounded-lg bg-neutral p-6 shadow-lg">
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold text-gray-200">
           {loading ? "Loading..." : name}
@@ -30,7 +30,7 @@ function GameKey({ game }: Props) {
                   .map((char) => "*")
                   .join("")}
           </p>
-          <label className="swap swap-rotate ">
+          <label className="swap-rotate swap ">
             <input type="checkbox" onChange={() => setShow(!show)} />
             <div className="swap-off ">
               <Image src="/icons/eye.svg" width={20} height={20} alt="eye" />
