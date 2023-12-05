@@ -1,6 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react"
-import { useRouter } from "next/router"
-import { useAccount } from "wagmi"
+import React, { useState, useCallback, useRef } from "react"
 import axios from "axios"
 import { ToastContainer } from "react-toastify"
 import { Form, Formik, FormikHelpers } from "formik"
@@ -9,21 +7,26 @@ import { GameType } from "@/types/gameType"
 import { toastifySuccess, toastifyError } from "@/utils/alertToast"
 import { gameListingSchema } from "@/utils/validators"
 import CustomInput from "./CustomInput"
-
 import useContractFunctions from "@/hooks/useContractFunctions"
 
+type GameInfoType = {
+  id: number
+  name: string
+  image: string
+  genres: string[]
+  tags: string[]
+  rating: number
+}
+
 const NewGameModal = () => {
-  const router = useRouter()
-  const { status, address } = useAccount()
   const { addListing } = useContractFunctions()
 
+  const [gameData, setGameData] = useState<GameInfoType | null>(null)
   const [isSelectedGame, setIsSelectedGame] = useState(false)
   const [isListingGame, setIsListingGame] = useState(false)
   const [options, setOptions] = useState<string[]>([])
 
-  useEffect(() => {
-    if (status === "disconnected") router.push("/")
-  }, [status])
+  const formikRef = useRef<any>(null)
 
   const debounce = (func: Function, delay: number) => {
     let timeoutId: NodeJS.Timeout
@@ -61,6 +64,10 @@ const NewGameModal = () => {
   const closeModal = () => {
     if (document)
       (document.getElementById("new_game_modal") as HTMLFormElement).close()
+    setOptions([])
+    setIsListingGame(false)
+    setIsSelectedGame(false)
+    setGameData(null)
   }
 
   async function handleAddListing(
@@ -80,17 +87,18 @@ const NewGameModal = () => {
       const game = res.data.results[0] as GameType
 
       let tags = game.tags.filter((tag: any) => tag.language === "eng")
-      tags = tags.map((tag: any) => tag.name)
+      const tagNames = tags.map((tag: any) => tag.name)
       let genres = game.genres.map((genre: any) => genre.name)
 
-      return {
+      const returnGame: GameInfoType = {
         id: game.id,
         name: game.name,
         image: game.background_image,
         genres: genres,
-        tags: tags,
+        tags: tagNames,
         rating: game.rating,
       }
+      return returnGame
     } catch (e) {
       console.log(e)
     }
@@ -110,7 +118,6 @@ const NewGameModal = () => {
     async function addListing() {
       setIsListingGame(true)
       try {
-        const gameData = await getGameData(values.gameName)
         const receipt = await handleAddListing(
           gameData,
           values.gamePrice,
@@ -119,12 +126,11 @@ const NewGameModal = () => {
         if (receipt?.status === "success") {
           closeModal()
           resetForm()
-          setIsListingGame(false)
           toastifySuccess("Your game has been listed!", 3000)
         }
       } catch (e) {
-        console.log(e)
-        setIsListingGame(false)
+        closeModal()
+        resetForm()
         toastifyError("Something went wrong, please try again later", 3000)
       }
     }
@@ -139,6 +145,7 @@ const NewGameModal = () => {
             Add your game
           </h3>
           <Formik
+            innerRef={formikRef}
             initialValues={{ gameName: "", gamePrice: "", gameKey: "" }}
             onSubmit={onSubmit}
             validationSchema={gameListingSchema}
@@ -164,6 +171,11 @@ const NewGameModal = () => {
                               className="cursor-pointer rounded-lg px-4 py-2 hover:bg-neutral"
                               onClick={() => {
                                 props.setFieldValue("gameName", option)
+                                getGameData(option).then((res) => {
+                                  if (res) {
+                                    setGameData(res)
+                                  }
+                                })
                                 setIsSelectedGame(true)
                               }}
                             >
@@ -189,7 +201,7 @@ const NewGameModal = () => {
                 <button
                   className="btn btn-primary mt-6 w-full"
                   type="submit"
-                  disabled={!props.isValid || isListingGame}
+                  disabled={!props.isValid || isListingGame || !isSelectedGame}
                 >
                   Add game
                 </button>
@@ -199,13 +211,23 @@ const NewGameModal = () => {
           <button
             className="btn btn-ghost btn-sm absolute right-2 top-2"
             type="button"
-            onClick={() => closeModal()}
+            onClick={() => {
+              formikRef.current?.resetForm()
+              closeModal()
+            }}
           >
             ✕
           </button>
         </div>
         <form method="dialog" className="modal-backdrop">
-          <button>close</button>
+          <button
+            onClick={() => {
+              formikRef.current?.resetForm()
+              closeModal()
+            }}
+          >
+            close
+          </button>
         </form>
       </dialog>
       <ToastContainer />
