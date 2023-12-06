@@ -22,7 +22,7 @@ const QuickAccessBar = ({ refs }: QuickAccessBarProps) => {
   return (
     <div
       data-testid="quick-access-bar-component"
-      className="mx-auto flex h-40 w-full max-w-screen-xl items-center justify-between px-16"
+      className="mx-auto flex h-fit w-full max-w-screen-xl items-center justify-center gap-2 px-4 py-4"
     >
       <QuickAccessButton
         text="Bestsellers"

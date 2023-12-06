@@ -56,7 +56,7 @@ const GameCard = ({
       )}
       {!loading && !error && (
         <div
-          className="group mx-auto flex h-[120px] w-[350px] rounded-lg transition-all duration-300 hover:cursor-pointer hover:shadow-xl sm:h-[169px] sm:w-[600px] "
+          className="group mx-auto flex h-[120px] w-[330px] rounded-lg transition-all duration-300 hover:cursor-pointer hover:shadow-xl sm:h-[169px] sm:w-[600px] "
           onClick={handleClick}
         >
           <div className="w-1/2 overflow-hidden">
@@ -80,7 +80,7 @@ const GameCard = ({
                 FROM
               </p>
               <div className="flex  items-baseline gap-2">
-                <p className="text-sm text-white sm:text-2xl">{`${gamePrice
+                <p className="text-xs font-semibold text-white sm:text-2xl">{`${gamePrice
                   .toString()
                   .slice(0, 8)} ETH`}</p>
                 <p className="text-xs font-extralight sm:text-xl">
