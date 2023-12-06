@@ -20,17 +20,19 @@ const Bestsellers = () => {
     let sortedListings = listings.itemsBoughtByGames.toSorted(
       (a: any, b: any) => b.allItemsBought.length - a.allItemsBought.length,
     )
-    mappedGames = sortedListings.map((game: gameCardType) => (
-      <GameCard
-        key={game.gameId}
-        gameId={game.gameId}
-        gameName={game.gameName}
-        gameImage={game.gameImage}
-        tags={game.tags}
-        genres={game.genres}
-        bgColor="base-100"
-      />
-    ))
+    mappedGames = sortedListings
+      .slice(0, 6)
+      .map((game: gameCardType) => (
+        <GameCard
+          key={game.gameId}
+          gameId={game.gameId}
+          gameName={game.gameName}
+          gameImage={game.gameImage}
+          tags={game.tags}
+          genres={game.genres}
+          bgColor="base-100"
+        />
+      ))
   }
 
   const handleRedirect = () => {

@@ -1,9 +1,13 @@
-import React, { useState } from "react"
+import React from "react"
 import { useExchangePrice } from "@/hooks/useExchangePrice"
 
 const currencies = ["USD", "EUR", "PLN", "GBP", "JPY", "CAD", "AUD"]
 
-function CurrencySelector() {
+interface CurrencySelectorProps {
+  extraSmall?: boolean
+}
+
+function CurrencySelector({ extraSmall }: CurrencySelectorProps = {}) {
   const { currency, ChangeCurrency } = useExchangePrice()
 
   const handleCurrencyChange = (
@@ -18,7 +22,9 @@ function CurrencySelector() {
       data-testid="currency-selector-component"
       value={currency}
       onChange={handleCurrencyChange}
-      className="select-s select w-fit max-w-xs bg-transparent hover:bg-base-100"
+      className={`select ${
+        extraSmall ? "select-xs" : "select-s"
+      } w-fit max-w-xs bg-transparent hover:bg-base-100`}
     >
       {currencies.map((currency) => (
         <option

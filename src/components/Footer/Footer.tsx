@@ -25,7 +25,7 @@ const Footer = () => {
           >
             <span className="text-primary">Get</span> updates, sign up now!
           </h1>
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center gap-2 sm:gap-0">
             <input
               type="text"
               placeholder="Enter your email"
@@ -36,7 +36,7 @@ const Footer = () => {
             </button>
           </div>
         </div>
-        <div className="divider divider-primary" />
+        <div className="divider divider-primary mx-auto w-10/12 lg:w-full" />
         <div
           className="grid grid-cols-1 gap-10 pb-5 pt-2
         text-center text-sm text-gray-400 sm:grid-cols-2 lg:grid-cols-3"

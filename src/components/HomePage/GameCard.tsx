@@ -1,5 +1,4 @@
 import React from "react"
-import Image from "next/image"
 import { useRouter } from "next/router"
 import { useQuery } from "@apollo/client"
 import { ethers } from "ethers"
@@ -56,7 +55,7 @@ const GameCard = ({
       )}
       {!loading && !error && (
         <div
-          className="group mx-auto flex h-[169px] w-[600px] rounded-lg transition-all duration-300 hover:cursor-pointer hover:shadow-xl"
+          className="group mx-auto flex h-[120px] w-[330px] rounded-lg transition-all duration-300 hover:cursor-pointer hover:shadow-xl sm:h-[169px] sm:w-[580px]"
           onClick={handleClick}
         >
           <div className="w-1/2 overflow-hidden">
@@ -70,22 +69,28 @@ const GameCard = ({
             className={`relative flex w-1/2 flex-col rounded-r-lg bg-${bgColor}`}
           >
             <div className="mx-3 mt-2">
-              <p className="line-clamp-2 text-xl text-white">{gameName}</p>
+              <p className="line-clamp-2 text-sm text-white sm:text-xl">
+                {gameName}
+              </p>
               <p className="text-xs text-primary">GLOBAL</p>
             </div>
             <div className="mx-3 mb-2 mt-auto">
-              <p className="text-neutral-light text-xs font-extralight">FROM</p>
-              <div className="flex items-baseline gap-2">
-                <p className="text-2xl text-white">{`${gamePrice
+              <p className="text-neutral-light text-xs font-extralight ">
+                FROM
+              </p>
+              <div className="flex  items-baseline gap-2">
+                <p className="text-xs font-semibold text-white sm:text-2xl">{`${gamePrice
                   .toString()
                   .slice(0, 8)} ETH`}</p>
-                <p className="text-lg font-extralight">
+                <p className="text-xs font-extralight sm:text-xl">
                   {convertedPrice} {currency}
                 </p>
               </div>
-              <div className="mb-2 mt-1 flex gap-2">{mappedGenres}</div>
+              <div className="mb-2 mt-1 hidden gap-2 sm:flex">
+                {mappedGenres}
+              </div>
             </div>
-            <RxArrowTopRight className="absolute bottom-2 right-2 h-8 w-8 text-white opacity-0 duration-100 group-hover:rotate-45 group-hover:text-primary lg:opacity-100" />
+            <RxArrowTopRight className="absolute bottom-2 right-2 h-8 w-8 text-white opacity-0 duration-100 group-hover:rotate-45 group-hover:text-primary sm:opacity-100" />
           </div>
         </div>
       )}
