@@ -53,56 +53,101 @@ const CategoriesPage = () => {
     refetch()
   }, [paramsFilters])
 
+  const PageContent = (
+    <div className="flex w-full flex-col lg:w-3/4">
+      <div className="flex flex-wrap gap-2 p-4 ">
+        {!error &&
+          listings
+            ?.slice(itemsOffset, endOffset)
+            .map((listing: ListingType) => (
+              <AlternativeGameCard key={listing.id} {...listing} />
+            ))}
+      </div>
+      {!error && listings.length > 0 && (
+        <ReactPaginate
+          pageCount={pageCount}
+          onPageChange={handlePageClick}
+          nextLabel={
+            <Image
+              src={"icons/icon-arrow.svg"}
+              alt="arrow icon"
+              width={25}
+              height={25}
+            />
+          }
+          previousLabel={
+            <Image
+              src={"icons/icon-arrow.svg"}
+              alt="arrow icon"
+              width={25}
+              height={25}
+              style={{ transform: "rotate(180deg)" }}
+            />
+          }
+          breakLabel="..."
+          pageRangeDisplayed={3}
+          renderOnZeroPageCount={null}
+          className="join flex justify-center text-white"
+          nextClassName="p-2 border border-primary bg-neutral rounded-lg join-item"
+          previousClassName="p-2 border border-primary bg-neutral rounded-lg join-item"
+          pageClassName="p-2 border border-primary bg-neutral px-4 rounded-lg join-item"
+          activeClassName="text-primary font-bold"
+          disabledClassName="opacity-50"
+          disabledLinkClassName="cursor-not-allowed"
+        />
+      )}
+    </div>
+  )
+
   return (
     <div className="mx-auto mb-8 flex h-full w-full max-w-screen-xl justify-center">
-      <div className="flex max-h-full w-1/4 justify-center ">
-        <div className="sticky top-20 w-3/4">
-          <Filters />
+      <div className="flex max-h-full w-full justify-center ">
+        <div className="drawer">
+          <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
+          <div className="drawer-content flex  flex-col lg:flex-row">
+            {/* Navbar */}
+            <div className=" flex w-full flex-col bg-base-300 lg:w-1/4">
+              <div className="flex-none lg:hidden">
+                <label
+                  htmlFor="my-drawer-3"
+                  aria-label="open sidebar"
+                  className="btn  btn-ghost"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    className="inline-block h-6 w-6 stroke-current"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M4 6h16M4 12h16M4 18h16"
+                    ></path>
+                  </svg>
+                  Filters
+                </label>
+              </div>
+
+              <div className="hidden flex-none lg:block">
+                <Filters />
+              </div>
+            </div>
+            {PageContent}
+          </div>
+          <div className="drawer-side">
+            <label
+              htmlFor="my-drawer-3"
+              aria-label="close sidebar"
+              className="drawer-overlay"
+            ></label>
+            <ul className="menu min-h-full w-80 bg-base-200 p-4 pt-20">
+              {/* Sidebar content here */}
+              <Filters />
+            </ul>
+          </div>
         </div>
-      </div>
-      <div className="flex w-3/4 flex-col ">
-        <div className="grid h-fit gap-x-4 gap-y-4 p-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {!error &&
-            listings
-              ?.slice(itemsOffset, endOffset)
-              .map((listing: ListingType) => (
-                // <CategoryGameCard key={listing.id} {...listing} />
-                <AlternativeGameCard key={listing.id} {...listing} />
-              ))}
-        </div>
-        {!error && listings.length > 0 && (
-          <ReactPaginate
-            pageCount={pageCount}
-            onPageChange={handlePageClick}
-            nextLabel={
-              <Image
-                src={"icons/icon-arrow.svg"}
-                alt="arrow icon"
-                width={25}
-                height={25}
-              />
-            }
-            previousLabel={
-              <Image
-                src={"icons/icon-arrow.svg"}
-                alt="arrow icon"
-                width={25}
-                height={25}
-                style={{ transform: "rotate(180deg)" }}
-              />
-            }
-            breakLabel="..."
-            pageRangeDisplayed={3}
-            renderOnZeroPageCount={null}
-            className="join flex justify-center text-white"
-            nextClassName="p-2 border border-primary bg-neutral rounded-lg join-item"
-            previousClassName="p-2 border border-primary bg-neutral rounded-lg join-item"
-            pageClassName="p-2 border border-primary bg-neutral px-4 rounded-lg join-item"
-            activeClassName="text-primary font-bold"
-            disabledClassName="opacity-50"
-            disabledLinkClassName="cursor-not-allowed"
-          />
-        )}
       </div>
     </div>
   )

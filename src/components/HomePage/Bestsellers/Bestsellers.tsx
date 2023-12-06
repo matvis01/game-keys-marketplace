@@ -4,6 +4,7 @@ import { useQuery } from "@apollo/client"
 import { GET_SOLD_LAST_WEEKS_WITH_LISTING } from "@/utils/graphQueries"
 import GameCard from "../GameCard"
 import { gameCardType } from "@/types/listingType"
+import { useRouter } from "next/router"
 
 const Bestsellers = () => {
   const {
@@ -11,6 +12,7 @@ const Bestsellers = () => {
     error,
     data: listings,
   } = useQuery(GET_SOLD_LAST_WEEKS_WITH_LISTING(2))
+  const router = useRouter()
 
   let mappedGames
 
@@ -29,6 +31,15 @@ const Bestsellers = () => {
         bgColor="base-100"
       />
     ))
+  }
+
+  const handleRedirect = () => {
+    router.push({
+      pathname: router.pathname + "categories",
+      query: {
+        filters: JSON.stringify({ order: "numOfSoldItems" }),
+      },
+    })
   }
 
   return (
@@ -51,7 +62,10 @@ const Bestsellers = () => {
             data-testid="bestsellers-button"
             className="flex items-center justify-center"
           >
-            <button className="btn btn-primary btn-wide mb-3 mt-6 text-white">
+            <button
+              className="btn btn-primary btn-wide mb-3 mt-6 text-white"
+              onClick={handleRedirect}
+            >
               Explore more
             </button>
           </div>

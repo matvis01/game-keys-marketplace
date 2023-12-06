@@ -75,7 +75,7 @@ const Filters: React.FC = () => {
         <option disabled>Sort by</option>
         <option value={"rating"}>Top Rated</option>
         <option value={"latestDate"}>Newest</option>
-        {/* <option value={"allItemsBought"}>Bestsellers</option> */}
+        <option value={"numOfSoldItems"}>Bestsellers</option>
       </select>
       <label className="self-start">Price:</label>
       <div className="flex w-full justify-center">
