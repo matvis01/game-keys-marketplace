@@ -22,7 +22,7 @@ const NavBarListItem = ({
     <li data-testid={dataTestId} onClick={onClick}>
       <Link href={href}>
         <p
-          className={`border-b border-b-transparent  text-xl font-semibold ${hoverStyles} ${styles}`}
+          className={`border-b border-b-transparent text-xl font-semibold ${hoverStyles} ${styles}`}
         >
           {text}
         </p>
