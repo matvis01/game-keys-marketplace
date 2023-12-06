@@ -6,14 +6,23 @@ interface Props {
   styles?: string
   text: string
   href: string
+  hoverStyles?: string
+  onClick?: () => void
 }
 
-const NavBarListItem = ({ styles, text, href, dataTestId }: Props) => {
+const NavBarListItem = ({
+  styles,
+  text,
+  href,
+  dataTestId,
+  hoverStyles,
+  onClick,
+}: Props) => {
   return (
-    <li data-testid={dataTestId}>
+    <li data-testid={dataTestId} onClick={onClick}>
       <Link href={href}>
         <p
-          className={`border-b border-b-transparent  text-xl font-semibold hover:border-b hover:border-b-primary ${styles}`}
+          className={`border-b border-b-transparent  text-xl font-semibold ${hoverStyles} ${styles}`}
         >
           {text}
         </p>
