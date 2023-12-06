@@ -56,7 +56,11 @@ export default function GamePage() {
             <p className="text-l">Type: Key</p>
             <p className="text-l">Region: Global</p>
             <p className="text-l">Release date: {gameData?.released}</p>
-            <p className="text-l">Developer: {gameData?.developers[0].name}</p>
+            {gameData?.developers && gameData.developers.length > 0 && (
+              <p className="text-l">
+                Developer: {gameData?.developers[0]?.name}
+              </p>
+            )}
           </div>
         </div>
         <div className=" card w-full min-w-fit bg-neutral lg:w-1/3 xl:w-1/4 ">
