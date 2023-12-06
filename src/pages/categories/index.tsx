@@ -104,7 +104,7 @@ const CategoriesPage = () => {
       <div className="flex max-h-full w-full justify-center ">
         <div className="drawer">
           <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
-          <div className="drawer-content flex  flex-col lg:flex-row">
+          <div className=" drawer-content flex  flex-col lg:flex-row">
             {/* Navbar */}
             <div className=" flex w-full flex-col bg-base-300 lg:w-1/4">
               <div className="flex-none lg:hidden">
@@ -130,7 +130,7 @@ const CategoriesPage = () => {
                 </label>
               </div>
 
-              <div className="hidden flex-none lg:block">
+              <div className=" hidden h-full flex-none p-1 lg:block">
                 <Filters />
               </div>
             </div>

@@ -65,7 +65,7 @@ const Filters: React.FC = () => {
   }
 
   return (
-    <div className="flex h-full w-full flex-col items-center gap-4 p-2">
+    <div className="sticky top-[5.5rem] flex h-fit w-full flex-col items-center gap-4 p-2 ">
       <select
         className="select select-primary select-sm w-full max-w-xs"
         onChange={handleOrderChange}

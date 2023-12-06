@@ -58,7 +58,7 @@ const CategoryGameCard = ({
       )}
       {!loading && !error && (
         <div
-          className="group mx-auto flex h-[300px] w-[220px]  flex-col rounded-lg transition-all duration-200 hover:-translate-y-0.5 hover:cursor-pointer hover:shadow-xl"
+          className="group mx-auto flex h-[300px] w-full  flex-col rounded-lg transition-all duration-200 hover:-translate-y-0.5 hover:cursor-pointer hover:shadow-xl sm:w-[220px]"
           onClick={handleClick}
         >
           <img
