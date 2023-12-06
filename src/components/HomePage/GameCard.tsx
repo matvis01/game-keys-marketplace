@@ -1,5 +1,4 @@
 import React from "react"
-import Image from "next/image"
 import { useRouter } from "next/router"
 import { useQuery } from "@apollo/client"
 import { ethers } from "ethers"
@@ -56,7 +55,7 @@ const GameCard = ({
       )}
       {!loading && !error && (
         <div
-          className="group mx-auto flex h-[120px] w-[330px] rounded-lg transition-all duration-300 hover:cursor-pointer hover:shadow-xl sm:h-[169px] sm:w-[600px] "
+          className="group mx-auto flex h-[120px] w-[330px] rounded-lg transition-all duration-300 hover:cursor-pointer hover:shadow-xl sm:h-[169px] sm:w-[580px]"
           onClick={handleClick}
         >
           <div className="w-1/2 overflow-hidden">

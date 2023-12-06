@@ -36,9 +36,11 @@ const CategoryButton = ({
     <div
       data-testid={`${linkText?.toLowerCase()}-category-button`}
       onClick={handleClick}
-      className="flex h-36 w-36 flex-col items-center justify-center gap-4 rounded-lg border border-primary bg-neutral text-white shadow-lg transition-all duration-300 hover:cursor-pointer hover:bg-primary"
+      className="flex h-24 w-24 flex-col items-center justify-center gap-2 justify-self-center rounded-lg border border-primary bg-neutral text-white shadow-lg transition-all duration-300 hover:cursor-pointer hover:bg-primary sm:h-36 sm:w-36 sm:gap-4"
     >
-      <Image src={imgSrc} alt={imgAlt} width={width} height={height} />
+      <div className="relative h-8 w-8 sm:h-12 sm:w-12">
+        <Image src={imgSrc} alt={imgAlt} fill />
+      </div>
       <p>{text}</p>
     </div>
   )

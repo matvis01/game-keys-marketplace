@@ -16,7 +16,7 @@ const QuickAccessButton = ({
 }: QuickAccessButtonProps) => {
   return (
     <div
-      className="flex h-16 w-20 transform select-none flex-col items-center justify-center justify-self-center rounded-lg bg-primary shadow-lg transition-all hover:scale-105 hover:cursor-pointer sm:h-24 sm:w-32 md:h-32 md:w-40"
+      className="flex h-16 w-20 transform select-none flex-col items-center justify-center justify-self-center rounded-lg bg-primary shadow-lg transition-all hover:scale-105 hover:cursor-pointer sm:h-24 sm:w-32 md:h-32 md:w-48"
       onClick={onClick}
     >
       <div className="relative h-6 w-6 sm:h-12 sm:w-12 md:h-16 md:w-16">
