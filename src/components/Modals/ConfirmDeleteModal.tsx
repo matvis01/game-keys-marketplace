@@ -1,11 +1,23 @@
+import useContractFunctions from "@/hooks/useContractFunctions"
 import React from "react"
 
-const ConfirmDeleteModal = ({ handleDelete }: { handleDelete: () => void }) => {
+interface ConfirmDeleteModalProps {
+  id: string
+}
+
+const ConfirmDeleteModal = ({ id }: ConfirmDeleteModalProps) => {
+  const { cancelListing } = useContractFunctions()
+
   const closeModal = () => {
     if (document)
       (
         document.getElementById("delete_listing_modal") as HTMLFormElement
       ).close()
+  }
+
+  const onConfirm = () => {
+    cancelListing(id)
+    closeModal()
   }
 
   return (
@@ -18,9 +30,7 @@ const ConfirmDeleteModal = ({ handleDelete }: { handleDelete: () => void }) => {
         <div className="flex items-end justify-center gap-2">
           <button
             className="w-18 btn btn-error btn-md text-white"
-            onClick={() => {
-              handleDelete()
-            }}
+            onClick={onConfirm}
           >
             Delete
           </button>

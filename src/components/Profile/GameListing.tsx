@@ -17,8 +17,6 @@ interface GameListingProps {
 const GameListing = ({ gameId, price, numOfItems, id }: GameListingProps) => {
   const { data, loading, error } = useQuery(GET_LISTING_NAME(Number(gameId)))
 
-  const { cancelListing } = useContractFunctions()
-
   return (
     <>
       {loading && (
@@ -49,17 +47,13 @@ const GameListing = ({ gameId, price, numOfItems, id }: GameListingProps) => {
                 width={25}
                 height={25}
               />
+              {createPortal(
+                <ConfirmDeleteModal id={id} />,
+                document.getElementById("modals") as HTMLElement,
+              )}
             </div>
           </div>
         </div>
-      )}
-      {createPortal(
-        <ConfirmDeleteModal
-          handleDelete={() => {
-            cancelListing(id)
-          }}
-        />,
-        document.getElementById("modals") as HTMLElement,
       )}
     </>
   )
