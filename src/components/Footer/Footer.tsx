@@ -25,13 +25,13 @@ const Footer = () => {
           >
             <span className="text-primary">Get</span> updates, sign up now!
           </h1>
-          <div className="flex items-center justify-center gap-2 sm:gap-0">
+          <div className="flex flex-col items-center gap-1 sm:flex-row sm:gap-0">
             <input
               type="text"
               placeholder="Enter your email"
-              className="input input-bordered input-md sm:mr-5 sm:w-72 lg:mb-0"
+              className="input input-bordered input-sm sm:input-md sm:mr-5 sm:w-72 lg:mb-0"
             />
-            <button className="btn btn-primary btn-md w-32 text-white">
+            <button className="btn btn-primary btn-sm w-24 text-white sm:btn-md sm:w-32">
               Sign up
             </button>
           </div>

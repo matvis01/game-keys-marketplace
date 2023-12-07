@@ -44,7 +44,7 @@ const Categories = () => {
               isShowAll ? "h-fit" : "h-56 sm:h-40"
             } w-full max-w-screen-xl grid-cols-2 gap-y-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 ${
               isShowAll ? "overflow-y-visible" : "overflow-hidden"
-            } px-16`}
+            } px-8 sm:px-16`}
           >
             {mappedCategories}
           </div>

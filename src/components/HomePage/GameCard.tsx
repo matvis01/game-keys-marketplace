@@ -49,16 +49,16 @@ const GameCard = ({
   return (
     <>
       {loading && (
-        <div className="flex h-[169px] w-[600px] items-center justify-center">
+        <div className="flex h-[110px] w-[260px] items-center justify-center sm:h-[169px] sm:w-[580px]">
           <span className="loading loading-spinner loading-lg"></span>
         </div>
       )}
       {!loading && !error && (
         <div
-          className="group mx-auto flex h-[120px] w-[330px] rounded-lg transition-all duration-300 hover:cursor-pointer hover:shadow-xl sm:h-[169px] sm:w-[580px]"
+          className="group mx-auto flex h-[110px] w-[260px] rounded-lg transition-all duration-300 hover:cursor-pointer hover:shadow-xl sm:h-[169px] sm:w-[580px]"
           onClick={handleClick}
         >
-          <div className="w-1/2 overflow-hidden">
+          <div className="w-2/5 overflow-hidden sm:w-1/2">
             <img
               src={gameImage}
               alt={`Thumbnail image of ${gameName}.`}
@@ -66,15 +66,15 @@ const GameCard = ({
             />
           </div>
           <div
-            className={`relative flex w-1/2 flex-col rounded-r-lg bg-${bgColor}`}
+            className={`relative flex w-3/5 flex-col rounded-r-lg px-1 sm:w-1/2 sm:px-3 bg-${bgColor}`}
           >
-            <div className="mx-3 mt-2">
+            <div className="mt-2">
               <p className="line-clamp-2 text-sm text-white sm:text-xl">
                 {gameName}
               </p>
               <p className="text-xs text-primary">GLOBAL</p>
             </div>
-            <div className="mx-3 mb-2 mt-auto">
+            <div className="mb-2 mt-auto">
               <p className="text-neutral-light text-xs font-extralight ">
                 FROM
               </p>

@@ -5,6 +5,7 @@ import { GET_LATEST_LISTINGS } from "@/utils/graphQueries"
 import GameCard from "../GameCard"
 import { gameCardType } from "@/types/listingType"
 import { useRouter } from "next/router"
+import ExploreMoreButton from "../ExploreMoreButton"
 
 const NewArrivals = () => {
   const { error, data, loading } = useQuery(GET_LATEST_LISTINGS)
@@ -52,15 +53,10 @@ const NewArrivals = () => {
           >
             <>{mappedGames}</>
           </div>
-          <div className="flex items-center justify-center">
-            <button
-              data-testid="new-arrivals-button"
-              onClick={handleRedirect}
-              className="btn btn-primary btn-wide mb-3 mt-6 text-white"
-            >
-              Explore more
-            </button>
-          </div>
+          <ExploreMoreButton
+            onRedirect={handleRedirect}
+            testId="new-arrivals-button"
+          />
         </>
       )}
     </>
