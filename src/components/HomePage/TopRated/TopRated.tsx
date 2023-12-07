@@ -5,6 +5,7 @@ import { GET_TOP_RATED } from "@/utils/graphQueries"
 import GameCard from "../GameCard"
 import { gameCardType } from "@/types/listingType"
 import { useRouter } from "next/router"
+import ExploreMoreButton from "../ExploreMoreButton"
 
 const TopRated = () => {
   const { loading, error, data: listings } = useQuery(GET_TOP_RATED)
@@ -50,17 +51,10 @@ const TopRated = () => {
           >
             <>{mappedGames}</>
           </div>
-          <div
-            data-testid="top-rated-button"
-            className="flex items-center justify-center"
-          >
-            <button
-              onClick={handleRedirect}
-              className="btn btn-primary btn-wide mb-3 mt-6 text-white"
-            >
-              Explore more
-            </button>
-          </div>
+          <ExploreMoreButton
+            onRedirect={handleRedirect}
+            testId="top-rated-button"
+          />
         </>
       )}
     </>
