@@ -1,7 +1,9 @@
 import { useState } from "react"
 import Image from "next/image"
 import { useQuery } from "@apollo/client"
+
 import { GET_NAME } from "@/utils/graphQueries"
+
 
 type Props = {
   game: {

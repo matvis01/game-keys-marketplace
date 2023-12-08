@@ -32,6 +32,11 @@ const KeysContainer = () => {
   return (
     <div className="custom-scrollbar h-full overflow-y-auto">
       {games?.map((game: any, i: number) => <GameKey key={i} game={game} />)}
+      {games?.length === 0 && (
+        <p className="mt-20 text-center">
+          You don't have any keys, try buying some games first!
+        </p>
+      )}
     </div>
   )
 }
