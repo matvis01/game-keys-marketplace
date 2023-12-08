@@ -25,6 +25,11 @@ const ListingsContainer = () => {
   return (
     <div className="custom-scrollbar h-full overflow-y-auto">
       {mappedListings}
+      {mappedListings?.length === 0 && (
+        <p className="mt-20 text-center">
+          You don't have any listings, try adding some!
+        </p>
+      )}
     </div>
   )
 }
