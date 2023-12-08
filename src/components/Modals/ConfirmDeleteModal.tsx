@@ -1,11 +1,12 @@
-import useContractFunctions from "@/hooks/useContractFunctions"
 import React from "react"
+import useContractFunctions from "@/hooks/useContractFunctions"
 
 interface ConfirmDeleteModalProps {
   id: string
+  onDelete: () => void
 }
 
-const ConfirmDeleteModal = ({ id }: ConfirmDeleteModalProps) => {
+const ConfirmDeleteModal = ({ id, onDelete }: ConfirmDeleteModalProps) => {
   const { cancelListing } = useContractFunctions()
 
   const closeModal = () => {
@@ -13,11 +14,13 @@ const ConfirmDeleteModal = ({ id }: ConfirmDeleteModalProps) => {
       (
         document.getElementById("delete_listing_modal") as HTMLFormElement
       ).close()
+    onDelete()
   }
 
   const onConfirm = () => {
     cancelListing(id)
     closeModal()
+    onDelete()
   }
 
   return (
@@ -40,16 +43,16 @@ const ConfirmDeleteModal = ({ id }: ConfirmDeleteModalProps) => {
           >
             Cancel
           </button>
+          <button
+            className="btn btn-ghost btn-sm absolute right-2 top-2"
+            onClick={closeModal}
+          >
+            ✕
+          </button>
         </div>
-        <button
-          className="btn btn-ghost btn-sm absolute right-2 top-2"
-          onClick={closeModal}
-        >
-          ✕
-        </button>
       </div>
       <form method="dialog" className="modal-backdrop">
-        <button>close</button>
+        <button onClick={closeModal}>close</button>
       </form>
     </dialog>
   )

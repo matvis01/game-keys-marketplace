@@ -5,7 +5,7 @@ import { useQuery } from "@apollo/client"
 import { ethers } from "ethers"
 
 import { GET_LISTING_NAME } from "@/utils/graphQueries"
-import ConfirmDeleteModal from "../Modals/ConfirmDeleteModal"
+import useContractFunctions from "@/hooks/useContractFunctions"
 
 interface GameListingProps {
   gameId: number | string
@@ -16,6 +16,7 @@ interface GameListingProps {
 
 const GameListing = ({ gameId, price, numOfItems, id }: GameListingProps) => {
   const { data, loading, error } = useQuery(GET_LISTING_NAME(Number(gameId)))
+  const { cancelListing } = useContractFunctions()
 
   const formattedPrice = ethers.formatEther(price)
 
@@ -35,24 +36,13 @@ const GameListing = ({ gameId, price, numOfItems, id }: GameListingProps) => {
               </h3>
               <p>{formattedPrice} ETH</p>
             </div>
-            <div
-              className="flex items-center justify-center font-bold hover:cursor-pointer"
-              onClick={() => {
-                if (document)
-                  (
-                    document.getElementById(
-                      "delete_listing_modal",
-                    ) as HTMLFormElement
-                  ).showModal()
-              }}
-            >
-              <div className="relative h-5 w-5 sm:h-6 sm:w-6">
+            <div className="flex items-center justify-center font-bold hover:cursor-pointer">
+              <div
+                className="relative h-5 w-5 sm:h-6 sm:w-6"
+                onClick={() => cancelListing(id)}
+              >
                 <Image src="/icons/trash-icon.svg" alt="trash can icon" fill />
               </div>
-              {createPortal(
-                <ConfirmDeleteModal id={id} />,
-                document.getElementById("modals") as HTMLElement,
-              )}
             </div>
           </div>
         </div>
