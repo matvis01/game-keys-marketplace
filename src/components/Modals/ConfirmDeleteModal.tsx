@@ -22,7 +22,7 @@ const ConfirmDeleteModal = ({ id }: ConfirmDeleteModalProps) => {
 
   return (
     <dialog id="delete_listing_modal" className="modal">
-      <div className="modal-box w-3/12 max-w-5xl">
+      <div className="modal-box w-9/12 max-w-5xl sm:w-6/12 lg:w-4/12 xl:w-3/12">
         <h3 className="text-center text-xl font-bold">Delete Listing</h3>
         <p className="py-4 text-center">
           Are you sure you want to delete this listing?
