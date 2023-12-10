@@ -1,10 +1,10 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 import { useQuery } from "@apollo/client"
 import { ethers } from "ethers"
 import { RxArrowTopRight } from "react-icons/rx"
 
-import { useExchangePrice } from "@/hooks/useExchangePrice"
+import { CurrencyContext } from "@/contexts/currencyContext"
 import { GET_BEST_PRICE } from "@/utils/graphQueries"
 
 interface GameCardProps {
@@ -32,7 +32,9 @@ const GameCard = ({
     gamePrice = ethers.formatUnits(price)
   }
 
-  const { currency, convertedPrice } = useExchangePrice(+gamePrice)
+  const { currency, getConvertedPrice } = React.useContext(CurrencyContext)
+
+  let convertedPrice = getConvertedPrice(Number(gamePrice))
 
   const mappedGenres = genres
     ?.slice(0, 3)

@@ -1,5 +1,5 @@
 import React from "react"
-import { useExchangePrice } from "@/hooks/useExchangePrice"
+import { CurrencyContext } from "@/contexts/currencyContext"
 
 const currencies = ["USD", "EUR", "PLN", "GBP", "JPY", "CAD", "AUD"]
 
@@ -8,7 +8,7 @@ interface CurrencySelectorProps {
 }
 
 function CurrencySelector({ extraSmall }: CurrencySelectorProps = {}) {
-  const { currency, ChangeCurrency } = useExchangePrice()
+  const { currency, ChangeCurrency } = React.useContext(CurrencyContext)
 
   const handleCurrencyChange = (
     event: React.ChangeEvent<HTMLSelectElement>,

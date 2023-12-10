@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import { useQuery } from "@apollo/client"
 import { ethers } from "ethers"
 
-import { useExchangePrice } from "@/hooks/useExchangePrice"
+import { CurrencyContext } from "@/contexts/currencyContext"
 import { GET_BEST_PRICE } from "@/utils/graphQueries"
 
 interface CategoryGameCardProps {
@@ -32,9 +32,8 @@ const CategoryGameCard = ({
     gamePrice = ethers.formatUnits(price)
   }
 
-  let exchangePrice: number = 0
-
-  const { convertedPrice, currency } = useExchangePrice(+gamePrice)
+  const { currency, getConvertedPrice } = React.useContext(CurrencyContext)
+  let convertedPrice = getConvertedPrice(Number(gamePrice))
 
   const genresLength = genres?.includes("Massively Multiplayer") ? 2 : 3
 

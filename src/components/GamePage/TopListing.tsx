@@ -1,9 +1,8 @@
 import { ethers } from "ethers"
-import { useExchangePrice } from "../../hooks/useExchangePrice"
+import React from "react"
+import { CurrencyContext } from "@/contexts/currencyContext"
 import { ListingType } from "@/types/listingType"
 import { useAccount } from "wagmi"
-import { useEffect, useState } from "react"
-import { from, fromPromise } from "@apollo/client"
 
 type Props = {
   listing: ListingType
@@ -13,7 +12,8 @@ type Props = {
 export default function TopListing({ listing, handleBuy }: Props) {
   const { price, numOfItems, seller } = listing
   const formatPrice = ethers.formatUnits(price)
-  const { currency, convertedPrice } = useExchangePrice(+formatPrice)
+  const { currency, getConvertedPrice } = React.useContext(CurrencyContext)
+  let convertedPrice = getConvertedPrice(Number(formatPrice))
   const { isConnected } = useAccount()
 
   return (
