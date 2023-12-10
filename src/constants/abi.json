@@ -42,9 +42,21 @@
     "inputs": [
       {
         "indexed": true,
-        "internalType": "string",
+        "internalType": "uint256",
         "name": "gameId",
-        "type": "string"
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "price",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "seller",
+        "type": "address"
       }
     ],
     "name": "ItemCancelled",
@@ -132,7 +144,9 @@
   },
   {
     "inputs": [
-      { "internalType": "string", "name": "listingId", "type": "string" }
+      { "internalType": "string", "name": "listingId", "type": "string" },
+      { "internalType": "uint256", "name": "gameId", "type": "uint256" },
+      { "internalType": "uint256", "name": "price", "type": "uint256" }
     ],
     "name": "cancelListing",
     "outputs": [],

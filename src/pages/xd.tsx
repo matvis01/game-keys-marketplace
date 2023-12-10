@@ -5,18 +5,8 @@ import { GameType } from "../types/gameType"
 import useContractFunctions from "../hooks/useContractFunctions"
 
 const gameNames = [
-  "League of Legends",
-  "Valorant",
-  "Counter-Strike: Global Offensive",
-  "Dota 2",
-  "Apex Legends",
-  "Rocket League",
   "Rainbow Six Siege",
-  "Teamfight Tactics",
-  "Fortnite",
-  "Overwatch",
   "Call of Duty: Warzone",
-  "Hearthstone",
   "World of Warcraft",
   "Minecraft",
   "Grand Theft Auto V",
@@ -24,7 +14,6 @@ const gameNames = [
   "FIFA 21",
   "Rust",
   "Dead by Daylight",
-  "Genshin Impact",
   "World of Tanks",
   "Path of Exile",
   "Destiny 2",
@@ -80,6 +69,11 @@ const gameNames = [
   "RimWorld",
   "Fallout 4",
   "Stardew Valley",
+  "The Witcher 3: Wild Hunt",
+  "Grand Theft Auto V",
+  "The Elder Scrolls V: Skyrim",
+  "Total War: Warhammer II",
+  "Terraria",
 ]
 
 async function getGameData(gameName: string) {
@@ -140,7 +134,7 @@ function xd() {
         const receipt = await addListing(
           gameData,
           generateRandomKey(),
-          generateRandomPrice(0.00001, 0.01).toString(),
+          generateRandomPrice(0.00001, 0.01).toString().slice(0, 9),
         )
       } catch (e) {
         console.log(e)
