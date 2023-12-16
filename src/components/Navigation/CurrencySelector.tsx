@@ -8,7 +8,7 @@ interface CurrencySelectorProps {
   testId?: string
 }
 
-function CurrencySelector({ extraSmall,testId }: CurrencySelectorProps = {}) {
+function CurrencySelector({ extraSmall, testId }: CurrencySelectorProps = {}) {
   const { currency, ChangeCurrency } = React.useContext(CurrencyContext)
 
   const handleCurrencyChange = (
