@@ -45,7 +45,9 @@ describe("navigation bar", () => {
       '[data-testid="currency-selector-component"]',
     )
     currencySelector.should("exist")
-    const currencyOptions = cy.get('[data-testid="currency-option"]')
+    const currencyOptions = cy.get(
+      '[data-testid="currency-selector-component-option"]',
+    )
     currencyOptions.should("exist")
     currencyOptions.should("have.length", 7)
   })
