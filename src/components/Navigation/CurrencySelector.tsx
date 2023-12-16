@@ -5,9 +5,10 @@ const currencies = ["USD", "EUR", "PLN", "GBP", "JPY", "CAD", "AUD"]
 
 interface CurrencySelectorProps {
   extraSmall?: boolean
+  testId?: string
 }
 
-function CurrencySelector({ extraSmall }: CurrencySelectorProps = {}) {
+function CurrencySelector({ extraSmall, testId }: CurrencySelectorProps = {}) {
   const { currency, ChangeCurrency } = React.useContext(CurrencyContext)
 
   const handleCurrencyChange = (
@@ -19,7 +20,7 @@ function CurrencySelector({ extraSmall }: CurrencySelectorProps = {}) {
 
   return (
     <select
-      data-testid="currency-selector-component"
+      data-testid={testId}
       value={currency}
       onChange={handleCurrencyChange}
       className={`select ${
@@ -28,7 +29,7 @@ function CurrencySelector({ extraSmall }: CurrencySelectorProps = {}) {
     >
       {currencies.map((currency) => (
         <option
-          data-testid="currency-option"
+          data-testid={`${testId}-option`}
           key={currency}
           value={currency}
           className="bg-base-100"

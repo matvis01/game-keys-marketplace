@@ -52,7 +52,10 @@ const BorgirMenu = () => {
             height={20}
           />
           <SearchInput />
-          <CurrencySelector extraSmall />
+          <CurrencySelector
+            extraSmall
+            testId="currency-selector-component-borgir"
+          />
         </div>
       </div>
       <div className="drawer-side">
@@ -63,7 +66,11 @@ const BorgirMenu = () => {
         ></label>
         <ul className="menu min-h-full w-80 bg-base-200 p-4 text-base-content">
           <div className="mx-auto mb-2 w-fit">
-            <Link href="/" data-testid="logo-nav-link" onClick={closeDrawer}>
+            <Link
+              href="/"
+              data-testid="logo-nav-link-borgir"
+              onClick={closeDrawer}
+            >
               <Image
                 src="/icons/logo_light.svg"
                 alt="logo"
@@ -119,7 +126,7 @@ const BorgirMenu = () => {
             </>
           )}
           {status !== "connected" && (
-            <li data-testid="w3m-connect-button" onClick={closeDrawer}>
+            <li data-testid="w3m-connect-button-borgir" onClick={closeDrawer}>
               <ConnectBtn />
             </li>
           )}

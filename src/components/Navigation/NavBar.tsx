@@ -69,7 +69,7 @@ const NavBar = () => {
                 hoverStyles="hover:border-b hover:border-b-primary"
               />
 
-              <CurrencySelector />
+              <CurrencySelector testId="currency-selector-component" />
               {status === "connected" && <ProfileMenu />}
               {status !== "connected" && (
                 <li data-testid="w3m-connect-button">
