@@ -6,6 +6,7 @@ import { ethers } from "ethers"
 
 import { GET_LISTING_NAME } from "@/utils/graphQueries"
 import useContractFunctions from "@/hooks/useContractFunctions"
+import { toastifySuccess, toastifyError } from "@/utils/alertToast"
 
 interface GameListingProps {
   gameId: number | string
@@ -19,6 +20,22 @@ const GameListing = ({ gameId, price, numOfItems, id }: GameListingProps) => {
   const { cancelListing } = useContractFunctions()
 
   const formattedPrice = ethers.formatEther(price)
+
+  async function removeListing() {
+    try {
+      const receipt = await cancelListing(
+        id,
+        gameId.toString(),
+        price.toString(),
+      )
+      if (receipt?.status === "success") {
+        toastifySuccess("Listing removed", 3000)
+      }
+    } catch (e) {
+      console.log(e)
+      toastifyError("Something went wrong, please try again later", 3000)
+    }
+  }
 
   return (
     <>
@@ -39,7 +56,7 @@ const GameListing = ({ gameId, price, numOfItems, id }: GameListingProps) => {
             <div className="flex items-center justify-center font-bold hover:cursor-pointer">
               <div
                 className="relative h-5 w-5 sm:h-6 sm:w-6"
-                onClick={() => cancelListing(id)}
+                onClick={() => removeListing()}
               >
                 <Image src="/icons/trash-icon.svg" alt="trash can icon" fill />
               </div>

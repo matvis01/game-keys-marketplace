@@ -25,7 +25,10 @@ export default function ReviewCard({ review }: ReviewProps) {
           <Stars rating={rating} />
         </div>
       </div>
-      <div className="w-full" dangerouslySetInnerHTML={{ __html: text }} />
+      <div
+        className="w-full break-words"
+        dangerouslySetInnerHTML={{ __html: text }}
+      />
       {fullText.length > maxLen && (
         <button
           className="link-primary link"

@@ -74,6 +74,7 @@ function useContractFunctions() {
   async function buy(id: number, seller: string, price: string) {
     try {
       const listingId = getIdFromParams(String(id), price, seller)
+      console.log(listingId)
       const { hash } = await writeContract({
         address: `0x${contractAddress.slice(2, contractAddress.length)}`,
         abi: contractAbi,
@@ -135,7 +136,11 @@ function useContractFunctions() {
     }
   }
 
-  async function cancelListing(listingId: string) {
+  async function cancelListing(
+    listingId: string,
+    gameId: string,
+    price: string,
+  ) {
     try {
       if (!address) return
       const { hash } = await writeContract({
@@ -143,7 +148,7 @@ function useContractFunctions() {
         abi: contractAbi,
         functionName: "cancelListing",
         account: address,
-        args: [listingId],
+        args: [listingId, gameId, price],
       })
       const receipt = await waitForTransaction({ hash })
       console.log(receipt)

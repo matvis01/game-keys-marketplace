@@ -1,5 +1,6 @@
 import { ethers } from "ethers"
-import { useExchangePrice } from "../../hooks/useExchangePrice"
+import React from "react"
+import { CurrencyContext } from "@/contexts/currencyContext"
 import { ListingType } from "@/types/listingType"
 import { useAccount } from "wagmi"
 
@@ -13,7 +14,9 @@ export default function OtherListing({ listing, image, handleBuy }: Props) {
   const { price, numOfItems, seller, gameId } = listing
   const formatPrice = ethers.formatUnits(price)
   const { isConnected } = useAccount()
-  const { currency, convertedPrice } = useExchangePrice(+formatPrice)
+
+  const { currency, getConvertedPrice } = React.useContext(CurrencyContext)
+  let convertedPrice = getConvertedPrice(Number(formatPrice))
 
   return (
     <div className=" card flex h-20 w-full flex-row items-center justify-start gap-3  overflow-hidden bg-neutral">

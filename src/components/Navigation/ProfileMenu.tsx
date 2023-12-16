@@ -9,7 +9,10 @@ const ProfileMenu = () => {
   return (
     <>
       <li>
-        <div className="dropdown dropdown-end dropdown-bottom dropdown-hover ">
+        <div
+          className="dropdown dropdown-end dropdown-bottom dropdown-hover "
+          data-testid="navbardropdown"
+        >
           <label tabIndex={0} className="btn btn-ghost">
             <svg
               xmlns="http://www.w3.org/2000/svg"

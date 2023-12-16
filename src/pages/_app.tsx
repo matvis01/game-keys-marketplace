@@ -7,6 +7,8 @@ import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client"
 import NavBar from "@/components/Navigation/NavBar"
 import Footer from "@/components/Footer/Footer"
 
+import { CurrencyProvider } from "../contexts/currencyContext"
+
 const client = new ApolloClient({
   uri: process.env.NEXT_PUBLIC_GRAPH_URL || "",
   cache: new InMemoryCache(),
@@ -26,14 +28,16 @@ createWeb3Modal({ wagmiConfig, projectId, chains })
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <WagmiConfig config={wagmiConfig}>
-      <ApolloProvider client={client}>
-        <div className="flex min-h-screen flex-col">
-          <NavBar />
-          <Component {...pageProps} />
-          <Footer />
-        </div>
-      </ApolloProvider>
-    </WagmiConfig>
+    <CurrencyProvider>
+      <WagmiConfig config={wagmiConfig}>
+        <ApolloProvider client={client}>
+          <div className="flex min-h-screen flex-col">
+            <NavBar />
+            <Component {...pageProps} />
+            <Footer />
+          </div>
+        </ApolloProvider>
+      </WagmiConfig>
+    </CurrencyProvider>
   )
 }
