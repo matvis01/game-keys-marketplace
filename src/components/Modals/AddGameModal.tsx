@@ -150,7 +150,11 @@ const NewGameModal = () => {
 
   return (
     <>
-      <dialog id="new_game_modal" className="modal">
+      <dialog
+        id="new_game_modal"
+        className="modal"
+        data-testid="add-game-modal"
+      >
         <div
           className={`modal-box w-9/12 max-w-5xl md:w-6/12 ${
             gameData ? "lg:w-6/12" : "lg:w-3/12"
@@ -277,6 +281,7 @@ const NewGameModal = () => {
             )}
           </Formik>
           <button
+            data-testid="close-modal-btn"
             className="btn btn-ghost btn-sm absolute right-2 top-2"
             type="button"
             onClick={() => {

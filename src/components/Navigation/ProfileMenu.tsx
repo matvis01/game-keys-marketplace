@@ -33,7 +33,7 @@ const ProfileMenu = () => {
             tabIndex={0}
             className="menu dropdown-content menu-sm z-[1] w-52 rounded-box bg-base-100 p-2 shadow"
           >
-            <li>
+            <li data-testId="list-game-modal-btn">
               <p
                 onClick={() => {
                   if (document)
@@ -47,10 +47,10 @@ const ProfileMenu = () => {
                 Add your product
               </p>
             </li>
-            <li>
+            <li data-testId="profile-nav-link-btn">
               <Link href="/profile">Profile</Link>
             </li>
-            <li>
+            <li data-testId="disconnect-nav-btn">
               <button onClick={disconnect}>Disconnect</button>
             </li>
           </ul>

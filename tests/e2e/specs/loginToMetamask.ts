@@ -1,8 +1,6 @@
-// Define the test suite "Metamask Extension tests"
 describe("Metamask Extension tests", () => {
-  // Define the test case "connect to DApp with Metamask extension example"
-  it("connect to DApp with Metamask extension example", () => {
-    // Add a new network to Metamask using the `cy.addMetamaskNetwork()` command
+  // Add a new network to Metamask using the `cy.addMetamaskNetwork()` command
+  it("checks if all options for logged users are available and working", () => {
     cy.addMetamaskNetwork({
       networkName: "sepolia",
       rpcUrl: "https://rpc.sepolia.org",
@@ -13,22 +11,34 @@ describe("Metamask Extension tests", () => {
     })
 
     cy.visit("http://localhost:3000")
-    cy.get('[data-testid="connectBtn"]').click()
+    cy.get('[data-testid="test-connect-button"]').click()
+    cy.acceptMetamaskAccess()
 
-    cy.acceptMetamaskAccess().should("be.true")
-    cy.get("[data-testid='navbardropdown']").should("be.visible")
+    it("navbar dropdown options are being loaded", () => {
+      cy.get("[data-testid='navbardropdown']").click()
+      cy.get("[data-testid='list-game-modal-btn']").should("be.visible")
+      cy.get("[data-testid='profile-nav-link-btn']").should("be.visible")
+      cy.get("[data-testid='disconnect-nav-btn']").should("be.visible")
+    })
+
+    it("redirects to profile page correctly on click in dropdown menu", () => {
+      cy.get("[data-testid='navbardropdown']").click()
+      cy.get("[data-testid='profile-nav-link-btn']").click()
+      cy.url().should("include", "/profile")
+    })
+
+    it("correctly displays a modal for adding new game and closes it", () => {
+      cy.get("[data-testid='navbardropdown']").click()
+      cy.get("[data-testid='list-game-modal-btn']").click()
+      cy.get("[data-testid='add-game-modal']").should("be.visible")
+      cy.get("[data-testid='close-modal-btn']").click()
+      cy.get("[data-testid='add-game-modal']").should("not.be.visible")
+    })
+
+    it("disconnects wallet from website correctly", () => {
+      cy.get("[data-testid='navbardropdown']").click()
+      cy.get("[data-testid='disconnect-nav-btn']").click()
+      cy.get("[data-testid='navbardropdown']").should("not.exist")
+    })
   })
-
-  //   // Visit the root URL of the DApp
-  //   cy.visit("/");
-
-  //   // Click the "Connect" button on the DApp
-  //   cy.get("#connectButton").click();
-
-  //   // Accept the Metamask access request by clicking the "Connect" button in the Metamask popup
-  //   cy.acceptMetamaskAccess().should("be.true");
-
-  //   // Assert that the "Connect" button on the DApp shows the text "Connected"
-  //   cy.get("#connectButton").should("have.text", "Connected");
-  // });
 })
