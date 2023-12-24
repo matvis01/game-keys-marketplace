@@ -178,7 +178,7 @@ const NewGameModal = () => {
                       gameData ? "lg:w-1/2" : "lg:w-full"
                     } `}
                   >
-                    <div>
+                    <div className="relative">
                       <CustomInput
                         label="Game Name"
                         name="gameName"
@@ -192,7 +192,7 @@ const NewGameModal = () => {
                         filterGames(options, props.values.gameName).length >
                           0 &&
                         !isSelectedGame && (
-                          <div className="custom-scrollbar absolute z-10 mt-2 max-h-60 w-10/12 overflow-y-auto rounded-lg border-2 border-primary bg-base-100 shadow-lg">
+                          <div className="custom-scrollbar absolute z-10 mt-2 max-h-60 w-full overflow-y-auto rounded-lg border-2 border-primary bg-base-100 shadow-lg">
                             {filterGames(options, props.values.gameName).map(
                               (option, index) => (
                                 <div
