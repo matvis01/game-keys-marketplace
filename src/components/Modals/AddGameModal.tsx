@@ -223,7 +223,7 @@ const NewGameModal = () => {
                     />
                     <p className="mt-1 flex gap-1">
                       <Image
-                        src="icons/info.svg"
+                        src="icons/info-icon.svg"
                         alt="info icon"
                         width={12}
                         height={12}
