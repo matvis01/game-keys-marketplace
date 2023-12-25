@@ -280,7 +280,11 @@ const NewGameModal = () => {
                   type="submit"
                   disabled={!props.isValid || isListingGame || !isSelectedGame}
                 >
-                  Add game
+                  {isListingGame ? (
+                    <span className="loading loading-spinner"></span>
+                  ) : (
+                    "Add game"
+                  )}
                 </button>
               </Form>
             )}
