@@ -12,6 +12,7 @@ import ProfileMenu from "./ProfileMenu"
 import BorgirMenu from "./BorgirMenu"
 import ConnectForTesting from "../ConnectForTesting"
 
+
 const NavBar = () => {
   const router = useRouter()
   const { status } = useAccount()

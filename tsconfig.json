@@ -21,7 +21,10 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/contexts/currencyContext.js"
+    "src/contexts/currencyContext.js",
+    "tests/e2e/specs/loginToMetamask.js",
+    "tests/support/index.js",
+    "synpress.config.js"
   ],
   "exclude": ["node_modules"]
 }

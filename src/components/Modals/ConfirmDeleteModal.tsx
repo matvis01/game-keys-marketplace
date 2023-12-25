@@ -18,7 +18,7 @@ const ConfirmDeleteModal = ({ id, onDelete }: ConfirmDeleteModalProps) => {
   }
 
   const onConfirm = () => {
-    cancelListing(id)
+    //cancelListing(id)
     closeModal()
     onDelete()
   }
