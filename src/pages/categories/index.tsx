@@ -142,7 +142,7 @@ const CategoriesPage = () => {
               aria-label="close sidebar"
               className="drawer-overlay"
             ></label>
-            <ul className="menu min-h-full w-80 bg-base-200 p-4 pt-20">
+            <ul className="menu min-h-full w-9/12 bg-base-200 p-4 pt-20 sm:w-80">
               {/* Sidebar content here */}
               <Filters />
             </ul>
