@@ -64,8 +64,8 @@ const BorgirMenu = () => {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <ul className="menu min-h-full w-80 bg-base-200 p-4 text-base-content">
-          <div className="mx-auto mb-2 w-fit">
+        <ul className="menu min-h-full w-52 bg-base-200 px-2 pt-6 text-base-content">
+          <div className="mx-auto mb-4 w-fit">
             <Link
               href="/"
               data-testid="logo-nav-link-borgir"
@@ -74,8 +74,8 @@ const BorgirMenu = () => {
               <Image
                 src="/icons/logo_light.svg"
                 alt="logo"
-                width={150}
-                height={125}
+                width={140}
+                height={120}
               />
             </Link>
           </div>
@@ -104,7 +104,7 @@ const BorgirMenu = () => {
               />
               <li>
                 <p
-                  className="text-xl font-semibold"
+                  className="text-lg font-semibold md:text-xl"
                   onClick={() => {
                     if (document)
                       (
@@ -119,7 +119,10 @@ const BorgirMenu = () => {
                 </p>
               </li>
               <li>
-                <p className="text-xl font-semibold" onClick={disconnect}>
+                <p
+                  className="text-lg font-semibold text-red-600 md:text-xl"
+                  onClick={disconnect}
+                >
                   Disconnect
                 </p>
               </li>

@@ -246,22 +246,27 @@ const NewGameModal = () => {
                           <img
                             src={gameData.image}
                             alt={gameData.name}
-                            className="h-[125px} w-full rounded-lg object-cover lg:w-[300px]"
+                            className="mx-auto w-11/12 rounded-lg object-cover"
                           />
-                          <h2 className="my-2 line-clamp-1 text-xl font-semibold">
+                          <h2 className="my-2 line-clamp-1 text-lg font-semibold md:text-xl">
                             {gameData.name}
                           </h2>
                           <div>
-                            <p className="line-clamp-1 text-lg">
+                            <p className="line-clamp-1 text-sm md:text-lg">
                               Developer: {gameData.developer}
                             </p>
-                            <p className="mb-2 text-lg">
+                            <p className="mb-2 text-sm md:text-lg">
                               Release date: {gameData.released}
                             </p>
                             <div className="flex gap-2">
-                              <p className="text-lg">Rating:</p>
-                              <Stars rating={gameData.rating} small />
-                              <p className="text-lg">{gameData.rating}/5.0</p>
+                              <p className="text-sm md:text-lg">Rating:</p>
+                              <Stars
+                                rating={gameData.rating}
+                                className="rating-sm md:rating-md"
+                              />
+                              <p className="text-sm md:text-lg">
+                                {gameData.rating}/5.0
+                              </p>
                             </div>
                           </div>
                         </>
