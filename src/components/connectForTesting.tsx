@@ -1,14 +1,22 @@
 import React from "react"
-import { useAccount, useConnect, useDisconnect } from "wagmi"
+import { useConnect } from "wagmi"
 import { MetaMaskConnector } from "wagmi/connectors/metaMask"
+
 export default function ConnectBtn() {
-  const { status } = useAccount()
   const { connect } = useConnect({
     connector: new MetaMaskConnector(),
   })
-  const { disconnect } = useDisconnect()
+
+  const handleClick = async () => {
+    try {
+      connect()
+    } catch (err) {
+      console.error("Error connecting to MetaMask:", err)
+    }
+  }
+
   return (
-    <button className="" data-testid="connectBtn" onClick={() => connect()}>
+    <button data-testid="test-connect-button" onClick={handleClick}>
       Connect
     </button>
   )

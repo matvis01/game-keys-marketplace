@@ -43,7 +43,7 @@ describe("home page", () => {
     cy.visit("/")
     cy.get('[data-testid="bestsellers-button"]').click()
     cy.url().should("include", "/categories")
-    cy.url().should("include", "rating")
+    cy.url().should("include", "numOfSoldItems")
   })
 
   it("redirects to categories page with the correct filters for the top rated section when the button is clicked", () => {
