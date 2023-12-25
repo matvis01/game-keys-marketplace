@@ -150,7 +150,11 @@ const NewGameModal = () => {
 
   return (
     <>
-      <dialog id="new_game_modal" className="modal">
+      <dialog
+        id="new_game_modal"
+        className="modal"
+        data-testid="add-game-modal"
+      >
         <div
           className={`modal-box w-9/12 max-w-5xl md:w-6/12 ${
             gameData ? "lg:w-6/12" : "lg:w-3/12"
@@ -174,7 +178,7 @@ const NewGameModal = () => {
                       gameData ? "lg:w-1/2" : "lg:w-full"
                     } `}
                   >
-                    <div>
+                    <div className="relative">
                       <CustomInput
                         label="Game Name"
                         name="gameName"
@@ -188,7 +192,7 @@ const NewGameModal = () => {
                         filterGames(options, props.values.gameName).length >
                           0 &&
                         !isSelectedGame && (
-                          <div className="custom-scrollbar absolute z-10 mt-2 max-h-60 w-10/12 overflow-y-auto rounded-lg border-2 border-primary bg-base-100 shadow-lg">
+                          <div className="custom-scrollbar absolute z-10 mt-2 max-h-60 w-full overflow-y-auto rounded-lg border-2 border-primary bg-base-100 shadow-lg">
                             {filterGames(options, props.values.gameName).map(
                               (option, index) => (
                                 <div
@@ -219,7 +223,7 @@ const NewGameModal = () => {
                     />
                     <p className="mt-1 flex gap-1">
                       <Image
-                        src="icons/info.svg"
+                        src="icons/info-icon.svg"
                         alt="info icon"
                         width={12}
                         height={12}
@@ -242,22 +246,27 @@ const NewGameModal = () => {
                           <img
                             src={gameData.image}
                             alt={gameData.name}
-                            className="h-[125px} w-full rounded-lg object-cover lg:w-[300px]"
+                            className="mx-auto w-11/12 rounded-lg object-cover"
                           />
-                          <h2 className="my-2 line-clamp-1 text-xl font-semibold">
+                          <h2 className="my-2 line-clamp-1 text-lg font-semibold md:text-xl">
                             {gameData.name}
                           </h2>
                           <div>
-                            <p className="line-clamp-1 text-lg">
+                            <p className="line-clamp-1 text-sm md:text-lg">
                               Developer: {gameData.developer}
                             </p>
-                            <p className="mb-2 text-lg">
+                            <p className="mb-2 text-sm md:text-lg">
                               Release date: {gameData.released}
                             </p>
                             <div className="flex gap-2">
-                              <p className="text-lg">Rating:</p>
-                              <Stars rating={gameData.rating} small />
-                              <p className="text-lg">{gameData.rating}/5.0</p>
+                              <p className="text-sm md:text-lg">Rating:</p>
+                              <Stars
+                                rating={gameData.rating}
+                                className="rating-sm md:rating-md"
+                              />
+                              <p className="text-sm md:text-lg">
+                                {gameData.rating}/5.0
+                              </p>
                             </div>
                           </div>
                         </>
@@ -271,12 +280,17 @@ const NewGameModal = () => {
                   type="submit"
                   disabled={!props.isValid || isListingGame || !isSelectedGame}
                 >
-                  Add game
+                  {isListingGame ? (
+                    <span className="loading loading-spinner"></span>
+                  ) : (
+                    "Add game"
+                  )}
                 </button>
               </Form>
             )}
           </Formik>
           <button
+            data-testid="close-modal-btn"
             className="btn btn-ghost btn-sm absolute right-2 top-2"
             type="button"
             onClick={() => {
