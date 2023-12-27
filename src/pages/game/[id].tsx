@@ -50,7 +50,7 @@ export default function GamePage() {
           <div className="flex flex-col justify-end gap-1">
             <div className=" flex gap-2 pt-2 text-lg">
               {gameData?.rating && (
-                <Stars rating={gameData.rating} medium={true} small={false} />
+                <Stars rating={gameData.rating} className="rating-md" />
               )}
               <p>{gameData?.rating}/5.0</p>
             </div>
