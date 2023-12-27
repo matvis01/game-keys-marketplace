@@ -55,7 +55,7 @@ const CategoriesPage = () => {
 
   const PageContent = (
     <div className="flex w-full flex-col lg:w-3/4">
-      <div className="flex flex-wrap gap-2 p-4 ">
+      <div className="flex flex-wrap gap-2 p-4">
         {!error &&
           listings
             ?.slice(itemsOffset, endOffset)
