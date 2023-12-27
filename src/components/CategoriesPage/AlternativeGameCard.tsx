@@ -50,14 +50,9 @@ const CategoryGameCard = ({
   }
   return (
     <>
-      {loading && (
-        <div className="flex h-[169px] w-[600px] items-center justify-center">
-          <span className="loading loading-spinner loading-lg"></span>
-        </div>
-      )}
       {!loading && !error && (
         <div
-          className="group mx-auto flex h-[300px] w-full  flex-col rounded-lg transition-all duration-200 hover:-translate-y-0.5 hover:cursor-pointer hover:shadow-xl sm:w-[220px]"
+          className="group mx-auto flex h-[300px] w-full flex-col rounded-lg transition-all duration-200 hover:-translate-y-0.5 hover:cursor-pointer hover:shadow-xl sm:w-[220px]"
           onClick={handleClick}
         >
           <img
@@ -65,7 +60,6 @@ const CategoryGameCard = ({
             alt={`Thumbnail image of ${gameName}.`}
             className="h-3/5 rounded-t-lg object-cover"
           />
-
           <div
             className={`relative flex h-2/5 w-full flex-col rounded-b-lg bg-${bgColor}`}
           >
