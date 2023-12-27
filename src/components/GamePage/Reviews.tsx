@@ -8,7 +8,7 @@ export default function Reviews({ allReviews }: { allReviews: Review[] }) {
   return (
     <div className=" mb-10 flex w-full flex-col items-center ">
       <h2 className="mb-8 self-start text-2xl font-bold">Reviews</h2>
-      <div className=" flex w-full flex-col gap-4 px-5">
+      <div className=" flex w-full flex-col gap-4 px-1 sm:px-5">
         {reviews?.map((review) => {
           return <ReviewCard key={review.id} review={review} />
         })}
