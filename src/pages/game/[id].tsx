@@ -68,6 +68,7 @@ export default function GamePage() {
         <div className=" card w-full min-w-fit bg-neutral lg:w-1/3 xl:w-1/4 ">
           {listings && listings.length > 0 ? (
             <TopListing
+              id={+id!}
               listing={listings[0]}
               handleBuy={(listing: ListingType) => {
                 handleBuy(listing)
