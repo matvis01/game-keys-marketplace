@@ -49,7 +49,9 @@ export default function GamePage() {
           <h1 className="text-4xl font-bold ">{gameData?.name}</h1>
           <div className="flex flex-col justify-end gap-1">
             <div className=" flex gap-2 pt-2 text-lg">
-              {gameData?.rating && <Stars rating={gameData.rating} />}
+              {gameData?.rating && (
+                <Stars rating={gameData.rating} className="rating-md" />
+              )}
               <p>{gameData?.rating}/5.0</p>
             </div>
             <p className="text-l">Platform: steam</p>

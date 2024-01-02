@@ -19,8 +19,8 @@ export default function ReviewCard({ review }: ReviewProps) {
 
   return (
     <div className="card w-full bg-neutral p-3">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
+      <div className="flex  items-center justify-between ">
+        <div className="mb-2 flex flex-col  items-start justify-start gap-2 truncate sm:mb-0  sm:flex-row">
           <span className="text-xl font-bold">{user?.username}</span>
           <Stars rating={rating} />
         </div>
