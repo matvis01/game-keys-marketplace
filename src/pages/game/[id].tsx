@@ -49,9 +49,7 @@ export default function GamePage() {
           <h1 className="text-4xl font-bold ">{gameData?.name}</h1>
           <div className="flex flex-col justify-end gap-1">
             <div className=" flex gap-2 pt-2 text-lg">
-              {gameData?.rating && (
-                <Stars rating={gameData.rating} medium={true} small={false} />
-              )}
+              {gameData?.rating && <Stars rating={gameData.rating} />}
               <p>{gameData?.rating}/5.0</p>
             </div>
             <p className="text-l">Platform: steam</p>
@@ -68,6 +66,7 @@ export default function GamePage() {
         <div className=" card w-full min-w-fit bg-neutral lg:w-1/3 xl:w-1/4 ">
           {listings && listings.length > 0 ? (
             <TopListing
+              id={+id!}
               listing={listings[0]}
               handleBuy={(listing: ListingType) => {
                 handleBuy(listing)

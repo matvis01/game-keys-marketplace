@@ -10,7 +10,7 @@ import NavBarListItem from "./NavBarListItem"
 import SearchInput from "./SearchInput"
 import ProfileMenu from "./ProfileMenu"
 import BorgirMenu from "./BorgirMenu"
-// import ConnectForTesting from "../ConnectForTesting"
+import ConnectForTesting from "../ConnectForTesting"
 
 const NavBar = () => {
   const router = useRouter()
@@ -78,7 +78,7 @@ const NavBar = () => {
               )}
             </ul>
           </div>
-          {/* {status !== "connected" && <ConnectForTesting />} */}
+          {status !== "connected" && <ConnectForTesting />}
         </nav>
       </div>
     </>

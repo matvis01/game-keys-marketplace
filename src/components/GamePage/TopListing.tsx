@@ -5,11 +5,12 @@ import { ListingType } from "@/types/listingType"
 import { useAccount } from "wagmi"
 
 type Props = {
+  id: number | undefined
   listing: ListingType
   handleBuy: (listing: ListingType) => void
 }
 
-export default function TopListing({ listing, handleBuy }: Props) {
+export default function TopListing({ listing, handleBuy, id }: Props) {
   const { price, numOfItems, seller } = listing
   const formatPrice = ethers.formatUnits(price)
   const { currency, getConvertedPrice } = React.useContext(CurrencyContext)
@@ -31,6 +32,7 @@ export default function TopListing({ listing, handleBuy }: Props) {
       </p>
       <div className="card-actions justify-end">
         <button
+          data-testid={`top-listing-buy-button-${id}`}
           className="btn btn-primary"
           disabled={!isConnected}
           onClick={() => handleBuy(listing)}
