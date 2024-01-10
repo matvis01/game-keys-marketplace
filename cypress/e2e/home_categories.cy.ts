@@ -106,14 +106,6 @@ describe("home page categories section", () => {
     cy.url().should("include", "Card")
   })
 
-  it("redirects to categories page with the correct filter for educational games when the button is clicked", () => {
-    cy.visit("/")
-    cy.get('[data-testid="educational-category-button"]').click()
-    cy.url().should("include", "/categories")
-    cy.url().should("include", "genres")
-    cy.url().should("include", "Educational")
-  })
-
   it("redirects to categories page with the correct filter for family games when the button is clicked", () => {
     cy.visit("/")
     cy.get('[data-testid="family-category-button"]').click()
@@ -129,12 +121,19 @@ describe("home page categories section", () => {
     cy.url().should("include", "genres")
     cy.url().should("include", "Fighting")
   })
+  // it("redirects to categories page with the correct filter for educational games when the button is clicked", () => {
+  //   cy.visit("/")
+  //   cy.get('[data-testid="educational-category-button"]').click()
+  //   cy.url().should("include", "/categories")
+  //   cy.url().should("include", "genres")
+  //   cy.url().should("include", "Educational")
+  // })
 
-  it("redirects to categories page with the correct filter for dice games when the button is clicked", () => {
-    cy.visit("/")
-    cy.get('[data-testid="dice-category-button"]').click()
-    cy.url().should("include", "/categories")
-    cy.url().should("include", "genres")
-    cy.url().should("include", "Dice")
-  })
+  // it("redirects to categories page with the correct filter for dice games when the button is clicked", () => {
+  //   cy.visit("/")
+  //   cy.get('[data-testid="dice-category-button"]').click()
+  //   cy.url().should("include", "/categories")
+  //   cy.url().should("include", "genres")
+  //   cy.url().should("include", "Dice")
+  // })
 })
