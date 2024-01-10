@@ -1,38 +1,84 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![Logo](docs/logo_light.png)
 
-## Getting Started
+## Overview
 
-First, run the development server:
+gameBit is a full-stack web application powered by blockchain technology and Next.js. It creates a platform where users can freely and securely sell or buy game keys using cryptocurrencies.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+## Screenshots
+
+![App Screenshot](docs/frontPage.png)
+
+## Technologies
+
+- Next.js
+- React
+- TypeScript
+- daisyUI
+- Axios
+- Formik
+- Yup
+- Wagmi
+- Web3.js
+- Ethers.js
+
+## Features
+
+- **Cryptocurrency Wallet Integration** - Possibility to connect a diverse range of cryptocurrency wallets to allow secure transactions.
+- **Game Key Marketplace** - Effortlessly list and purchase game keys.
+- **Intuitive Search Functionality** - Easily discover available game listings through a user-friendly search interface.
+- **Comprehensive Game Information** - Access detailed descriptions of each game.
+- **Dynamic Sorting and Filtering** - Possibility to filter games based on genres, tags, and other relevant criteria.
+
+## Prerequisites
+
+Before setting up the project, make sure you have the following prerequisites installed:
+
+- Node.js
+
+## Development
+
+### Backend
+
+The smart contract has been deployed, and the database is established, allowing for potential modifications. To implement updates to the database or deploy a new smart contract, follow the outlined steps by cloning the designated repositories:
+
+**Database**
+
+https://github.com/matvis01/graph-game-keys-marketplace
+
+**Smart Contract**
+
+https://github.com/matvis01/hardhat-game-keys-marketplace-backend
+
+### Frontend
+
+1. Navigate to the root directory in a terminal:
+   `cd frontend`
+
+2. Install the frontend dependencies:
+   `npm install`
+
+3. In the `.env` file, fill the following environment variables:
+
+```
+NEXT_PUBLIC_WALLET_CONNECT_ID = <wallet connect key>
+NEXT_PUBLIC_RAWG_KEY = <rawg game API private key>
+NEXT_PUBLIC_ENCRYPT_KEY = <generated encryption key>
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Start the frontend development server:
+   `npm run dev`
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+The application should start at port 3000.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+###
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+\_To alter the application's network, ensure to update the NEXT_PUBLIC_CHAIN_ID with the desired network's chain ID. Additionally, to switch to your own database, modify the NEXT_PUBLIC_GRAPH_URL to your preferred URL.\_
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## License
 
-## Learn More
+gameBit is licensed under the [MIT License](LICENSE)
 
-To learn more about Next.js, take a look at the following resources:
+## Authors
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [@matvis01](https://github.com/matvis01)
+- [@filus4](https://github.com/filus4)
