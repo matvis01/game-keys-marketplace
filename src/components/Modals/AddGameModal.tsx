@@ -1,6 +1,5 @@
 import React, { useState, useCallback, useRef } from "react"
 import axios from "axios"
-import Image from "next/image"
 import { ToastContainer } from "react-toastify"
 import { Form, Formik } from "formik"
 
@@ -222,11 +221,10 @@ const NewGameModal = () => {
                       placeholder="Enter Game Price"
                     />
                     <p className="mt-1 flex gap-1">
-                      <Image
+                      <img
                         src="icons/info-icon.svg"
                         alt="info icon"
-                        width={12}
-                        height={12}
+                        className="h-4 w-4"
                       />
                       <span className="text-xs font-extralight">
                         The platform takes 1% fee from the listing price
