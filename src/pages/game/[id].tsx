@@ -27,10 +27,12 @@ export default function GamePage() {
     const { price, seller, gameId } = listing
     const returnedData = await buy(gameId, seller, price)
     if (returnedData?.status === "success") {
-      toastifySuccess("Transaction confirmed", 3)
-      router.push("/profile")
+      toastifySuccess("Transaction confirmed", 3000)
+      setTimeout(() => {
+        router.push("/profile")
+      }, 1000)
     } else {
-      toastifyError("Transaction failed", 3)
+      toastifyError("Transaction failed", 3000)
     }
   }
 
@@ -88,7 +90,7 @@ export default function GamePage() {
       {listings && listings.length > 1 && (
         <div className=" w-full">
           <h2 className="mb-5 self-start text-3xl font-bold">Other listings</h2>
-          <div className="join flex flex-col ">
+          <div className="join flex flex-col gap-4">
             {listings?.map((listing, index) => {
               if (index !== 0) {
                 return (
