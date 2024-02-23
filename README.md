@@ -81,4 +81,4 @@ gameBit is licensed under the [MIT License](LICENSE)
 ## Authors
 
 - [@matvis01](https://github.com/matvis01)
-- [@filus4](https://github.com/filus4)
+- [@filus4](https://github.com/mfilejecki)
